@@ -1,0 +1,219 @@
+{
+  "brand": "Zac",
+  "nav": [
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Work",
+      "href": "#work"
+    },
+    {
+      "label": "Now",
+      "href": "#now"
+    },
+    {
+      "label": "Stack",
+      "href": "#stack"
+    },
+    {
+      "label": "Thoughts",
+      "href": "#thoughts"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact"
+    }
+  ],
+  "hero": {
+    "headlineLead": "I build things that ",
+    "headlineAccent": "don't exist yet.",
+    "lede": "CS at Queen's, AI consultant at RBC Dominion Securities, co-chair of Queen's Web Dev. I find the slow, manual work and kill it.",
+    "ctas": [
+      {
+        "label": "See the work",
+        "href": "#work",
+        "style": "primary"
+      },
+      {
+        "label": "Download résumé",
+        "href": "assets/resume.pdf",
+        "style": "ghost",
+        "download": true
+      },
+      {
+        "label": "Get in touch",
+        "href": "#contact",
+        "style": "ghost"
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "01 — About",
+    "heading": "Fast, clean, easy to work with.",
+    "paragraphs": [
+      "I'm a computer science student at Queen's, specializing in cognitive science, and these days my focus is putting AI to work where it actually earns its keep. At RBC Dominion Securities I work alongside a team to find the slow, repetitive parts of their day and rebuild them with AI — cutting the busywork so they can move faster on what matters.",
+      "I'm also co-chair of Queen's Web Development, where I'm building the club itself: setting up how it runs, growing the team and its programs, and expanding the community around learning to build for the web.",
+      "Outside of that, I'm always building something. I work across AI and software, I move quickly, and I care about the details most people skip. I'm confident with the hard problems — and easy to work with on them."
+    ],
+    "facts": [
+      {
+        "label": "Based in",
+        "value": "Kingston, Ontario"
+      },
+      {
+        "label": "Studying",
+        "value": "Computer Science (Cognitive Science) · Queen's '28"
+      },
+      {
+        "label": "Consulting",
+        "value": "AI @ RBC Dominion Securities"
+      },
+      {
+        "label": "Leading",
+        "value": "Co-chair, Queen's Web Dev"
+      }
+    ]
+  },
+  "work": {
+    "eyebrow": "02 — Work",
+    "heading": "Things I've built.",
+    "featured": [
+      {
+        "tags": [
+          "AI",
+          "Automation"
+        ],
+        "title": "Screen Intelligence",
+        "desc": "A macOS agent that reads the screen and drives the mouse and keyboard, with managed action history and recovery.",
+        "meta": "macOS · Python",
+        "repo": "https://github.com/zacfink/screen-intelligence"
+      },
+      {
+        "tags": [
+          "AI",
+          "Audio"
+        ],
+        "title": "News Podcast",
+        "desc": "Turns the day's news into a generated audio podcast — automated sourcing, scripting, and text-to-speech.",
+        "meta": "Python",
+        "repo": "https://github.com/zacfink/news-podcast"
+      },
+      {
+        "tags": [
+          "ML",
+          "RAG"
+        ],
+        "title": "rbcDocClient",
+        "desc": "A fully on-device retrieval chatbot over financial-planning documents — Qwen2.5, BGE embeddings, FAISS indexing.",
+        "meta": "Local · M3 Pro"
+      }
+    ]
+  },
+  "now": {
+    "eyebrow": "03 — Now",
+    "heading": "What I'm up to.",
+    "roles": [
+      {
+        "role": "AI Consultant",
+        "org": "RBC Dominion Securities",
+        "desc": "Finding the slow, manual parts of a team's day and rebuilding them with AI so they move faster."
+      },
+      {
+        "role": "Co-chair",
+        "org": "Queen's Web Dev",
+        "desc": "Running the club and growing it — the team, the programs, and the community around building for the web."
+      },
+      {
+        "role": "Freelance",
+        "org": "Independent",
+        "desc": "Active client work — image-processing tools, automation, and small apps."
+      }
+    ]
+  },
+  "stack": {
+    "eyebrow": "04 — Tools",
+    "heading": "What I reach for.",
+    "groups": [
+      {
+        "label": "Build",
+        "items": [
+          "TypeScript",
+          "Python",
+          "React",
+          "React Native",
+          "Node.js",
+          "AWS"
+        ]
+      },
+      {
+        "label": "AI",
+        "items": [
+          "Prompt engineering",
+          "RAG",
+          "AI agents",
+          "Evals"
+        ]
+      },
+      {
+        "label": "Working style",
+        "items": [
+          "Teamwork",
+          "Communication",
+          "Leadership",
+          "Collaboration"
+        ]
+      }
+    ]
+  },
+  "thoughts": {
+    "eyebrow": "05 — Thoughts",
+    "heading": "How I build.",
+    "items": [
+      {
+        "n": "01",
+        "text": "Learn first. Chase whatever actually interests you — that's the engine."
+      },
+      {
+        "n": "02",
+        "text": "Then build. Take what you learned and make something new from it."
+      },
+      {
+        "n": "03",
+        "text": "Ship it, then keep digging. Understand more, research more, build more."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "06 — Contact",
+    "heading": "Let's build something.",
+    "links": [
+      {
+        "label": "Email me",
+        "href": "mailto:zacfinkelstein@gmail.com",
+        "style": "primary"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/zacfink",
+        "style": "ghost"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/zacfinkelstein",
+        "style": "ghost"
+      },
+      {
+        "label": "Résumé",
+        "href": "assets/resume.pdf",
+        "style": "ghost",
+        "download": true
+      }
+    ]
+  },
+  "footer": {
+    "left": "© 2026 Zac",
+    "right": "Open to work"
+  }
+}

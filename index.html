@@ -712,7 +712,7 @@
       (() => {
         "use strict";
 
-        const SITE = {
+        let SITE = {
           brand: "Zac",
 
           nav: [
@@ -988,6 +988,54 @@
         }
 
         render();
+
+        /* ---------- published content ----------
+           The SITE object above is the copy that ships with this file: it
+           renders instantly and stands on its own if the request below never
+           lands. Supabase holds an editable copy of the same shape, so edits
+           made in the table editor reach the site with no commit and no
+           deploy. Setup lives in supabase/schema.sql. */
+        const CONTENT = {
+          url: "https://pstkmidnowzkfwinktqn.supabase.co",
+          anonKey: "sb_publishable_QgpbTzYlJd4J4s9VvQAkjA_SYr5IJfH",
+          row: "live",
+        };
+
+        async function loadPublishedContent() {
+          if (CONTENT.anonKey.startsWith("YOUR-")) return; // not wired up yet
+
+          let data;
+          try {
+            const res = await fetch(
+              `${CONTENT.url}/rest/v1/site_content?id=eq.${CONTENT.row}&select=data`,
+              {
+                cache: "no-store",
+                headers: {
+                  apikey: CONTENT.anonKey,
+                  authorization: `Bearer ${CONTENT.anonKey}`,
+                },
+              },
+            );
+            if (!res.ok) return;
+            const rows = await res.json();
+            data = Array.isArray(rows) && rows[0] ? rows[0].data : null;
+          } catch {
+            return; // offline or blocked — the shipped copy stays on screen
+          }
+          if (!data || typeof data !== "object") return;
+
+          const shipped = SITE;
+          try {
+            SITE = { ...shipped, ...data };
+            render();
+          } catch (err) {
+            SITE = shipped; // a bad edit can't take the page down
+            render();
+            console.warn("Published content didn't render; kept shipped copy.", err);
+          }
+        }
+
+        loadPublishedContent();
 
         // scroll reveal — runs after content is in the DOM
         const reduce = window.matchMedia(
