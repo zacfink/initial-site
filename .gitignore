@@ -7,3 +7,10 @@
 
 # Logs
 *.log
+
+# Impeccable working state. The surface brief and config are durable and
+# committed; run state, downloaded references and review captures are not,
+# and Pages would serve them from the repo root.
+.impeccable/*
+!.impeccable/surfaces/
+!.impeccable/config.json

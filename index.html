@@ -46,6 +46,10 @@
         --hairline: #e3e5e8;
         --signal: #3a35ff;
         --signal-dim: rgba(58, 53, 255, 0.16);
+        --field: #0a0a0a;
+        --field-ink: #ffffff;
+        --field-muted: rgba(255, 255, 255, 0.62);
+        --field-rule: rgba(255, 255, 255, 0.28);
 
         --display: "Space Grotesk", system-ui, sans-serif;
         --body: "IBM Plex Sans", system-ui, sans-serif;
@@ -65,14 +69,47 @@
           --hairline: #242830;
           --signal: #6f6bff;
           --signal-dim: rgba(111, 107, 255, 0.22);
+          --field: #171a20;
+          --field-ink: #f2f3f5;
+          --field-muted: rgba(242, 243, 245, 0.62);
+          --field-rule: rgba(242, 243, 245, 0.26);
         }
       }
 
       * {
         box-sizing: border-box;
       }
+
+      /* the surfaces the browser draws still belong to the design */
+      ::selection {
+        background: var(--signal);
+        color: #fff;
+      }
       html {
+        caret-color: var(--signal);
+        scrollbar-color: var(--signal-dim) transparent;
+        scrollbar-width: thin;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--hairline);
+        border-radius: 99px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--signal);
+      }
+      html {
+        scrollbar-gutter: stable;
         scroll-behavior: smooth;
+        /* the header is sticky, so an anchor landing at y=0 lands underneath
+           it. Every in-page link clears the header's 60px plus some air. */
+        scroll-padding-top: 5rem;
       }
 
       body {
@@ -151,7 +188,7 @@
         transition: color 0.2s ease;
       }
       .nav a:hover {
-        color: var(--ink);
+        color: var(--signal);
       }
       @media (max-width: 640px) {
         .nav {
@@ -172,14 +209,15 @@
       }
       @keyframes hud-in {
         to {
-          opacity: 1;
+          opacity: 0.55;
         }
       }
       .hud-frame span {
         position: absolute;
-        width: 18px;
-        height: 18px;
-        border: 1.5px solid var(--signal-dim);
+        width: 26px;
+        height: 26px;
+        border: 1.5px solid var(--signal);
+        opacity: 0;
         opacity: 0;
         animation: hud-in 1s ease 0.4s forwards;
       }
@@ -208,14 +246,33 @@
         border-top: 0;
       }
 
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+        gap: clamp(2rem, 5vw, 4.5rem);
+        align-items: end;
+      }
+      .hero-facts {
+        margin: 0 0 0.4rem;
+      }
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+        .hero-facts {
+          margin-top: 2.6rem;
+        }
+      }
+
       .hero h1 {
         font-family: var(--display);
         font-weight: 500;
-        font-size: clamp(2.6rem, 8vw, 5.6rem);
-        line-height: 1.02;
+        font-size: clamp(2.5rem, 6.4vw, 5rem);
+        line-height: 1.03;
         letter-spacing: -0.035em;
         margin: 0 0 1.5rem;
-        max-width: 16ch;
+        text-wrap: balance;
       }
       .hero h1 em {
         font-style: normal;
@@ -300,17 +357,15 @@
 
       /* ---------- about ---------- */
       .about-grid {
-        display: grid;
-        grid-template-columns: 1.4fr 1fr;
-        gap: clamp(2rem, 5vw, 4rem);
+        max-width: 78ch;
       }
       .about-grid p {
-        margin: 0 0 1.1rem;
-        max-width: 54ch;
+        margin: 0 0 1.15rem;
       }
       .about-grid p:last-child {
         margin-bottom: 0;
       }
+
       .facts {
         display: flex;
         flex-direction: column;
@@ -341,26 +396,64 @@
       /* ---------- work: featured ---------- */
       .featured {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1px;
-        background: var(--hairline);
-        border: 1px solid var(--hairline);
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+        gap: clamp(1.6rem, 3.4vw, 3rem);
       }
       .proj {
-        background: var(--paper);
-        padding: 1.8rem;
+        position: relative;
+        border-top: 2px solid var(--hairline);
+        padding-top: 1.2rem;
         display: flex;
         flex-direction: column;
-        gap: 0.7rem;
-        transition: background 0.25s ease;
+        gap: 0.6rem;
       }
-      .proj:hover {
-        background: var(--paper-2);
+      .proj::before {
+        content: "";
+        position: absolute;
+        inset: -2px 0 auto;
+        height: 2px;
+        background: var(--signal);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .proj:hover::before,
+      .proj:focus-within::before {
+        transform: none;
       }
       .proj .tags {
         display: flex;
         gap: 0.6rem;
         flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* what this visitor has already opened. Remembered on their own
+         device only: it never leaves the browser and never reaches Zac. */
+      .proj .seen-flag {
+        display: none;
+        margin-left: auto;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        white-space: nowrap;
+      }
+      .proj .seen-flag::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--signal);
+      }
+      .proj.seen .seen-flag {
+        display: inline-flex;
+      }
+      .proj.seen {
+        border-top-color: var(--signal);
       }
       .proj .tag {
         font-family: var(--mono);
@@ -371,23 +464,27 @@
       }
       .proj h3 {
         font-family: var(--display);
-        font-weight: 500;
-        font-size: 1.3rem;
-        letter-spacing: -0.02em;
-        margin: 0.2rem 0 0;
+        font-weight: 600;
+        font-size: clamp(1.35rem, 1.9vw, 1.65rem);
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin: 0.35rem 0 0;
       }
       .proj p {
         margin: 0;
         color: var(--ink-muted);
-        font-size: 0.98rem;
+        font-size: 0.94rem;
+        line-height: 1.55;
       }
       .proj .foot {
         margin-top: auto;
+        border-top: 1px solid var(--hairline);
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
         padding-top: 1rem;
+        margin-top: 1.4rem;
       }
       .proj .meta {
         font-family: var(--mono);
@@ -524,28 +621,28 @@
       .thoughts {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 1px;
-        background: var(--hairline);
-        border: 1px solid var(--hairline);
+        gap: clamp(1.6rem, 3.4vw, 3rem);
       }
       .thought {
-        background: var(--paper);
-        padding: 1.8rem;
+        border-top: 2px solid var(--signal);
+        padding-top: 1.2rem;
       }
       .thought .n {
-        font-family: var(--mono);
-        font-size: 0.66rem;
-        letter-spacing: 0.18em;
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(1.9rem, 3vw, 2.6rem);
+        letter-spacing: -0.04em;
+        line-height: 1;
         color: var(--signal);
         display: block;
-        margin-bottom: 1rem;
+        margin-bottom: 0.9rem;
       }
       .thought p {
         margin: 0;
         font-family: var(--display);
         font-weight: 400;
-        font-size: 1.18rem;
-        line-height: 1.4;
+        font-size: clamp(1.05rem, 1.4vw, 1.18rem);
+        line-height: 1.45;
         letter-spacing: -0.01em;
       }
       @media (max-width: 760px) {
@@ -554,20 +651,444 @@
         }
       }
 
-      /* ---------- contact ---------- */
-      .contact h2 {
+
+      /* ---------- the position rail ----------
+         Mostly quiet dots. The section you are in blooms into one large
+         numeral that rises into place and stays lit until the next section
+         takes over, so the rail reads as one marker travelling down the
+         page rather than seven indicators blinking on and off.
+         Hidden below 1180px, where there is no margin to spare. */
+      /* Both rails stay out of the way until you have actually started
+         reading. They arrive on the same trigger the position rail uses, so
+         they appear exactly when the first section reaches the reading line,
+         and withdraw when you return to the top.
+         visibility, not just opacity: an invisible rail must not collect
+         keyboard focus. */
+      .rail,
+      .log {
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.45s ease,
+          translate 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+          visibility 0s linear 0.45s;
+      }
+      .rail {
+        translate: -12px 0;
+      }
+      .log {
+        translate: 12px 0;
+      }
+      body.reading .rail,
+      body.reading .log {
+        opacity: 1;
+        visibility: visible;
+        translate: 0 0;
+        transition-delay: 0s;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .rail,
+        .log {
+          translate: none;
+        }
+      }
+
+      .rail {
+        position: fixed;
+        left: clamp(1rem, 2.4vw, 2.4rem);
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 30;
+        display: grid;
+        gap: 0.5rem;
+      }
+      .rail a {
+        display: grid;
+        grid-template-columns: 6px auto;
+        align-items: center;
+        gap: 0.75rem;
+        min-height: 1.9rem;
+        text-decoration: none;
+        color: var(--ink-muted);
+      }
+      .rail .tick {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.4;
+        transition:
+          transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+          opacity 0.4s ease,
+          background 0.4s ease;
+      }
+      .rail .rail-meta {
+        display: flex;
+        align-items: baseline;
+        gap: 0.55rem;
+        white-space: nowrap;
+      }
+      .rail .rail-num,
+      .rail .rail-name {
+        opacity: 0;
+        transform: translateY(6px);
+        transition:
+          opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+          transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+          font-size 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+          color 0.4s ease;
+      }
+      .rail .rail-num {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 0.78rem;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .rail .rail-name {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition-delay: 0.04s;
+      }
+
+      /* hover tells you what a dot is, quietly */
+      .rail a:hover .rail-num,
+      .rail a:hover .rail-name {
+        opacity: 0.75;
+        transform: none;
+      }
+      .rail a:hover .tick {
+        opacity: 0.8;
+      }
+
+      /* the section you are in */
+      .rail a[aria-current="true"] .tick {
+        background: var(--signal);
+        opacity: 1;
+        transform: scale(1.7);
+      }
+      .rail a[aria-current="true"] .rail-num {
+        opacity: 1;
+        transform: none;
+        font-size: 1.5rem;
+        color: var(--signal);
+      }
+      .rail a[aria-current="true"] .rail-name {
+        opacity: 1;
+        transform: none;
+        color: var(--ink);
+      }
+
+      @media (max-width: 1180px) {
+        .rail {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .rail .rail-num,
+        .rail .rail-name,
+        .rail .tick {
+          transition: none;
+          transform: none;
+        }
+      }
+
+
+      /* ---------- the log: entries on the right ----------
+         Mirrors the section rail on the left. Fixed on wide screens; below
+         1180px it collapses to a tab against the edge that slides the list
+         out, because a permanent side rail cannot exist at phone widths. */
+      .log {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 35;
+        display: flex;
+        align-items: center;
+      }
+      .log-inner {
+        padding-right: clamp(1rem, 2.4vw, 2.4rem);
+        text-align: right;
+      }
+      .log-label {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        margin-bottom: 0.9rem;
+      }
+      .log-items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 0.55rem;
+      }
+      .log-items button {
+        appearance: none;
+        background: none;
+        border: 0;
+        padding: 0.15rem 0;
+        cursor: pointer;
+        color: var(--ink-muted);
+        font: inherit;
+        text-align: right;
+        display: block;
+        width: 100%;
+        transition: color 0.3s ease;
+      }
+      .log-when {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .log-title {
+        display: block;
         font-family: var(--display);
         font-weight: 500;
-        font-size: clamp(2rem, 6vw, 4rem);
+        font-size: 0.82rem;
+        letter-spacing: -0.01em;
+        max-width: 13rem;
+        margin-top: 0.15rem;
+        opacity: 0;
+        transform: translateY(4px);
+        transition:
+          opacity 0.45s cubic-bezier(0.19, 1, 0.22, 1),
+          transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .log-items button:hover {
+        color: var(--signal);
+      }
+      .log-items button:hover .log-title,
+      .log-items button:focus-visible .log-title {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* the tab, for widths with no room for a rail */
+      .log-tab {
+        display: none;
+        appearance: none;
+        border: 1px solid var(--hairline);
+        border-right: 0;
+        border-radius: 4px 0 0 4px;
+        background: var(--paper);
+        color: var(--ink);
+        cursor: pointer;
+        padding: 0.9rem 0.5rem;
+        writing-mode: vertical-rl;
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      /* The expanded form needs a genuinely empty right margin. Narrower
+         than this the text column reaches the rail, so the compact edge tab
+         takes over rather than sitting on top of the words. */
+      @media (max-width: 1400px) {
+        .log-tab {
+          display: block;
+        }
+        .log-inner {
+          position: fixed;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: min(20rem, 82vw);
+          background: var(--paper);
+          border-left: 1px solid var(--hairline);
+          padding: 5rem 1.4rem 2rem;
+          overflow-y: auto;
+          transform: translateX(100%);
+          transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .log.open .log-inner {
+          transform: none;
+        }
+        .log-title {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ---------- the panel ----------
+         The entry opens over the page. The page dims and recedes a fraction,
+         which is what reads as a sheet lifted above it. */
+      .page {
+        transition:
+          transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+          filter 0.5s ease;
+        transform-origin: 50% 30%;
+      }
+      body.peek-open .page {
+        transform: scale(0.985);
+        filter: brightness(0.94);
+      }
+      body.peek-open {
+        overflow: hidden;
+      }
+
+      .peek {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+      }
+      .peek-scrim {
+        position: absolute;
+        inset: 0;
+        background: rgba(10, 10, 10, 0.36);
+        opacity: 0;
+        transition: opacity 0.45s ease;
+      }
+      .peek.shown .peek-scrim {
+        opacity: 1;
+      }
+      .peek-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(46rem, 92vw);
+        background: var(--paper);
+        border-left: 1px solid var(--hairline);
+        box-shadow: -40px 0 80px -30px rgba(10, 10, 10, 0.4);
+        overflow-y: auto;
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.4rem, 4vw, 4rem);
+        transform: translateX(100%);
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .peek.shown .peek-panel {
+        transform: none;
+      }
+      .peek-close {
+        position: absolute;
+        top: 1.4rem;
+        right: 1.4rem;
+        width: 2.4rem;
+        height: 2.4rem;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--hairline);
+        border-radius: 50%;
+        background: var(--paper);
+        color: var(--ink);
+        cursor: pointer;
+        transition:
+          background 0.3s ease,
+          color 0.3s ease;
+      }
+      .peek-close svg {
+        width: 15px;
+        height: 15px;
+      }
+      .peek-close:hover {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .peek-when {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--signal);
+        display: block;
+        margin-bottom: 1rem;
+      }
+      .peek-body h2 {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(1.8rem, 3.4vw, 2.6rem);
         letter-spacing: -0.03em;
-        margin: 0 0 1.8rem;
-        max-width: 18ch;
         line-height: 1.05;
+        margin: 0 0 1.2rem;
+      }
+      .peek-lede {
+        font-size: 1.1rem;
+        margin: 0 0 1.8rem;
+        max-width: 58ch;
+      }
+      .peek-report {
+        border-top: 1px solid var(--hairline);
+        padding-top: 1.8rem;
+      }
+      .peek-report p {
+        margin: 0 0 1.15rem;
+        color: var(--ink-muted);
+        max-width: 66ch;
+      }
+      .peek-empty {
+        color: var(--ink-muted);
+        font-style: italic;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .page,
+        .peek-scrim,
+        .peek-panel,
+        .log-inner,
+        .log-title {
+          transition: none;
+        }
+        body.peek-open .page {
+          transform: none;
+        }
+      }
+
+      /* ---------- contact ----------
+         The page exists to earn an email, so this block gets the weight: a
+         dark field, and the signal reserved for the one action that matters. */
+      .contact {
+        background: var(--field);
+        color: var(--field-ink);
+        border-top: none;
+        padding-top: clamp(5rem, 13vh, 9rem);
+        padding-bottom: clamp(5rem, 13vh, 9rem);
+      }
+      .contact .eyebrow {
+        color: var(--field-muted);
+      }
+      .contact h2 {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(2.3rem, 7vw, 4.6rem);
+        letter-spacing: -0.035em;
+        margin: 0 0 2.4rem;
+        max-width: 16ch;
+        line-height: 1.02;
       }
       .contact-links {
         display: flex;
         flex-wrap: wrap;
         gap: 0.9rem;
+        align-items: center;
+      }
+      .contact .btn.primary {
+        background: var(--signal);
+        color: #fff;
+        border-color: var(--signal);
+      }
+      .contact .btn.primary:hover {
+        background: #fff;
+        color: var(--field);
+        border-color: #fff;
+      }
+      .contact .btn.ghost {
+        color: var(--field-ink);
+        border-color: var(--field-rule);
+      }
+      .contact .btn.ghost:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: var(--field-ink);
+      }
+      .contact :focus-visible {
+        outline-color: var(--field-ink);
       }
 
       /* ---------- footer ---------- */
@@ -605,7 +1126,7 @@
         }
         .hud-frame span {
           animation: none;
-          opacity: 1;
+          opacity: 0.55;
         }
         html {
           scroll-behavior: auto;
@@ -619,6 +1140,7 @@
     </style>
   </head>
   <body>
+    <div class="page" id="page">
     <header class="topbar">
       <div class="wrap">
         <a class="brand" id="brand" href="#top"></a>
@@ -632,10 +1154,13 @@
           <span class="tl"></span><span class="tr"></span
           ><span class="bl"></span><span class="br"></span>
         </div>
-        <div class="wrap">
-          <h1 id="hero-headline"></h1>
-          <p class="lede" id="hero-lede"></p>
-          <div class="hero-cta" id="hero-cta"></div>
+        <div class="wrap hero-grid">
+          <div>
+            <h1 id="hero-headline"></h1>
+            <p class="lede" id="hero-lede"></p>
+            <div class="hero-cta" id="hero-cta"></div>
+          </div>
+          <dl class="facts hero-facts" id="hero-facts"></dl>
         </div>
       </section>
 
@@ -647,7 +1172,6 @@
           </div>
           <div class="about-grid reveal">
             <div id="about-body"></div>
-            <dl class="facts" id="about-facts"></dl>
           </div>
         </div>
       </section>
@@ -707,6 +1231,48 @@
         <span class="mono" id="footer-right"></span>
       </div>
     </footer>
+    </div>
+
+    <nav class="rail" id="rail" aria-label="Page position"></nav>
+
+    <aside class="log" id="log" hidden>
+      <button
+        class="log-tab"
+        id="log-tab"
+        type="button"
+        aria-expanded="false"
+        aria-controls="log-items"
+      >
+        <span class="log-tab-label" id="log-tab-label"></span>
+      </button>
+      <div class="log-inner">
+        <span class="log-label" id="log-label"></span>
+        <ul class="log-items" id="log-items"></ul>
+      </div>
+    </aside>
+
+    <div class="peek" id="peek" hidden>
+      <div class="peek-scrim" id="peek-scrim"></div>
+      <article
+        class="peek-panel"
+        id="peek-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="peek-title"
+      >
+        <button class="peek-close" id="peek-close" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M6 6 L18 18 M18 6 L6 18"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+        <div class="peek-body" id="peek-body"></div>
+      </article>
+    </div>
 
     <script>
       (() => {
@@ -744,12 +1310,12 @@
             eyebrow: "01 — About",
             heading: "Fast, clean, easy to work with.",
             paragraphs: [
-              "I'm a computer science student at Queen's, specializing in cognitive science, and these days my focus is putting AI to work where it actually earns its keep. At RBC Dominion Securities I work alongside a team to find the slow, repetitive parts of their day and rebuild them with AI — cutting the busywork so they can move faster on what matters.",
+              "I'm a computer science student at Queen's, specializing in cognitive science, and these days my focus is putting AI to work where it actually earns its keep. At RBC Dominion Securities I work with an advisor's desk to find the slow, repetitive parts of their day and rebuild them with AI — cutting the busywork so they can move faster on what matters.",
               "I'm also co-chair of Queen's Web Development, where I'm building the club itself: setting up how it runs, growing the team and its programs, and expanding the community around learning to build for the web.",
               "Outside of that, I'm always building something. I work across AI and software, I move quickly, and I care about the details most people skip. I'm confident with the hard problems — and easy to work with on them.",
             ],
             facts: [
-              { label: "Based in", value: "Kingston, Ontario" },
+              { label: "Based in", value: "Kingston, Ontario · from Toronto" },
               {
                 label: "Studying",
                 value: "Computer Science (Cognitive Science) · Queen's '28",
@@ -763,6 +1329,13 @@
             eyebrow: "02 — Work",
             heading: "Things I've built.",
             featured: [
+              {
+                tags: ["Web", "Club"],
+                title: "Queen's Web Dev",
+                desc: "The club's new site, shipped this term while co-chairing it. The place the curriculum and the events now live.",
+                repo: "https://www.qweb.dev",
+                linkLabel: "Visit",
+              },
               {
                 tags: ["AI", "Automation"],
                 title: "Screen Intelligence",
@@ -778,10 +1351,30 @@
                 repo: "https://github.com/zacfink/news-podcast",
               },
               {
-                tags: ["ML", "RAG"],
-                title: "rbcDocClient",
-                desc: "A fully on-device retrieval chatbot over financial-planning documents — Qwen2.5, BGE embeddings, FAISS indexing.",
-                meta: "Local · M3 Pro",
+                tags: ["AI", "Video"],
+                title: "Video Auto Maker",
+                desc: "Turns a written script into a finished presentation video: a voice model reads it, and the tool cuts the visuals to the narration.",
+              },
+            ],
+          },
+
+          monthly: {
+            // the label above the right-hand rail
+            label: "Monthly",
+            items: [
+              {
+                month: "2026-09",
+                kind: "Report",
+                title: "A summer at an RBC DS desk.",
+                desc: "Four people, almost two decades of records, and the discovery that the real cost was never the searching. It was who got interrupted.",
+                body: [
+                  "It is one advisor and three associates, a desk inside a branch big enough to get lost in. Behind the four of them sat close to two decades of records, piled up faster than anyone had time to organise them, because organising them was never actually anybody's job.",
+                  "The cost of that was not really the searching. When something could not be found, the question went to the advisor. Every one of those interruptions landed on the person the desk exists to keep free, and they happened often enough to be part of the rhythm of the day. Nobody had ever counted them. They just happened.",
+                  "I spent four months on it, remote at first and then in the office from July. Most of that went into getting the records into a state where the people who needed them could actually search them. The rest went into agents for the work that kept coming back around: drafting email, editing documents both client-facing and internal, and taking the first pass at company and financial research.",
+                  "What changed is quiet. The associates answer their own questions now, so the advisor gets asked fewer of them. That is the whole result. No launch, no dashboard, just fewer interruptions landing on the person who could least afford them.",
+                  "The part worth writing down is what I got wrong. There was a tool sitting right there that I wrote off in the first ten minutes, because it was new and I did not enjoy using it, so I built around it with my own setup instead. Months later I found out it could have made those agents itself, from the start.",
+                  "So the lesson is not about AI. I skipped something because it was boring, and the thing I needed was behind it. Reading past the dull part is the habit that would have caught it, and it is the one I am taking out of the summer.",
+                ],
               },
             ],
           },
@@ -793,17 +1386,12 @@
               {
                 role: "AI Consultant",
                 org: "RBC Dominion Securities",
-                desc: "Finding the slow, manual parts of a team's day and rebuilding them with AI so they move faster.",
+                desc: "Finding the slow, manual parts of an advisor's desk and rebuilding them with AI. Full-time over the summer, part-time through term.",
               },
               {
                 role: "Co-chair",
                 org: "Queen's Web Dev",
-                desc: "Running the club and growing it — the team, the programs, and the community around building for the web.",
-              },
-              {
-                role: "Freelance",
-                org: "Independent",
-                desc: "Active client work — image-processing tools, automation, and small apps.",
+                desc: "Running the club and growing it. This term: shipped the new site, started the curriculum, and got first-years building at their first event.",
               },
             ],
           },
@@ -825,7 +1413,7 @@
               },
               {
                 label: "AI",
-                items: ["Prompt engineering", "RAG", "AI agents", "Evals"],
+                items: ["Prompt engineering", "RAG", "AI agents"],
               },
               {
                 label: "Working style",
@@ -845,15 +1433,15 @@
             items: [
               {
                 n: "01",
-                text: "Learn first. Chase whatever actually interests you — that's the engine.",
+                text: "Go deep on what the job actually requires. Not what it looks like it requires from outside.",
               },
               {
                 n: "02",
-                text: "Then build. Take what you learned and make something new from it.",
+                text: "Then find every way to do it. All of them, before you fall for the first one.",
               },
               {
                 n: "03",
-                text: "Ship it, then keep digging. Understand more, research more, build more.",
+                text: "Then pick the best one you can actually build. A solution you can't ship isn't one.",
               },
             ],
           },
@@ -888,106 +1476,420 @@
 
           footer: {
             left: "© 2026 Zac",
-            right: "Open to work",
+            right: "Open to conversations",
           },
         };
 
         const $ = (sel) => document.querySelector(sel);
 
+        /* ---------- what this visitor has already looked at ----------
+           Per-viewer convenience, kept in their own browser. Every access is
+           guarded: private windows and blocked site data throw on read and
+           write, and the page must render correctly with no stored value. */
+        const SEEN_KEY = "zf:work-seen";
+
+        const slug = (t) =>
+          String(t)
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-|-$/g, "");
+
+        function readSeen() {
+          try {
+            const raw = localStorage.getItem(SEEN_KEY);
+            const list = raw ? JSON.parse(raw) : [];
+            return new Set(Array.isArray(list) ? list : []);
+          } catch {
+            return new Set(); // storage unavailable: the page simply forgets
+          }
+        }
+
+        function writeSeen(set) {
+          try {
+            localStorage.setItem(SEEN_KEY, JSON.stringify([...set]));
+          } catch {
+            /* nothing to do: the marker is a convenience, not state we own */
+          }
+        }
+
+        function applySeen() {
+          const seen = readSeen();
+          document.querySelectorAll("#featured .proj").forEach((el) => {
+            el.classList.toggle("seen", seen.has(el.dataset.id));
+          });
+        }
+
+        /* ---------- the content boundary ----------
+           Everything below the fetch is authored in a Supabase row, not in
+           this file. The row is select-only for visitors, so none of this is
+           reachable from the internet today — but a leaked key or a future
+           write policy would otherwise turn edited text into script running
+           on this origin. Escape on the way into markup, and allowlist any
+           value that becomes a URL. */
+        const esc = (v) =>
+          String(v ?? "").replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[c],
+          );
+
+        // http(s), mailto, tel, fragments and relative paths pass; the
+        // script-bearing schemes do not
+        const safeUrl = (v) => {
+          const u = String(v ?? "").trim();
+          if (/^(javascript|data|vbscript|file):/i.test(u)) return "#";
+          if (/^(https?:|mailto:|tel:|[#./])/i.test(u)) return u;
+          if (/^[\w.-]+\//.test(u)) return u; // bare relative path
+          return "#";
+        };
+
+        const btnStyle = (v) => (v === "primary" ? "primary" : "ghost");
+
         const btn = (l) =>
-          `<a class="btn ${l.style || "ghost"}" href="${l.href}"${l.download ? " download" : ""}>${l.label}</a>`;
-        const repo = (url) =>
+          `<a class="btn ${btnStyle(l.style)}" href="${esc(safeUrl(l.href))}"${l.download ? " download" : ""}>${esc(l.label)}</a>`;
+        const repo = (url, label) =>
           url
-            ? `<a class="repo" href="${url}" target="_blank" rel="noopener">Repo ↗</a>`
+            ? `<a class="repo" href="${esc(safeUrl(url))}" target="_blank" rel="noopener">${esc(label || "Repo")} ↗</a>`
             : `<span class="repo repo-private">Private</span>`;
 
+        /* ---------- sections, numbering and the rail ----------
+           Section numbers are derived from document order, never typed, so
+           inserting or hiding a section renumbers the page and the rail
+           together and they cannot drift apart. */
+        const SECTIONS = [
+          "about",
+          "work",
+          "now",
+          "stack",
+          "thoughts",
+          "contact",
+        ];
+
+        // "01 — About" and "Monthly" both yield "About" / "Monthly"
+        const labelOf = (eyebrow, fallback) => {
+          const m = String(eyebrow || "").match(/^\s*(?:\d+\s*[—–-]\s*)?(.+?)\s*$/);
+          return m ? m[1] : fallback;
+        };
+
+        const MONTH_NAMES = [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December",
+        ];
+
+        const monthlyItems = () =>
+          Array.isArray(SITE.monthly && SITE.monthly.items)
+            ? SITE.monthly.items.filter((i) => i && i.month && i.title)
+            : [];
+
+        const whenLabel = (key) => {
+          const m = String(key).match(/^(\d{4})-(\d{2})$/);
+          if (!m) return String(key);
+          return `${MONTH_NAMES[Number(m[2]) - 1].slice(0, 3)} ${m[1]}`;
+        };
+
         function render() {
-          $("#brand").innerHTML = `${SITE.brand}<span class="dot">.</span>`;
+          const items = monthlyItems();
+          const active = SECTIONS;
+
+          active.forEach((id, i) => {
+            const n = String(i + 1).padStart(2, "0");
+            const label = labelOf(SITE[id] && SITE[id].eyebrow, id);
+            const el = document.getElementById(id + "-eyebrow");
+            if (el) el.textContent = `${n} — ${label}`;
+          });
+
+          $("#rail").innerHTML = active
+            .map((id, i) => {
+              const n = String(i + 1).padStart(2, "0");
+              const label = labelOf(SITE[id] && SITE[id].eyebrow, id);
+              return `<a href="#${id}" data-target="${id}" aria-current="false"><span class="tick"></span><span class="rail-meta"><span class="rail-num">${n}</span><span class="rail-name">${esc(label)}</span></span></a>`;
+            })
+            .join("");
+
+          $("#brand").innerHTML = `${esc(SITE.brand)}<span class="dot">.</span>`;
           $("#nav").innerHTML = SITE.nav
-            .map((n) => `<a href="${n.href}">${n.label}</a>`)
+            .map((n) => `<a href="${esc(safeUrl(n.href))}">${esc(n.label)}</a>`)
             .join("");
 
           // hero
           $("#hero-headline").innerHTML =
-            `${SITE.hero.headlineLead}<em>${SITE.hero.headlineAccent}</em>`;
+            `${esc(SITE.hero.headlineLead)}<em>${esc(SITE.hero.headlineAccent)}</em>`;
           $("#hero-lede").textContent = SITE.hero.lede;
           $("#hero-cta").innerHTML = SITE.hero.ctas.map(btn).join("");
+          // the facts lead the page now; they still live under about in the
+          // content object, so the published row keeps its shape
+
 
           // about
-          $("#about-eyebrow").textContent = SITE.about.eyebrow;
           $("#about-heading").textContent = SITE.about.heading;
           $("#about-body").innerHTML = SITE.about.paragraphs
-            .map((p) => `<p>${p}</p>`)
+            .map((p) => `<p>${esc(p)}</p>`)
             .join("");
-          $("#about-facts").innerHTML = SITE.about.facts
+          $("#hero-facts").innerHTML = SITE.about.facts
             .map(
               (f) =>
-                `<div class="fact"><dt>${f.label}</dt><dd>${f.value}</dd></div>`,
+                `<div class="fact"><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`,
             )
             .join("");
 
           // work
-          $("#work-eyebrow").textContent = SITE.work.eyebrow;
           $("#work-heading").textContent = SITE.work.heading;
           $("#featured").innerHTML = SITE.work.featured
             .map(
               (p) => `
-      <article class="proj">
-        <div class="tags">${p.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>
-        <h3>${p.title}</h3>
-        <p>${p.desc}</p>
-        <div class="foot"><span class="meta">${p.meta}</span>${repo(p.repo)}</div>
+      <article class="proj" data-id="${slug(p.title)}">
+        <div class="tags">${p.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}<span class="seen-flag">Viewed</span></div>
+        <h3>${esc(p.title)}</h3>
+        <p>${esc(p.desc)}</p>
+        <div class="foot"><span class="meta">${esc(p.meta || "")}</span>${repo(p.repo, p.linkLabel)}</div>
       </article>`,
             )
             .join("");
 
           // now
-          $("#now-eyebrow").textContent = SITE.now.eyebrow;
           $("#now-heading").textContent = SITE.now.heading;
           $("#now-list").innerHTML = SITE.now.roles
             .map(
               (r) => `
       <div class="now-row">
-        <div><div class="role">${r.role}</div><div class="org">${r.org}</div></div>
-        <p>${r.desc}</p>
+        <div><div class="role">${esc(r.role)}</div><div class="org">${esc(r.org)}</div></div>
+        <p>${esc(r.desc)}</p>
       </div>`,
             )
             .join("");
 
           // stack
-          $("#stack-eyebrow").textContent = SITE.stack.eyebrow;
           $("#stack-heading").textContent = SITE.stack.heading;
           $("#chips").innerHTML = SITE.stack.groups
             .map(
               (g) => `
       <div class="chip-group">
-        <span class="chip-label">${g.label}</span>
-        <div class="chip-row">${g.items.map((s) => `<span class="chip">${s}</span>`).join("")}</div>
+        <span class="chip-label">${esc(g.label)}</span>
+        <div class="chip-row">${g.items.map((it) => `<span class="chip">${esc(it)}</span>`).join("")}</div>
       </div>`,
             )
             .join("");
 
           // thoughts
-          $("#thoughts-eyebrow").textContent = SITE.thoughts.eyebrow;
           $("#thoughts-heading").textContent = SITE.thoughts.heading;
           $("#thoughts-grid").innerHTML = SITE.thoughts.items
             .map(
               (t) =>
-                `<div class="thought"><span class="n">${t.n}</span><p>${t.text}</p></div>`,
+                `<div class="thought"><span class="n">${esc(t.n)}</span><p>${esc(t.text)}</p></div>`,
             )
             .join("");
 
           // contact
-          $("#contact-eyebrow").textContent = SITE.contact.eyebrow;
           $("#contact-heading").textContent = SITE.contact.heading;
           $("#contact-links").innerHTML = SITE.contact.links.map(btn).join("");
 
-          // footer
+          applySeen();
+
+          renderLog(items);
+          syncRail();
+
+          // footer — availability is set as copy, not bolted on as a badge
           $("#footer-left").textContent = SITE.footer.left;
           $("#footer-right").textContent = SITE.footer.right;
         }
 
         render();
+
+        /* The accordion and the rail are wired once, on containers that
+           render() refills but never replaces. */
+        /* ---------- the log and its panel ----------
+           Entries live on the right rail and open over the page. There is no
+           section for them, so the rail is the only way in and it removes
+           itself when there is nothing to show. */
+        let peekReturn = null;
+        let peekHideTimer = null;
+
+        function renderLog(items) {
+          const log = $("#log");
+          log.hidden = items.length === 0;
+          if (!items.length) return;
+
+          const label = (SITE.monthly && SITE.monthly.label) || "";
+          $("#log-label").textContent = label;
+          $("#log-tab-label").textContent = label;
+
+          const ordered = [...items].sort((a, b) =>
+            String(b.month).localeCompare(String(a.month)),
+          );
+
+          $("#log-items").innerHTML = ordered
+            .map(
+              (m, i) => `
+      <li>
+        <button type="button" data-i="${i}">
+          <span class="log-when">${esc(whenLabel(m.month))}</span>
+          <span class="log-title">${esc(m.title)}</span>
+        </button>
+      </li>`,
+            )
+            .join("");
+
+          $("#log-items").dataset.json = JSON.stringify(ordered);
+        }
+
+        function openPeek(entry, trigger) {
+          if (peekHideTimer) {
+            clearTimeout(peekHideTimer);
+            peekHideTimer = null;
+          }
+          peekReturn = trigger || null;
+          const hasReport = Array.isArray(entry.body) && entry.body.length > 0;
+
+          $("#peek-body").innerHTML = `
+            <span class="peek-when">${esc(whenLabel(entry.month))}${entry.kind ? ` · ${esc(entry.kind)}` : ""}</span>
+            <h2 id="peek-title">${esc(entry.title)}</h2>
+            ${entry.desc ? `<p class="peek-lede">${esc(entry.desc)}</p>` : ""}
+            ${
+              hasReport
+                ? `<div class="peek-report">${entry.body.map((par) => `<p>${esc(par)}</p>`).join("")}</div>`
+                : `<p class="peek-empty">Not written yet.</p>`
+            }
+            ${entry.href ? `<p><a class="repo" href="${esc(safeUrl(entry.href))}" target="_blank" rel="noopener">Open ↗</a></p>` : ""}`;
+
+          const peek = $("#peek");
+          peek.hidden = false;
+          document.body.classList.add("peek-open");
+          // one frame so the transition has a start state to move from
+          requestAnimationFrame(() => peek.classList.add("shown"));
+          setTimeout(() => peek.classList.add("shown"), 30); // if frames are throttled
+          $("#peek-panel").scrollTop = 0;
+          $("#peek-close").focus();
+        }
+
+        function closePeek() {
+          const peek = $("#peek");
+          if (peek.hidden) return;
+          peek.classList.remove("shown");
+          document.body.classList.remove("peek-open");
+          // hold the id: reopening inside the exit transition must cancel
+          // this, or the panel hides itself while the page stays locked
+          peekHideTimer = setTimeout(() => {
+            peek.hidden = true;
+            peekHideTimer = null;
+          }, 420);
+          if (peekReturn && document.contains(peekReturn)) peekReturn.focus();
+          peekReturn = null;
+        }
+
+        $("#log-items").addEventListener("click", (e) => {
+          const b = e.target.closest("button[data-i]");
+          if (!b) return;
+          let list = [];
+          try {
+            list = JSON.parse($("#log-items").dataset.json || "[]");
+          } catch {
+            return;
+          }
+          const entry = list[Number(b.dataset.i)];
+          if (entry) openPeek(entry, b);
+        });
+
+        $("#log-tab").addEventListener("click", () => {
+          const log = $("#log");
+          const open = log.classList.toggle("open");
+          $("#log-tab").setAttribute("aria-expanded", String(open));
+        });
+
+        $("#peek-close").addEventListener("click", closePeek);
+        $("#peek-scrim").addEventListener("click", closePeek);
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            if (!$("#peek").hidden) closePeek();
+            else if ($("#log").classList.contains("open")) {
+              $("#log").classList.remove("open");
+              $("#log-tab").setAttribute("aria-expanded", "false");
+              $("#log-tab").focus();
+            }
+            return;
+          }
+          if (e.key !== "Tab" || $("#peek").hidden) return;
+          // keep focus inside the dialog while it is open
+          const focusables = $("#peek-panel").querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          );
+          if (!focusables.length) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        });
+
+        /* Rail position, from the same scroll pass idea as everything else:
+           the section whose top has most recently passed the reading line
+           wins. If this never runs the rail simply never highlights, which
+           costs the reader nothing. */
+        function syncRail() {
+          const links = [...document.querySelectorAll("#rail a")];
+          if (!links.length) return;
+          const line = window.innerHeight * 0.35;
+          // nothing is lit until a section has actually reached the reading
+          // line, so the rail stays quiet dots while you are still in the hero
+          let current = null;
+          links.forEach((a) => {
+            const el = document.getElementById(a.dataset.target);
+            if (el && !el.hidden && el.getBoundingClientRect().top <= line) {
+              current = a.dataset.target;
+            }
+          });
+          /* The last section is shorter than the space below the reading
+             line, so its top can never reach it. At the bottom of the page
+             the final section is the one you are in, by definition. */
+          const doc = document.documentElement;
+          if (window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
+            current = links[links.length - 1].dataset.target;
+          }
+
+          // both rails ride on this: nothing in view means nothing on screen
+          document.body.classList.toggle("reading", Boolean(current));
+
+          links.forEach((a) =>
+            a.setAttribute(
+              "aria-current",
+              a.dataset.target === current ? "true" : "false",
+            ),
+          );
+        }
+
+        let railTick = false;
+        const onRailScroll = () => {
+          if (railTick) return;
+          railTick = true;
+          requestAnimationFrame(() => {
+            syncRail();
+            railTick = false;
+          });
+        };
+        window.addEventListener("scroll", onRailScroll, { passive: true });
+        window.addEventListener("resize", onRailScroll, { passive: true });
+        syncRail();
+
+        // delegated on #featured, which render() refills but never replaces
+        $("#featured").addEventListener("click", (e) => {
+          const card = e.target.closest(".proj");
+          if (!card || !card.dataset.id) return;
+          const seen = readSeen();
+          if (seen.has(card.dataset.id)) return;
+          seen.add(card.dataset.id);
+          writeSeen(seen);
+          card.classList.add("seen");
+        });
 
         /* ---------- published content ----------
            The SITE object above is the copy that ships with this file: it

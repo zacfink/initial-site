@@ -1,0 +1,15 @@
+{
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "createdAt": "2026-09-09T20:27:46.803Z",
+        "reason": "user confirmed: Zac rejected the replacement visual world on 2026-09-09 and chose 'improve the old page', keeping the incumbent identity of which Space Grotesk is the display face; this is refinement inside that identity, not a free type choice"
+      }
+    ]
+  }
+}
