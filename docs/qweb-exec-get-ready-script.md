@@ -11,6 +11,10 @@ thing to innovate on, brought back at the check-in. That is the whole meeting.
 **The clock that matters:** tutorials start **Thursday September 17**. Every
 deadline below is built backwards from that.
 
+**This is the only Thursday night meeting.** Every Thursday after tonight is a
+tutorial. The standing exec check-in moves to **Tuesdays**, starting Tuesday
+September 15.
+
 **How to use this.** Sections 1, 2, 3, 4, 5 and 8 are said out loud. Sections
 6 and 7 are the handout. Send the whole thing to the chat before you leave the
 room, while it is still in everyone's head.
@@ -50,7 +54,12 @@ are looking them up on a phone.
 > Tutorials start a week from tonight, and after that we are running on a
 > weekly clock whether or not we are ready for it.
 >
-> So this is not a check-in. This is us getting ready. By the end of tonight
+> This is also the last Thursday night we get. Every one after tonight is a
+> tutorial. So if something needs all seven of us in a room with nothing else
+> going on, it happens tonight or it does not happen. Our check-in moves to
+> Tuesdays, starting the fifteenth.
+>
+> So tonight is not a status update. This is us getting ready. By the end of it
 > every person here owns their area out loud and has a date. Then we go hire
 > directors, because none of you should be running an area alone and I am not
 > asking you to.
@@ -155,7 +164,7 @@ their own money gets it back quickly.
 > And one more thing, which is the reason I wanted to talk to you directly.
 > Finance is the lightest standing workload on this exec. I do not want you
 > under-used and only in the room for money conversations. Pick a second area
-> you actually want to work in this term and tell me at the check-in. Be at
+> you actually want to work in this term and tell me Tuesday. Be at
 > the sessions too, not just the budget meetings.
 
 > **Innovate on this:** where does money come from that is not sponsorship?
@@ -260,8 +269,10 @@ everything else, and write the name down when it goes on the calendar.
 
 ## 6. Working block — do these in the room
 
-*Twelve minutes, screens up. These are decisions, not action items, and none
-of them will happen afterwards if they do not happen tonight.*
+*Twelve minutes, screens up. These are decisions, not action items. This is
+the last night we are all in a room with no tutorial running, so anything left
+undecided here gets decided in a chat or around a session, and neither of
+those is this room.*
 
 - [ ] **The group calendar.** Set it up now, share it with all seven of us,
       and put every tutorial and event we already know about on it, each with
@@ -417,7 +428,10 @@ promise the same people two different things.
 > The thing you are innovating on, brought back as a paragraph or two minutes
 > of talking.
 >
-> Three of those land Sunday. The tutorial is a week from tonight.
+> Three of those land Sunday. The tutorial is a week from tonight, and we do
+> not get another night like this one, so anything still unsaid, say it now.
+>
+> Check-in is Tuesday the fifteenth, and every Tuesday after that.
 >
 > If your area is wrong, if it is too big, or if you have taken on something
 > you cannot carry this term, tell me this week and tell me privately. That is
@@ -430,10 +444,13 @@ promise the same people two different things.
 
 ## Delivery notes for Zac
 
-- **Confirm the check-in day in the working block.** I have written Tuesday,
-  because deliverables land Sunday and posts go out Tuesday, which makes it
-  the natural point to catch a problem with 48 hours still to fix it.
-  Thursdays now belong to tutorials, so the old exec night is gone.
+- **Say early that this is the last Thursday night.** It is the single
+  strongest argument you have for why the working block cannot be pushed. Once
+  tutorials start, getting all seven of you in a room with nothing else
+  happening stops being easy.
+- **The check-in is Tuesday, starting the fifteenth.** It falls well:
+  deliverables land Sunday, posts go out Tuesday, so a problem surfaces with
+  48 hours still left to fix it before the session.
 - **The go-around at 0:08 is the meeting.** Do not move on until all five have
   said what they own.
 - **Three things land Sunday the 13th.** Che's sequence, Alex's site and bot
