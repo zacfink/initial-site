@@ -1,17 +1,35 @@
 # QWEB exec meeting — get ready
 
-For the exec team. Meeting date: **[DATE]**.
+**Tonight, Thursday September 10. In person.**
 
 **Who is in the room.** Zac and Farhaan as co-chairs. Che on Education, Alex on
 Development, Aun on Finance, Griffin on Outreach, Keme on Design.
 
-**How to use this.** Sections 1, 2, 5 and 6 are written to be said out loud,
-in Zac's voice, and run about ten minutes plus the go-around. Sections 3 and 4
-are not read aloud. They are the handout. Send them the moment the meeting
-ends so everyone has their own list in writing.
+**Every person leaves with two things.** One thing to do, with a date. One
+thing to innovate on, brought back next Thursday. That is the whole meeting.
 
-**Fill in before you deliver it:** the meeting date, the next meeting date,
-and the six dates in the director timeline.
+**How to use this.** Sections 1, 2, 5 and 6 are said out loud, plus the two
+things for each person in section 4 and the events split. The rest is the
+handout. Send it to the group chat before you leave the room, while everyone
+still has it in their head.
+
+---
+
+## Run of show — 45 minutes
+
+| Time | What |
+|---|---|
+| 0:00 | Open. Two minutes, no windup. |
+| 0:02 | The standard and the three rules. |
+| 0:08 | **Go-around.** Each person says what they own and their first move. |
+| 0:18 | **The two things.** Read each person's do and innovate out loud. |
+| 0:26 | Events, and how the four of us split them. |
+| 0:32 | Hiring directors. The dates. |
+| 0:38 | What Farhaan and I are doing. |
+| 0:42 | Close and questions. |
+
+**Before you walk in:** have the shared calendar open on a screen, and send
+this document to the chat the moment the meeting ends.
 
 ---
 
@@ -19,17 +37,18 @@ and the six dates in the director timeline.
 
 *Say this. Do not soften it, and do not pause for agreement.*
 
-> I want to keep this short and I want everyone to leave with a list.
+> I want to keep this short and I want everyone to leave with two things: one
+> thing to do this week, and one thing to think hard about and bring back.
 >
 > The club works right now because a few of us are carrying specific things in
 > our heads. That was fine when we were small. It does not survive this term.
 > We have more members, more sessions, and more people expecting something
 > from us than we have ever had at once.
 >
-> So this is not a check-in. This is us getting ready. By the end of it every
-> person here owns their area out loud, has a written list for it, and has a
-> date. Then we go hire directors, because none of you should be running an
-> area alone and I am not asking you to.
+> So this is not a check-in. This is us getting ready. By the end of tonight
+> every person here owns their area out loud and has a date. Then we go hire
+> directors, because none of you should be running an area alone and I am not
+> asking you to.
 >
 > I am also going to tell you what Farhaan and I are doing in the background,
 > so this does not sound like we handed out the work and left.
@@ -55,27 +74,7 @@ repeat it.*
 > the rest of us before we find out on our own.
 >
 > If you are doing tasks somebody hands you, you are not owning an area yet,
-> and that is the thing changing today.
-
-### The five things every exec does before the next meeting
-
-Same five for everyone, whatever your area. This is an hour of work, not an
-evening.
-
-- [ ] **Write your area in one sentence.** What you own, and what breaks if
-      you do not do it.
-- [ ] **Calendar every recurring thing your area needs this term.** Not goals.
-      The actual repeating work: sessions, posts, emails, bookings. On the
-      shared calendar where the rest of us can see it.
-- [ ] **Mark the two or three things only you can do.** Everything else on
-      that list is a director's job.
-- [ ] **Write your director postings.** One paragraph per role. What they do,
-      what they will actually work on in month one, and honest hours.
-- [ ] **Bring one number you are judged on.** One. Something countable that
-      would embarrass you if it were flat all term.
-
-Send all five to the shared doc **before** the next meeting. If it arrives at
-the meeting, we spend the meeting reading instead of deciding.
+> and that is the thing changing tonight.
 
 ### Three rules we are all holding to
 
@@ -86,166 +85,103 @@ the meeting, we spend the meeting reading instead of deciding.
 - **Nothing important lives in one person's head or one person's account.**
   Every access, document, and process has a second holder.
 
----
+### On the innovation half
 
-## 3. Getting your team going
+*Worth saying out loud when you get to section 4.*
 
-The same timeline applies to everyone. It is tight on purpose. Applications
-that open in late October get people who already committed to something else.
-
-- [ ] **This week —** every exec writes their director postings and sends them
-      to Zac and Farhaan, who build the one page and the one form.
-- [ ] **This week —** confirm how many directors for your area. Two is usually
-      right. One is fragile and four is a committee.
-- [ ] **This week —** Keme builds the recruitment assets, ready to go live the
-      day applications open.
-- [ ] **Applications open [DATE] —** one form, one deadline, one link. Not a
-      separate process per area. Ask for a short answer and something they
-      have made. Do not ask for a résumé.
-- [ ] **Promotion push, [DATE] to [DATE] —** every exec personally messages
-      three people they think would be good. The form catches the rest. The
-      best directors almost never apply cold.
-- [ ] **Applications close [DATE].** Hard close.
-- [ ] **Interviews, [DATE] to [DATE] —** you run your own. Fifteen minutes,
-      three questions, the same three for every candidate. Zac or Farhaan sits
-      in on the first two you run.
-- [ ] **Offers out by [DATE].**
-
-### The week after they say yes
-
-This is the part we have historically been worst at, so it is written down.
-
-- [ ] **A real task within one week.** Not an onboarding call. A task with a
-      deadline. People who are not used in their first two weeks are gone by
-      November.
-- [ ] **A first team meeting inside ten days.** Thirty minutes. Walk them
-      through your area, your calendar, and what they own inside it.
-- [ ] **Say the same three ownership rules to them** that you heard in section
-      2. The standard only holds if it is the same one all the way down.
-- [ ] **A standing check-in.** Fifteen minutes a week, or half an hour every
-      two. Put it in the calendar now, not when something goes wrong.
-
-Your directors are your responsibility, not the co-chairs'. If one goes quiet,
-that is your conversation to have, and we want to hear about it early.
+> The second thing I am giving each of you is not homework and it is not
+> optional. It is the part of your area nobody has solved yet, and you are the
+> person closest to it.
+>
+> I am not looking for a plan. Bring a paragraph or two minutes of talking
+> next Thursday. Half-formed is fine. What I do not want is five people who
+> only ran the checklist.
 
 ---
 
-## 4. Your section
+## 3. The two things, by person
 
-This is your starting list, not your whole job. Add to it. Do not quietly
-subtract from it.
+*Read these out. This is the centre of the meeting.*
 
 ### Che — Education
 
 **You own:** what a member can do by the end of term that they could not do at
 the start, and running the sessions where that happens.
 
-- [ ] The full session sequence for the term, in order, each with one line on
-      what someone can do after it.
-- [ ] A named person teaching each session, confirmed by them, not assumed.
-- [ ] Materials finished one week before each session. Put those due dates in
-      the shared calendar as their own deadlines.
-- [ ] A path for someone who shows up in week five having missed everything.
-      We will have a lot of those and right now we lose them.
-- [ ] For every session you host: a run of show. Who opens, who helps people
-      who are stuck, who closes.
+> **Do this:** write the full session sequence for the term. Every session in
+> order, each with one line on what a member can do after it. **Due Sunday
+> September 13**, because the calendar and all of Keme's promotion wait on it.
 
-**Your team: 2 directors.**
-
-- *Curriculum* — writes and maintains the session material. **First task:**
-  sessions one and two written in full.
-- *Workshops* — runs the room during sessions and helps people who are stuck.
-  **First task:** recruit and schedule helpers for the first three sessions.
+> **Innovate on this:** right now a member leaves at the end of term with
+> attendance. What do they leave with instead? Design the thing they can point
+> at and show somebody. Bring one idea Thursday.
 
 ### Alex — Development
 
 **You own:** the site, the accounts, and the way a member contributes code.
 
-- [ ] What is shipping to the site this term, listed and dated.
-- [ ] A written way for a member to contribute without breaking anything. This
-      is one of the best recruiting tools we have and right now it does not
-      exist.
-- [ ] Access sorted. Who holds the domain, the hosting, and the accounts, and
-      a second person who also holds them.
-- [ ] The site reflects reality: current calendar, current exec list.
-- [ ] Five starter issues open that a real member could actually take.
+> **Do this:** put the term calendar and the current exec list live on the
+> site. **Due Sunday September 13.** It is the first thing anyone we recruit
+> is going to check, and right now it does not tell them the truth.
 
-**Your team: 2 directors.**
-
-- *Web* — ships to the site. **First task:** put the term calendar live.
-- *Projects* — runs the member contribution pipeline and reviews what comes
-  in. **First task:** open the five starter issues and find the first person
-  to take one.
+> **Innovate on this:** how does someone go from sitting in a session to
+> shipping real code with the club's name on it? Design that on-ramp. What is
+> the first issue, who reviews it, what happens when they finish. Bring the
+> shape of it Thursday.
 
 ### Aun — Finance
 
 **You own:** that we can pay for what we plan, and that anyone who spends
 their own money gets it back quickly.
 
-- [ ] A term budget with real numbers, circulated to the exec, showing what
-      each area can actually spend.
-- [ ] A written answer to "how do I get reimbursed", so execs stop paying for
-      club things and hoping.
-- [ ] A tracking sheet the whole exec can see, not one only you can read.
-- [ ] Money coming in from Griffin's sponsors tracked against what has been
-      committed, so we know what is promised and what has landed.
-- [ ] Anything above the approval line flagged to Zac and Farhaan early, not
-      the week it is due.
+> **Do this:** a term budget with real numbers, circulated to the exec,
+> showing what each area can actually spend. **Due Sunday September 13.**
+> Nobody else can plan their term until this exists.
 
-**Your team: 1 to 2 directors.**
-
-- *Finance* — tracking, reimbursements, receipts. **First task:** build the
-  tracking sheet and the reimbursement form, and tell the exec where they are.
+> **Innovate on this:** where does money come from that is not sponsorship?
+> Grants, faculty funding, student government, anything we have never tried.
+> Bring two options Thursday, with what each would take to go after.
 
 ### Griffin — Outreach
 
 **You own:** sponsors, partnerships, and the people we bring in from outside
 the club.
 
-- [ ] A sponsor sheet with named contacts and their current status, visible to
-      everyone, not living in your inbox.
-- [ ] The outreach deck finished and sent to the first ten targets. Companies
-      set budgets early and we have historically asked late.
-- [ ] For events: sourcing the speakers and guests, and getting each one
-      confirmed **in writing**, not verbally.
-- [ ] Partnerships with other clubs, hackathons, and the department. Bring a
-      list of who we should be co-running something with.
-- [ ] Anything with a contract or a large ask goes to Zac and Farhaan. The
-      pipeline is yours, the signature is not.
+> **Do this:** send the first ten sponsor emails. **Due Wednesday September
+> 16.** Companies set their budgets early and we have historically asked late.
 
-**Your team: 2 directors.**
-
-- *Corporate outreach* — the pipeline, the emails, the follow-ups. **First
-  task:** send the first ten.
-- *Partnerships* — other clubs, hackathons, and the department. **First
-  task:** list every group we should be co-running something with this term.
+> **Innovate on this:** what do we sell a sponsor that is not a logo on a
+> slide? Design something a company would genuinely pay for and that members
+> would genuinely want. Those have to be the same thing. Bring one Thursday.
 
 ### Keme — Design
 
 **You own:** what the club looks like, and the Instagram.
 
-- [ ] Posts and stories for every event. One before, one after, every time.
-- [ ] Every brand asset in one folder the rest of the exec can reach without
-      asking you. Templates, logo files, slide deck, post sizes.
-- [ ] A stated posting cadence, and a second person who can post when you are
-      unavailable.
-- [ ] **The director recruitment assets.** Urgent, and yours. Posts, stories,
-      and one link, ready the day applications open.
-- [ ] Standing invitation: if you think the channel should be doing something
-      we are not doing, bring it. This area has the most room to grow and you
-      have the clearest view of it.
+> **Do this:** the director recruitment assets. Posts, stories, and one link.
+> **Due Saturday September 12, live Monday the 14th.** The entire hiring
+> timeline waits on this, so it is the most time-critical thing anyone has
+> tonight.
 
-**Your team: 2 directors.**
+> **Innovate on this:** what does the Instagram do in a week when nothing is
+> happening? Right now it is event posts and gaps. Design one recurring format
+> that gives somebody a reason to follow us between events. Bring it Thursday.
 
-- *Design* — graphics, templates, brand consistency. **First task:** the
-  director recruitment assets, this week.
-- *Content* — stories, photos at events, and posting. **First task:** shoot
-  the first event and build the content calendar off the term calendar.
+### All of us — Events
 
-### Events — how we split them
+**Do this, tonight, in the room:** put every event we already know about on
+the shared calendar, each with one name against it.
 
-Read this one out. It is the thing most likely to drop something, because
-three or four people touch every event and none of them owns all of it.
+**Innovate on this, everyone:** what is the one thing this term that people
+still talk about in March? Everyone brings a candidate Thursday. We pick one
+and it becomes real.
+
+---
+
+## 4. Events — how we split them
+
+*Read this one out. It is the thing most likely to drop something, because
+four of us touch every event and none of us owns all of it.*
 
 **The default split:**
 
@@ -255,23 +191,125 @@ three or four people touch every event and none of them owns all of it.
 - **Griffin sources the people.** Speakers, guests, and anyone from outside.
 - **Keme covers it.** Post before, stories during, post after.
 
-**The rule that makes the split work:** every event has **one name on the
-calendar** as its owner, even though four of us touch it. The owner is
-whoever notices when it is not ready. Default to Che for teaching sessions and
-Zac for everything else, and write the name down when the event goes on the
-calendar.
+**The rule that makes the split work:** every event gets **one name on the
+calendar** as its owner, even though four of us touch it. The owner is whoever
+notices when it is not ready. Default to Che for teaching sessions and Zac for
+everything else, and write the name down when the event goes on the calendar.
 
 **Per-event checklist, whoever owns it:**
 
 - [ ] Owner named on the calendar.
 - [ ] Room booked **before** the event is promoted.
-- [ ] Speakers and guests confirmed in writing.
+- [ ] Speakers and guests confirmed in writing, not verbally.
 - [ ] Assets to Keme at least five days out.
 - [ ] Run of show written: who opens, who handles the room, who closes.
 
 ---
 
-## 5. What Zac and Farhaan are doing
+## 5. Hiring directors — the dates
+
+*Handout, but read the dates out loud. These are what people will push back
+on, and it is better settled in the room than in the chat afterwards.*
+
+| When | What |
+|---|---|
+| **Sat Sept 12** | Keme's recruitment assets finished. Everything below waits on this. |
+| **Sun Sept 13** | Every exec sends their director postings to Zac and Farhaan. One paragraph per role. |
+| **Mon Sept 14** | Applications open. One form, one deadline, one link. |
+| **Sept 14–20** | Promotion push. Every exec personally messages three people. |
+| **Sun Sept 20** | Applications close. Hard close. |
+| **Sept 21–25** | Interviews. You run your own. Zac or Farhaan sits in on your first two. |
+| **Mon Sept 28** | Offers out. |
+| **By Fri Oct 2** | Every new director has a real task and has had their first team meeting. |
+
+**On the form:** ask for a short answer and something they have made. Do not
+ask for a résumé.
+
+**On numbers:** two directors per area is usually right. One is fragile and
+four is a committee.
+
+**On the messaging push:** the best directors almost never apply cold. The
+form catches the rest.
+
+### The week after they say yes
+
+The part we have historically been worst at, so it is written down.
+
+- [ ] **A real task within one week.** Not an onboarding call. A task with a
+      deadline. People who are not used in their first two weeks are gone by
+      November.
+- [ ] **A first team meeting inside ten days.** Thirty minutes. Walk them
+      through your area, your calendar, and what they own inside it.
+- [ ] **Say the same three ownership rules to them.** The standard only holds
+      if it is the same one all the way down.
+- [ ] **A standing check-in booked.** Fifteen minutes a week, or half an hour
+      every two. Put it in the calendar now, not when something goes wrong.
+
+Your directors are your responsibility, not the co-chairs'. If one goes quiet,
+that is your conversation to have, and we want to hear about it early.
+
+---
+
+## 6. Your fuller list
+
+*Pure handout. Nobody reads this aloud. It is what section 3 sits on top of.*
+
+**Che — Education**
+
+- [ ] A named person teaching each session, confirmed by them, not assumed.
+- [ ] Materials finished one week before each session, as dated calendar
+      deadlines of their own.
+- [ ] A path for someone who arrives in week five having missed everything.
+- [ ] A run of show for every session you host.
+- [ ] Directors: *Curriculum*, writes the material, first task is sessions one
+      and two in full. *Workshops*, runs the room and helps people who are
+      stuck, first task is helpers scheduled for the first three sessions.
+
+**Alex — Development**
+
+- [ ] What is shipping to the site this term, listed and dated.
+- [ ] A written way for a member to contribute without breaking anything.
+- [ ] Access sorted, with a second holder for the domain, hosting, accounts.
+- [ ] Five starter issues open that a real member could take.
+- [ ] Directors: *Web*, ships to the site, first task is the calendar live.
+      *Projects*, runs the contribution pipeline, first task is the five
+      starter issues and the first person to take one.
+
+**Aun — Finance**
+
+- [ ] A written answer to "how do I get reimbursed", so execs stop paying for
+      club things and hoping.
+- [ ] A tracking sheet the whole exec can see, not one only you can read.
+- [ ] Sponsor money tracked against what has been committed, so we know what
+      is promised and what has actually landed.
+- [ ] Anything above the approval line flagged to Zac and Farhaan early.
+- [ ] Director: *Finance*, tracking and reimbursements, first task is the
+      sheet and the form, and telling the exec where to find them.
+
+**Griffin — Outreach**
+
+- [ ] A sponsor sheet with named contacts and status, visible to everyone,
+      not living in your inbox.
+- [ ] Speakers and guests confirmed in writing for every event.
+- [ ] Partnerships with other clubs, hackathons, and the department.
+- [ ] Anything with a contract or a large ask goes to Zac and Farhaan. The
+      pipeline is yours, the signature is not.
+- [ ] Directors: *Corporate outreach*, the pipeline and follow-ups, first task
+      is the first ten. *Partnerships*, first task is a list of every group we
+      should be co-running something with.
+
+**Keme — Design**
+
+- [ ] Posts and stories for every event. One before, one after, every time.
+- [ ] Every brand asset in one folder the exec can reach without asking you.
+- [ ] A posting cadence, and a second person who can post when you are away.
+- [ ] Directors: *Design*, graphics and templates, first task is the
+      recruitment assets. *Content*, stories and photos, first task is
+      shooting the first event.
+
+---
+
+## 7. What Zac and Farhaan are doing
 
 *Say this out loud. It is what makes the rest of the meeting land as shared
 work rather than delegation.*
@@ -299,9 +337,8 @@ anything with a contract attached. The pipeline itself is Griffin's.
 **Each of you.** A standing one-on-one, unblocking anything stuck above your
 line, and being the ones who take it publicly when something goes wrong.
 
-**The hiring machinery.** One form, one deadline, one shared page, so that you
-spend your time interviewing instead of building the same process five
-separate times.
+**The hiring machinery.** One form, one deadline, one shared page, so you
+spend your time interviewing instead of building the same process five times.
 
 **Watching the seams.** Catching it when two of you book the same week or
 promise the same people two different things.
@@ -315,42 +352,42 @@ scratch by whoever follows us.
 
 ---
 
-## 6. Close
+## 8. Close
 
-> Three things from everyone before the next meeting. Your five items in the
-> shared doc. Your director postings written. Your first area item started,
-> not planned.
+> Two things from every person by next Thursday. The thing you are doing, done
+> by the date I gave you. The thing you are innovating on, brought back as a
+> paragraph or two minutes of talking.
 >
-> Next meeting is **[DATE]** and we are not reviewing the lists. We are
-> reviewing what moved.
+> Next Thursday, September 17. We are not reviewing lists. We are reviewing
+> what moved and what you came up with.
 >
 > Last thing. If your area is wrong, if it is too big, or if you have taken on
 > something you cannot carry this term, tell me this week and tell me
 > privately. That is not a failure and I would much rather hear it now than
 > find out in week eight. What I do not want is someone sitting on it.
 >
-> That is everything. Go write your lists.
+> That is everything. I am sending this to the chat before we leave.
 
 ---
 
 ## Delivery notes for Zac
 
-- **Read sections 1, 2, 5 and 6, plus the events split in section 4.** Send
-  the rest as the handout the moment the meeting ends. Verbal commitments
-  decay by the weekend.
-- **The go-around is the meeting.** After section 2, stop and have Che, Alex,
-  Aun, Griffin and Keme each say out loud what they own and the one thing they
-  are doing first. Do not move on until all five have spoken.
-- **Second pause after the events split.** That is the section people will
-  have real questions about, because it is the one that crosses areas.
-- **Third pause after section 3.** Take questions on the hiring dates
-  specifically. Those are what people push back on, and it is better settled
-  in the room than in the group chat afterwards.
-- **If you are short on time, cut the standard in section 2, not the
-  go-around.** People can read three rules. They cannot claim an area in
-  writing with the same weight.
-- **Aun and Keme have the smallest written lists.** That is a function of what
-  I know, not of what their areas are worth. Ask both directly what is missing
-  before you send the handout.
-- **Send section 5 in writing too.** Execs repeat it to their own directors,
-  and it is the part that stops "ownership" from sounding like offloading.
+- **The go-around at 0:08 is the meeting.** Everything else is setup for it.
+  Have Che, Alex, Aun, Griffin and Keme each say out loud what they own and
+  their first move. Do not move on until all five have spoken.
+- **Read the two things for each person directly at them,** not to the room.
+  In person that lands differently and it is the reason to hold this meeting
+  face to face rather than in the chat.
+- **Put the events on the calendar in the room.** Do not take it as an action
+  item. It takes four minutes with the calendar on a screen and it is the one
+  thing that will not happen afterwards if it does not happen tonight.
+- **Keme's deadline is Saturday and everything else waits on it.** Say that
+  out loud so it does not read as one task among five.
+- **Aun and Keme have the thinnest fuller lists** in section 6. That is a
+  function of what I know, not what their areas are worth. Ask both directly
+  tonight what is missing.
+- **Someone will treat the innovation half as optional.** It is the half that
+  decides whether this exec team is running the club or maintaining it. Say
+  that plainly if it comes up.
+- **Send this to the chat before you leave the room.** Verbal commitments
+  decay by the weekend, and you have three deadlines landing Sunday.
