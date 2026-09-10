@@ -82,11 +82,30 @@
 
 ---
 
-### Drop these in wherever they fit
+### Who talks to who
 
-- The bot can only answer from **Che's** resources
-- **Slack/Discord** decision blocks Alex's week
-- **Griffin's** API credits are **Alex's** conversation — he knows what to ask for
+**Before Sunday**
+
+- **Alex → Griffin** — what credits and tools to ask for, and how much. Griffin's target list is guesswork without it.
+- **Che → Alex** — where session material lives and in what form. It's the bot's only source of answers.
+- **Alex → Aun** — what hosting and API actually cost, so it's in the budget instead of a surprise.
+- **Keme → me**, before Sat — the application link the assets point at.
+- **All five → me + Farhaan**, Sun — director postings.
+
+**Every week**
+
+- **Che → Keme**, Mondays — title + description for Thursday. This is the one that can never miss.
+- **Griffin → Aun** — what's committed vs what's actually landed. Tool sponsorships counted at what they'd have cost us.
+- **Aun → all five**, once the budget lands — what your area can spend.
+
+**Per event**
+
+- **Griffin → me** — who's coming in from outside, so the arrangements match.
+- **Che + me → Keme**, 5 days out — whatever Keme needs to post it.
+
+### Also drop in
+
+- **Slack/Discord** decision blocks Alex's week — settle it in the room
 - Innovation half isn't optional — decides if we run the club or maintain it
 
 ### If running long

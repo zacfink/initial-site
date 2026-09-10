@@ -21,7 +21,7 @@ room, while it is still in everyone's head.
 
 ---
 
-## Run of show — 60 minutes
+## Run of show — 65 minutes
 
 | Time | What |
 |---|---|
@@ -29,12 +29,12 @@ room, while it is still in everyone's head.
 | 0:02 | The standard and the three rules. |
 | 0:08 | **Go-around.** Each person says what they own and their first move. |
 | 0:18 | **The two things.** Read each person's do and innovate at them directly. |
-| 0:28 | The weekly rhythm. Sunday to Thursday, every week from here. |
-| 0:32 | Events, and how the four of us split them. |
-| 0:38 | Hiring directors. The dates. |
-| 0:44 | **Working block.** Calendar, Slack, the website, anything else. |
-| 0:56 | What Farhaan and I are doing. |
-| 0:59 | Close. |
+| 0:28 | The weekly rhythm, and who talks to who. |
+| 0:35 | Events, and how the four of us split them. |
+| 0:41 | Hiring directors. The dates. |
+| 0:47 | **Working block.** Calendar, Slack, the website, anything else. |
+| 0:59 | What Farhaan and I are doing. |
+| 1:02 | Close. |
 
 **Before you walk in:** have the shared calendar and the live website both
 open on a screen. The working block needs them and it will not happen if you
@@ -195,8 +195,8 @@ the club.
 > offer a company would genuinely pay for and that members would genuinely
 > want. Those have to be the same thing.
 
-**Talk to Alex first.** AI and API credits are what his tools will run on, so
-he can tell you exactly what to ask for and how much.
+**Talk to Alex first.** AI and API credits are what those tools will run on,
+so Alex can tell you exactly what to ask for and how much.
 
 ### Keme — Design
 
@@ -222,7 +222,7 @@ when we hear it, not Saturday.
 
 ---
 
-## 4. The weekly rhythm
+## 4. The weekly rhythm, and who talks to who
 
 *Read this out. It is the thing that makes the term run itself.*
 
@@ -238,6 +238,40 @@ everyone:
 
 > That cycle is already running. This Sunday is the thirteenth, and the first
 > tutorial is a week from tonight. We do not get a warm-up week.
+
+### Who talks to who
+
+*Read this out. Most of what goes wrong in a term this size is not somebody
+failing at their own job. It is two people who each did theirs and never
+spoke.*
+
+**Before Sunday, so nobody is working off a guess:**
+
+| Who | About what |
+|---|---|
+| **Alex → Griffin** | What credits and tools to ask sponsors for, and how much. Griffin's target list is guesswork without it. |
+| **Che → Alex** | Where the session material lives and in what form. It is the only thing the bot can answer from. |
+| **Alex → Aun** | What hosting and API access actually cost, so it is in the budget instead of arriving as a surprise. |
+| **Keme → Zac** | The application link the recruitment assets point at. Needed by Saturday. |
+| **All five → Zac and Farhaan** | Director postings, Sunday. |
+
+**Every week, for the rest of term:**
+
+| Who | About what |
+|---|---|
+| **Che → Keme**, Mondays | Title and description for Thursday. This is the handoff that can never miss. |
+| **Griffin → Aun** | What is committed against what has actually landed. Tool sponsorships counted at what they would have cost us. |
+| **Aun → all five** | What each area can spend, once the budget is out and whenever it changes. |
+
+**Per event:**
+
+| Who | About what |
+|---|---|
+| **Griffin → Zac** | Who is coming in from outside, so the room and the arrangements match the guest. |
+| **Che and Zac → Keme** | Five days out, whatever Keme needs to post it. |
+
+> If you are blocked and the person you need is in this table, go to them
+> directly. Do not route it through me and do not wait for Tuesday.
 
 ---
 
@@ -461,7 +495,7 @@ promise the same people two different things.
   move on. If it is not, the hiring assets are the ones that can slip a day,
   not the tutorial posts.
 - **Settle Slack or Discord before Alex leaves.** It is a five minute decision
-  that blocks a week of his work if it drifts.
+  that blocks a week of Alex's work if it drifts.
 - **Aun's second half needs your tone, not mine.** I wrote it as wanting them
   in more rather than as a complaint about doing less. Say it that way or it
   lands wrong in a room of seven people.
