@@ -41,6 +41,16 @@ set data = data || jsonb_build_object(
   "featured": [
     {
       "tags": [
+        "AI",
+        "Tools"
+      ],
+      "title": "Brain",
+      "desc": "Stops my AI re-learning my life every session. Markdown memory, a cover story of my week, and habits Claude proposes for itself.",
+      "meta": "Python · JavaScript",
+      "repo": "https://github.com/zacfink/brain"
+    },
+    {
+      "tags": [
         "Web",
         "Club"
       ],
@@ -68,14 +78,6 @@ set data = data || jsonb_build_object(
       "desc": "Turns the day''s news into a generated audio podcast — automated sourcing, scripting, and text-to-speech.",
       "meta": "Python",
       "repo": "https://github.com/zacfink/news-podcast"
-    },
-    {
-      "tags": [
-        "AI",
-        "Video"
-      ],
-      "title": "Video Auto Maker",
-      "desc": "Turns a written script into a finished presentation video: a voice model reads it, and the tool cuts the visuals to the narration."
     }
   ]
 }'::jsonb,
