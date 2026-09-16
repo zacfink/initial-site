@@ -19,7 +19,9 @@ stays on screen. See [Editing content without a deploy](#editing-content-without
 ├── supabase/
 │   ├── schema.sql    # table + read-only policy (run once)
 │   ├── seed.sql      # loads the shipped content into the row
-│   └── seed.json     # the same content as plain JSON
+│   ├── seed.json     # the same content as plain JSON
+│   ├── publish-log.sql  # updates only the log (right-hand rail) on the live row
+│   └── build-seed.mjs   # regenerates the three files above from index.html
 ├── .nojekyll         # serve files as-is on GitHub Pages
 └── .gitignore
 ```
@@ -62,6 +64,8 @@ reload the site.
 - If the row fails to render, the page restores the shipped copy and logs a
   warning, so a bad edit can't take the site down.
 - Re-run `seed.sql` at any time to reset the row to what's in `index.html`.
+- After editing the `SITE` object, run `node supabase/build-seed.mjs` so the SQL files match the page.
+  To add to the log without touching anything else, run `publish-log.sql`.
 - To remove the feature entirely, delete the `CONTENT` object and
   `loadPublishedContent` from `index.html`.
 

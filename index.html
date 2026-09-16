@@ -245,6 +245,9 @@
         .nav a + a {
           border-top: 1px solid var(--hairline);
         }
+        .nav .nav-log {
+          display: none;
+        }
       }
 
       /* ---------- hero (the HUD moment) ---------- */
@@ -715,8 +718,7 @@
          and withdraw when you return to the top.
          visibility, not just opacity: an invisible rail must not collect
          keyboard focus. */
-      .rail,
-      .log {
+      .rail {
         opacity: 0;
         visibility: hidden;
         transition:
@@ -727,19 +729,14 @@
       .rail {
         translate: -12px 0;
       }
-      .log {
-        translate: 12px 0;
-      }
-      body.reading .rail,
-      body.reading .log {
+      body.reading .rail {
         opacity: 1;
         visibility: visible;
         translate: 0 0;
         transition-delay: 0s;
       }
       @media (prefers-reduced-motion: reduce) {
-        .rail,
-        .log {
+        .rail {
           translate: none;
         }
       }
@@ -847,127 +844,170 @@
       }
 
 
-      /* ---------- the log: entries on the right ----------
-         Mirrors the section rail on the left. Fixed on wide screens; below
-         1180px it collapses to a tab against the edge that slides the list
-         out, because a permanent side rail cannot exist at phone widths. */
+      /* ---------- the log: a drawer from the right ----------
+         Opened from "Log" in the top bar at every width. It sits above the
+         bar and below the entry panel, and slides fully off-screen (and out
+         of the tab order) when closed. */
       .log {
         position: fixed;
+        top: 0;
         right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 35;
-        display: flex;
-        align-items: center;
+        bottom: 0;
+        z-index: 55;
+        pointer-events: none;
       }
       .log-inner {
-        padding-right: clamp(1rem, 2.4vw, 2.4rem);
-        text-align: right;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(22rem, 86vw);
+        pointer-events: auto;
+        background: var(--paper);
+        border-left: 1px solid var(--hairline);
+        box-shadow: -18px 0 40px rgba(0, 0, 0, 0.06);
+        padding: 0 1.5rem 2rem;
+        overflow-y: auto;
+        transform: translateX(100%);
+        visibility: hidden;
+        transition:
+          transform 0.45s cubic-bezier(0.19, 1, 0.22, 1),
+          visibility 0s linear 0.45s;
+      }
+      .log.open .log-inner {
+        transform: none;
+        visibility: visible;
+        transition-delay: 0s;
+      }
+      .log-head {
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        margin-bottom: 0.75rem;
+        background: var(--paper);
+        border-bottom: 1px solid var(--hairline);
       }
       .log-label {
-        display: block;
         font-family: var(--mono);
-        font-size: 0.6rem;
+        font-size: 0.72rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
+        color: var(--ink);
+      }
+      .log-close {
+        appearance: none;
+        background: none;
+        border: 0;
+        padding: 0.6rem 0;
+        cursor: pointer;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
         color: var(--ink-muted);
-        margin-bottom: 0.9rem;
+      }
+      .log-close:hover {
+        color: var(--signal);
       }
       .log-items {
         list-style: none;
         margin: 0;
         padding: 0;
         display: grid;
-        gap: 0.55rem;
+        gap: 0.9rem;
       }
-      .log-items button {
-        appearance: none;
-        background: none;
-        border: 0;
-        padding: 0.15rem 0;
-        cursor: pointer;
-        color: var(--ink-muted);
-        font: inherit;
-        text-align: right;
-        display: block;
-        width: 100%;
-        transition: color 0.3s ease;
-      }
-      .log-when {
-        display: block;
-        font-family: var(--mono);
-        font-size: 0.66rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .log-title {
-        display: block;
-        font-family: var(--display);
-        font-weight: 500;
-        font-size: 0.82rem;
-        letter-spacing: -0.01em;
-        max-width: 13rem;
-        margin-top: 0.15rem;
-        opacity: 0;
-        transform: translateY(4px);
-        transition:
-          opacity 0.45s cubic-bezier(0.19, 1, 0.22, 1),
-          transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
-      }
-      .log-items button:hover {
-        color: var(--signal);
-      }
-      .log-items button:hover .log-title,
-      .log-items button:focus-visible .log-title {
-        opacity: 1;
-        transform: none;
-      }
-
-      /* the tab, for widths with no room for a rail */
-      .log-tab {
-        display: none;
-        appearance: none;
-        border: 1px solid var(--hairline);
-        border-right: 0;
-        border-radius: 4px 0 0 4px;
-        background: var(--paper);
-        color: var(--ink);
-        cursor: pointer;
-        padding: 0.9rem 0.5rem;
-        writing-mode: vertical-rl;
+      /* a month heading, then everything shipped that month */
+      .log-month {
         font-family: var(--mono);
         font-size: 0.62rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
+        color: var(--ink);
+        padding-top: 0.5rem;
+      }
+      .log-month:not(:first-child) {
+        margin-top: 0.9rem;
+        border-top: 1px solid var(--hairline);
+        padding-top: 1.2rem;
+      }
+      .log-entry {
+        appearance: none;
+        background: none;
+        border: 0;
+        padding: 0;
+        color: var(--ink);
+        font: inherit;
+        text-align: left;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        transition: color 0.3s ease;
+      }
+      a.log-entry,
+      button.log-entry {
+        cursor: pointer;
+      }
+      .log-when {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+      }
+      .log-title {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 1rem;
+        letter-spacing: -0.01em;
+      }
+      .log-desc {
+        display: block;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin-top: 0.2rem;
+        color: var(--ink-muted);
+      }
+      .log-out {
+        margin-left: 0.35rem;
+        font-size: 0.8rem;
+      }
+      a.log-entry:hover .log-title,
+      button.log-entry:hover .log-title,
+      a.log-entry:focus-visible .log-title,
+      button.log-entry:focus-visible .log-title {
+        color: var(--signal);
       }
 
-      /* The expanded form needs a genuinely empty right margin. Narrower
-         than this the text column reaches the rail, so the compact edge tab
-         takes over rather than sitting on top of the words. */
-      @media (max-width: 1400px) {
-        .log-tab {
-          display: block;
-        }
-        .log-inner {
-          position: fixed;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: min(20rem, 82vw);
-          background: var(--paper);
-          border-left: 1px solid var(--hairline);
-          padding: 5rem 1.4rem 2rem;
-          overflow-y: auto;
-          transform: translateX(100%);
-          transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        .log.open .log-inner {
-          transform: none;
-        }
-        .log-title {
-          opacity: 1;
-          transform: none;
-        }
+      /* "Log" in the top bar: the signal colour and a dot, so it reads as
+         something new rather than another section jump */
+      .nav-log {
+        appearance: none;
+        background: none;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--signal);
+      }
+      .nav-log[hidden] {
+        display: none;
+      }
+      .nav-log-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--signal);
+        box-shadow: 0 0 0 3px var(--signal-dim);
       }
 
       /* ---------- the panel ----------
@@ -1197,6 +1237,7 @@
         <a class="brand" id="brand" href="#top"></a>
         <nav class="nav" id="nav" aria-label="Sections"></nav>
         <div class="nav-phone">
+          <button class="nav-log" type="button" data-open-log aria-controls="log" aria-expanded="false" hidden><span class="nav-log-dot" aria-hidden="true"></span><span class="nav-log-label">Log</span></button>
           <a class="nav-contact" id="nav-contact" href="#contact">Contact</a>
           <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
         </div>
@@ -1290,18 +1331,12 @@
 
     <nav class="rail" id="rail" aria-label="Page position"></nav>
 
-    <aside class="log" id="log" hidden>
-      <button
-        class="log-tab"
-        id="log-tab"
-        type="button"
-        aria-expanded="false"
-        aria-controls="log-items"
-      >
-        <span class="log-tab-label" id="log-tab-label"></span>
-      </button>
+    <aside class="log" id="log" aria-labelledby="log-label" hidden>
       <div class="log-inner">
-        <span class="log-label" id="log-label"></span>
+        <div class="log-head">
+          <h2 class="log-label" id="log-label"></h2>
+          <button class="log-close" id="log-close" type="button">Close</button>
+        </div>
         <ul class="log-items" id="log-items"></ul>
       </div>
     </aside>
@@ -1417,21 +1452,24 @@
 
           monthly: {
             // the label above the right-hand rail
-            label: "Monthly",
+            label: "Log",
+            // Everything shipped, grouped by month. kind: Project, Research,
+            // Paper or Did. An entry with href links out; one with a body
+            // opens in the panel instead.
             items: [
               {
                 month: "2026-09",
-                kind: "Report",
-                title: "A summer at an RBC DS desk.",
-                desc: "Four people, almost two decades of records, and the discovery that the real cost was never the searching. It was who got interrupted.",
-                body: [
-                  "It is one advisor and three associates, a desk inside a branch big enough to get lost in. Behind the four of them sat close to two decades of records, piled up faster than anyone had time to organise them, because organising them was never actually anybody's job.",
-                  "The cost of that was not really the searching. When something could not be found, the question went to the advisor. Every one of those interruptions landed on the person the desk exists to keep free, and they happened often enough to be part of the rhythm of the day. Nobody had ever counted them. They just happened.",
-                  "I spent four months on it, remote at first and then in the office from July. Most of that went into getting the records into a state where the people who needed them could actually search them. The rest went into agents for the work that kept coming back around: drafting email, editing documents both client-facing and internal, and taking the first pass at company and financial research.",
-                  "What changed is quiet. The associates answer their own questions now, so the advisor gets asked fewer of them. That is the whole result. No launch, no dashboard, just fewer interruptions landing on the person who could least afford them.",
-                  "The part worth writing down is what I got wrong. There was a tool sitting right there that I wrote off in the first ten minutes, because it was new and I did not enjoy using it, so I built around it with my own setup instead. Months later I found out it could have made those agents itself, from the start.",
-                  "So the lesson is not about AI. I skipped something because it was boring, and the thing I needed was behind it. Reading past the dull part is the habit that would have caught it, and it is the one I am taking out of the summer.",
-                ],
+                kind: "Project",
+                title: "Brain",
+                desc: "A plain-markdown second brain for working with Claude Code, with a small local app to browse and act on it.",
+                href: "https://github.com/zacfink/brain",
+              },
+              {
+                month: "2026-09",
+                kind: "Project",
+                title: "qweb.dev",
+                desc: "Rebuilt and launched the Queen's Web Development Club site with the club's dev team.",
+                href: "https://www.qweb.dev",
               },
             ],
           },
@@ -1649,6 +1687,11 @@
           if (!m) return String(key);
           return `${MONTH_NAMES[Number(m[2]) - 1].slice(0, 3)} ${m[1]}`;
         };
+        const monthLabel = (key) => {
+          const m = String(key).match(/^(\d{4})-(\d{2})$/);
+          if (!m) return String(key);
+          return `${MONTH_NAMES[Number(m[2]) - 1]} ${m[1]}`;
+        };
 
         function render() {
           const items = monthlyItems();
@@ -1672,7 +1715,8 @@
           $("#brand").innerHTML = `${esc(SITE.brand)}<span class="dot">.</span>`;
           $("#nav").innerHTML = SITE.nav
             .map((n) => `<a href="${esc(safeUrl(n.href))}">${esc(n.label)}</a>`)
-            .join("");
+            .join("") +
+            `<button class="nav-log" type="button" data-open-log aria-controls="log" aria-expanded="false" hidden><span class="nav-log-dot" aria-hidden="true"></span><span class="nav-log-label">Log</span></button>`;
           // the phone shortcut follows whichever nav item points at #contact
           const contactLink = SITE.nav.find((n) => n.href === "#contact");
           $("#nav-contact").hidden = !contactLink;
@@ -1765,36 +1809,59 @@
         /* The accordion and the rail are wired once, on containers that
            render() refills but never replaces. */
         /* ---------- the log and its panel ----------
-           Entries live on the right rail and open over the page. There is no
-           section for them, so the rail is the only way in and it removes
-           itself when there is nothing to show. */
+           Entries live in a drawer opened from "Log" in the top bar, and long
+           ones open in the panel over it. There is no section for them, so
+           the bar button is the only way in and it hides itself when there
+           is nothing to show. */
         let peekReturn = null;
         let peekHideTimer = null;
 
         function renderLog(items) {
           const log = $("#log");
           log.hidden = items.length === 0;
+          document.querySelectorAll("[data-open-log]").forEach((b) => {
+            b.hidden = items.length === 0;
+          });
           if (!items.length) return;
 
-          const label = (SITE.monthly && SITE.monthly.label) || "";
+          const label = (SITE.monthly && SITE.monthly.label) || "Log";
           $("#log-label").textContent = label;
-          $("#log-tab-label").textContent = label;
+          document
+            .querySelectorAll(".nav-log-label")
+            .forEach((el) => (el.textContent = label));
 
-          const ordered = [...items].sort((a, b) =>
-            String(b.month).localeCompare(String(a.month)),
-          );
-
-          $("#log-items").innerHTML = ordered
-            .map(
-              (m, i) => `
-      <li>
-        <button type="button" data-i="${i}">
-          <span class="log-when">${esc(whenLabel(m.month))}</span>
-          <span class="log-title">${esc(m.title)}</span>
-        </button>
-      </li>`,
+          // newest month first; within a month, the order they were written in
+          const ordered = items
+            .map((m, i) => [m, i])
+            .sort(
+              ([a, ai], [b, bi]) =>
+                String(b.month).localeCompare(String(a.month)) || ai - bi,
             )
-            .join("");
+            .map(([m]) => m);
+
+          const entry = (m, i) => {
+            const inner = `
+          <span class="log-when">${esc(m.kind || "")}</span>
+          <span class="log-title">${esc(m.title)}</span>${m.href ? `<span class="log-out" aria-hidden="true">↗</span>` : ""}${m.desc ? `
+          <span class="log-desc">${esc(m.desc)}</span>` : ""}`;
+            const href = m.href ? safeUrl(m.href) : "#";
+            if (href !== "#")
+              return `<a class="log-entry" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${inner}</a>`;
+            if (Array.isArray(m.body) && m.body.length)
+              return `<button class="log-entry" type="button" data-i="${i}">${inner}</button>`;
+            return `<span class="log-entry">${inner}</span>`;
+          };
+
+          let html = "";
+          let month = null;
+          ordered.forEach((m, i) => {
+            if (m.month !== month) {
+              month = m.month;
+              html += `<li class="log-month">${esc(monthLabel(m.month))}</li>`;
+            }
+            html += `<li>${entry(m, i)}</li>`;
+          });
+          $("#log-items").innerHTML = html;
 
           $("#log-items").dataset.json = JSON.stringify(ordered);
         }
@@ -1879,10 +1946,29 @@
           }
         });
 
-        $("#log-tab").addEventListener("click", () => {
-          const log = $("#log");
-          const open = log.classList.toggle("open");
-          $("#log-tab").setAttribute("aria-expanded", String(open));
+        let logReturn = null;
+        const logOpen = () => $("#log").classList.contains("open");
+        function setLog(open, trigger) {
+          $("#log").classList.toggle("open", open);
+          document
+            .querySelectorAll("[data-open-log]")
+            .forEach((b) => b.setAttribute("aria-expanded", String(open)));
+          if (open) {
+            setMenu(false);
+            logReturn = trigger || null;
+            $("#log-close").focus({ preventScroll: true });
+          } else if (logReturn && document.contains(logReturn)) {
+            logReturn.focus({ preventScroll: true });
+            logReturn = null;
+          }
+        }
+        $("#log-close").addEventListener("click", () => setLog(false));
+        // the bar buttons are re-rendered with the nav, so listen on the page;
+        // a click anywhere outside the drawer (and not in the entry panel) closes it
+        document.addEventListener("click", (e) => {
+          const trigger = e.target.closest("[data-open-log]");
+          if (trigger) return setLog(!logOpen(), trigger);
+          if (logOpen() && !e.target.closest(".log-inner, .peek")) setLog(false);
         });
 
         $("#peek-close").addEventListener("click", closePeek);
@@ -1891,11 +1977,7 @@
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") {
             if (!$("#peek").hidden) closePeek();
-            else if ($("#log").classList.contains("open")) {
-              $("#log").classList.remove("open");
-              $("#log-tab").setAttribute("aria-expanded", "false");
-              $("#log-tab").focus();
-            }
+            else if (logOpen()) setLog(false);
             return;
           }
           if (e.key !== "Tab" || $("#peek").hidden) return;
