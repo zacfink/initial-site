@@ -123,21 +123,21 @@
     ]
   },
   "monthly": {
-    "label": "Monthly",
+    "label": "Log",
     "items": [
       {
         "month": "2026-09",
-        "kind": "Report",
-        "title": "A summer at an RBC DS desk.",
-        "desc": "Four people, almost two decades of records, and the discovery that the real cost was never the searching. It was who got interrupted.",
-        "body": [
-          "It is one advisor and three associates, a desk inside a branch big enough to get lost in. Behind the four of them sat close to two decades of records, piled up faster than anyone had time to organise them, because organising them was never actually anybody's job.",
-          "The cost of that was not really the searching. When something could not be found, the question went to the advisor. Every one of those interruptions landed on the person the desk exists to keep free, and they happened often enough to be part of the rhythm of the day. Nobody had ever counted them. They just happened.",
-          "I spent four months on it, remote at first and then in the office from July. Most of that went into getting the records into a state where the people who needed them could actually search them. The rest went into agents for the work that kept coming back around: drafting email, editing documents both client-facing and internal, and taking the first pass at company and financial research.",
-          "What changed is quiet. The associates answer their own questions now, so the advisor gets asked fewer of them. That is the whole result. No launch, no dashboard, just fewer interruptions landing on the person who could least afford them.",
-          "The part worth writing down is what I got wrong. There was a tool sitting right there that I wrote off in the first ten minutes, because it was new and I did not enjoy using it, so I built around it with my own setup instead. Months later I found out it could have made those agents itself, from the start.",
-          "So the lesson is not about AI. I skipped something because it was boring, and the thing I needed was behind it. Reading past the dull part is the habit that would have caught it, and it is the one I am taking out of the summer."
-        ]
+        "kind": "Project",
+        "title": "Brain",
+        "desc": "A plain-markdown second brain for working with Claude Code, with a small local app to browse and act on it.",
+        "href": "https://github.com/zacfink/brain"
+      },
+      {
+        "month": "2026-09",
+        "kind": "Project",
+        "title": "qweb.dev",
+        "desc": "Rebuilt and launched the Queen's Web Development Club site with the club's dev team.",
+        "href": "https://www.qweb.dev"
       }
     ]
   },

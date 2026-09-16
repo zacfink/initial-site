@@ -880,47 +880,66 @@
         display: grid;
         gap: 0.55rem;
       }
-      .log-items button {
+      /* a month heading, then everything shipped that month */
+      .log-month {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink);
+        padding-top: 0.35rem;
+      }
+      .log-month:not(:first-child) {
+        margin-top: 0.6rem;
+      }
+      .log-entry {
         appearance: none;
         background: none;
         border: 0;
         padding: 0.15rem 0;
-        cursor: pointer;
         color: var(--ink-muted);
         font: inherit;
         text-align: right;
+        text-decoration: none;
         display: block;
         width: 100%;
         transition: color 0.3s ease;
       }
+      a.log-entry,
+      button.log-entry {
+        cursor: pointer;
+      }
       .log-when {
         display: block;
         font-family: var(--mono);
-        font-size: 0.66rem;
+        font-size: 0.58rem;
         letter-spacing: 0.14em;
         text-transform: uppercase;
       }
       .log-title {
-        display: block;
+        display: inline;
         font-family: var(--display);
         font-weight: 500;
         font-size: 0.82rem;
         letter-spacing: -0.01em;
         max-width: 13rem;
-        margin-top: 0.15rem;
-        opacity: 0;
-        transform: translateY(4px);
-        transition:
-          opacity 0.45s cubic-bezier(0.19, 1, 0.22, 1),
-          transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
       }
-      .log-items button:hover {
+      /* the one-line description only has room in the slide-out list */
+      .log-desc {
+        display: none;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        margin-top: 0.2rem;
+      }
+      .log-out {
+        margin-left: 0.3rem;
+        font-size: 0.7rem;
+      }
+      a.log-entry:hover,
+      button.log-entry:hover,
+      a.log-entry:focus-visible,
+      button.log-entry:focus-visible {
         color: var(--signal);
-      }
-      .log-items button:hover .log-title,
-      .log-items button:focus-visible .log-title {
-        opacity: 1;
-        transform: none;
       }
 
       /* the tab, for widths with no room for a rail */
@@ -945,6 +964,21 @@
          than this the text column reaches the rail, so the compact edge tab
          takes over rather than sitting on top of the words. */
       @media (max-width: 1400px) {
+        /* A transform or translate on .log makes it the containing block for
+           its fixed children, which squashed the slide-out list to the height
+           of the tab. Centre the tab with flex along the full edge instead. */
+        .log,
+        body.reading .log {
+          top: 0;
+          bottom: 0;
+          transform: none;
+          translate: none;
+          pointer-events: none;
+        }
+        .log-tab,
+        .log-inner {
+          pointer-events: auto;
+        }
         .log-tab {
           display: block;
         }
@@ -963,6 +997,9 @@
         }
         .log.open .log-inner {
           transform: none;
+        }
+        .log-desc {
+          display: block;
         }
         .log-title {
           opacity: 1;
@@ -1417,21 +1454,24 @@
 
           monthly: {
             // the label above the right-hand rail
-            label: "Monthly",
+            label: "Log",
+            // Everything shipped, grouped by month. kind: Project, Research,
+            // Paper or Did. An entry with href links out; one with a body
+            // opens in the panel instead.
             items: [
               {
                 month: "2026-09",
-                kind: "Report",
-                title: "A summer at an RBC DS desk.",
-                desc: "Four people, almost two decades of records, and the discovery that the real cost was never the searching. It was who got interrupted.",
-                body: [
-                  "It is one advisor and three associates, a desk inside a branch big enough to get lost in. Behind the four of them sat close to two decades of records, piled up faster than anyone had time to organise them, because organising them was never actually anybody's job.",
-                  "The cost of that was not really the searching. When something could not be found, the question went to the advisor. Every one of those interruptions landed on the person the desk exists to keep free, and they happened often enough to be part of the rhythm of the day. Nobody had ever counted them. They just happened.",
-                  "I spent four months on it, remote at first and then in the office from July. Most of that went into getting the records into a state where the people who needed them could actually search them. The rest went into agents for the work that kept coming back around: drafting email, editing documents both client-facing and internal, and taking the first pass at company and financial research.",
-                  "What changed is quiet. The associates answer their own questions now, so the advisor gets asked fewer of them. That is the whole result. No launch, no dashboard, just fewer interruptions landing on the person who could least afford them.",
-                  "The part worth writing down is what I got wrong. There was a tool sitting right there that I wrote off in the first ten minutes, because it was new and I did not enjoy using it, so I built around it with my own setup instead. Months later I found out it could have made those agents itself, from the start.",
-                  "So the lesson is not about AI. I skipped something because it was boring, and the thing I needed was behind it. Reading past the dull part is the habit that would have caught it, and it is the one I am taking out of the summer.",
-                ],
+                kind: "Project",
+                title: "Brain",
+                desc: "A plain-markdown second brain for working with Claude Code, with a small local app to browse and act on it.",
+                href: "https://github.com/zacfink/brain",
+              },
+              {
+                month: "2026-09",
+                kind: "Project",
+                title: "qweb.dev",
+                desc: "Rebuilt and launched the Queen's Web Development Club site with the club's dev team.",
+                href: "https://www.qweb.dev",
               },
             ],
           },
@@ -1649,6 +1689,11 @@
           if (!m) return String(key);
           return `${MONTH_NAMES[Number(m[2]) - 1].slice(0, 3)} ${m[1]}`;
         };
+        const monthLabel = (key) => {
+          const m = String(key).match(/^(\d{4})-(\d{2})$/);
+          if (!m) return String(key);
+          return `${MONTH_NAMES[Number(m[2]) - 1]} ${m[1]}`;
+        };
 
         function render() {
           const items = monthlyItems();
@@ -1780,21 +1825,38 @@
           $("#log-label").textContent = label;
           $("#log-tab-label").textContent = label;
 
-          const ordered = [...items].sort((a, b) =>
-            String(b.month).localeCompare(String(a.month)),
-          );
-
-          $("#log-items").innerHTML = ordered
-            .map(
-              (m, i) => `
-      <li>
-        <button type="button" data-i="${i}">
-          <span class="log-when">${esc(whenLabel(m.month))}</span>
-          <span class="log-title">${esc(m.title)}</span>
-        </button>
-      </li>`,
+          // newest month first; within a month, the order they were written in
+          const ordered = items
+            .map((m, i) => [m, i])
+            .sort(
+              ([a, ai], [b, bi]) =>
+                String(b.month).localeCompare(String(a.month)) || ai - bi,
             )
-            .join("");
+            .map(([m]) => m);
+
+          const entry = (m, i) => {
+            const inner = `
+          <span class="log-when">${esc(m.kind || "")}</span>
+          <span class="log-title">${esc(m.title)}</span>${m.href ? `<span class="log-out" aria-hidden="true">↗</span>` : ""}${m.desc ? `
+          <span class="log-desc">${esc(m.desc)}</span>` : ""}`;
+            const href = m.href ? safeUrl(m.href) : "#";
+            if (href !== "#")
+              return `<a class="log-entry" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${inner}</a>`;
+            if (Array.isArray(m.body) && m.body.length)
+              return `<button class="log-entry" type="button" data-i="${i}">${inner}</button>`;
+            return `<span class="log-entry">${inner}</span>`;
+          };
+
+          let html = "";
+          let month = null;
+          ordered.forEach((m, i) => {
+            if (m.month !== month) {
+              month = m.month;
+              html += `<li class="log-month">${esc(monthLabel(m.month))}</li>`;
+            }
+            html += `<li>${entry(m, i)}</li>`;
+          });
+          $("#log-items").innerHTML = html;
 
           $("#log-items").dataset.json = JSON.stringify(ordered);
         }
