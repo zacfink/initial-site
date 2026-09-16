@@ -193,9 +193,57 @@
       .nav a:hover {
         color: var(--signal);
       }
+      /* phones: six links don't fit the bar, so Contact stays one tap away
+         and the rest fold into a menu that drops under the bar */
+      .nav-phone {
+        display: none;
+        align-items: center;
+        gap: 1.25rem;
+      }
+      .nav-contact,
+      .nav-toggle {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 0.6rem 0;
+      }
+      .nav-contact {
+        color: var(--signal);
+      }
+      .nav-toggle {
+        background: none;
+        border: 0;
+        color: var(--ink);
+        cursor: pointer;
+      }
       @media (max-width: 640px) {
+        .nav-phone {
+          display: flex;
+        }
         .nav {
           display: none;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          gap: 0;
+          padding: 0.25rem var(--pad) 0.75rem;
+          background: var(--paper);
+          border-bottom: 1px solid var(--hairline);
+        }
+        .topbar.menu-open .nav {
+          display: flex;
+        }
+        .nav a {
+          padding: 0.95rem 0;
+          font-size: 0.8rem;
+          color: var(--ink);
+        }
+        .nav a + a {
+          border-top: 1px solid var(--hairline);
         }
       }
 
@@ -1147,7 +1195,11 @@
     <header class="topbar">
       <div class="wrap">
         <a class="brand" id="brand" href="#top"></a>
-        <nav class="nav" id="nav"></nav>
+        <nav class="nav" id="nav" aria-label="Sections"></nav>
+        <div class="nav-phone">
+          <a class="nav-contact" id="nav-contact" href="#contact">Contact</a>
+          <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+        </div>
       </div>
     </header>
 
@@ -1621,6 +1673,10 @@
           $("#nav").innerHTML = SITE.nav
             .map((n) => `<a href="${esc(safeUrl(n.href))}">${esc(n.label)}</a>`)
             .join("");
+          // the phone shortcut follows whichever nav item points at #contact
+          const contactLink = SITE.nav.find((n) => n.href === "#contact");
+          $("#nav-contact").hidden = !contactLink;
+          if (contactLink) $("#nav-contact").textContent = contactLink.label;
 
           // hero
           $("#hero-headline").innerHTML =
@@ -1798,6 +1854,29 @@
           }
           const entry = list[Number(b.dataset.i)];
           if (entry) openPeek(entry, b);
+        });
+
+        function setMenu(open) {
+          document.querySelector(".topbar").classList.toggle("menu-open", open);
+          $("#nav-toggle").setAttribute("aria-expanded", String(open));
+          $("#nav-toggle").textContent = open ? "Close" : "Menu";
+        }
+        $("#nav-toggle").addEventListener("click", () =>
+          setMenu($("#nav-toggle").getAttribute("aria-expanded") !== "true"),
+        );
+        // a jump, a tap outside the bar, or Escape closes the menu
+        $("#nav").addEventListener("click", (e) => {
+          if (e.target.closest("a")) setMenu(false);
+        });
+        $("#nav-contact").addEventListener("click", () => setMenu(false));
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest(".topbar")) setMenu(false);
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && $("#nav-toggle").getAttribute("aria-expanded") === "true") {
+            setMenu(false);
+            $("#nav-toggle").focus();
+          }
         });
 
         $("#log-tab").addEventListener("click", () => {
