@@ -112,19 +112,26 @@
       },
       {
         "tags": [
-          "AI",
-          "Audio"
+          "Tools",
+          "Data"
         ],
-        "title": "News Podcast",
-        "desc": "Turns the day's news into a generated audio podcast — automated sourcing, scripting, and text-to-speech.",
-        "meta": "Python",
-        "repo": "https://github.com/zacfink/news-podcast"
+        "title": "SupaBaseFolder",
+        "desc": "Turns my Supabase backends into spreadsheet and JSON files on my Mac. Save a file and the site updates, so an AI agent can run a backend just by editing files.",
+        "meta": "Electron · JavaScript",
+        "repo": "https://github.com/zacfink/SupaBaseFolder"
       }
     ]
   },
   "monthly": {
     "label": "Log",
     "items": [
+      {
+        "month": "2026-09",
+        "kind": "Project",
+        "title": "SupaBaseFolder",
+        "desc": "A menu bar app that keeps Supabase tables live as spreadsheet and JSON files on my Mac, so I (or an AI agent) can edit a backend by saving a file.",
+        "href": "https://github.com/zacfink/SupaBaseFolder"
+      },
       {
         "month": "2026-09",
         "kind": "Project",
