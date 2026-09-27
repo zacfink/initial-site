@@ -1228,6 +1228,68 @@
         outline: 2px solid var(--signal);
         outline-offset: 3px;
       }
+
+      /* ---------- phones: tighter rhythm. Desktop spacing reads as dead air on a small screen ---------- */
+      @media (max-width: 640px) {
+        .hero {
+          padding-top: 3rem;
+          padding-bottom: 3rem;
+        }
+        .hud-frame {
+          inset: 1rem calc(var(--pad) - 0.5rem);
+        }
+        .hero .lede {
+          margin-bottom: 1.8rem;
+        }
+        /* the main action full width, the two secondary ones sharing a row */
+        .hero-cta {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.6rem;
+        }
+        .hero-cta .btn {
+          justify-content: center;
+          padding: 0.8rem 0.5rem;
+          font-size: 0.7rem;
+          letter-spacing: 0.08em;
+        }
+        .hero-cta .btn.primary {
+          grid-column: 1 / -1;
+        }
+        .hero-facts {
+          margin-top: 2rem;
+        }
+        .facts {
+          gap: 0.9rem;
+        }
+        .fact {
+          padding-top: 0.7rem;
+        }
+        .section {
+          padding-top: 2.75rem;
+          padding-bottom: 2.75rem;
+        }
+        .section-head {
+          margin-bottom: 1.6rem;
+        }
+        .featured {
+          gap: 1.8rem;
+        }
+        .proj .foot {
+          margin-top: 0.3rem;
+          padding-top: 0.75rem;
+        }
+        .chips {
+          gap: 1.2rem;
+        }
+        .chip-row {
+          gap: 0.4rem;
+        }
+        .chip {
+          padding: 0.35rem 0.6rem;
+          font-size: 0.7rem;
+        }
+      }
     </style>
   </head>
   <body>
