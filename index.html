@@ -829,7 +829,9 @@
         color: var(--ink);
       }
 
-      @media (max-width: 1180px) {
+      /* the rail sits in the left margin; below ~1320px that margin is narrower than the rail
+         (~160px wide at its widest), so it would cover the text. Measured 2026-09-27. */
+      @media (max-width: 1319px) {
         .rail {
           display: none;
         }
