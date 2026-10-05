@@ -1214,6 +1214,79 @@
         font-size: 0.66rem;
       }
 
+      /* ---------- about as a text thread (phones + iPads) ---------- */
+      .thread {
+        display: none;
+      }
+      @media (max-width: 1024px) {
+        #about-body {
+          display: none;
+        }
+        .thread {
+          display: flex;
+          flex-direction: column;
+          max-width: 34rem;
+        }
+      }
+      .thread .when {
+        font: 400 0.68rem var(--mono);
+        color: var(--ink-muted);
+        text-align: center;
+        margin: 0 0 0.8rem;
+      }
+      .bub {
+        max-width: 82%;
+        width: fit-content;
+        padding: 0.55rem 0.9rem;
+        border-radius: 1.2rem;
+        font-size: 1rem;
+        line-height: 1.38;
+        margin: 0 0 0.3rem;
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+        transition:
+          opacity 0.35s ease,
+          transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .bub.in {
+        opacity: 1;
+        transform: none;
+      }
+      .bub.them {
+        background: var(--paper-2);
+        color: var(--ink);
+        transform-origin: left bottom;
+      }
+      .bub.me {
+        background: var(--signal);
+        color: #fff;
+        margin-left: auto;
+        transform-origin: right bottom;
+      }
+      .bub.them + .bub.me,
+      .bub.me + .bub.them {
+        margin-top: 0.6rem;
+      }
+      .bub.them.tail {
+        border-bottom-left-radius: 0.35rem;
+      }
+      .bub.me.tail {
+        border-bottom-right-radius: 0.35rem;
+      }
+      .thread .read {
+        font: 400 0.68rem var(--mono);
+        color: var(--ink-muted);
+        text-align: right;
+        margin: 0.1rem 0.15rem 0;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .bub {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+
       /* ---------- scroll reveal ---------- */
       .reveal {
         opacity: 0;
@@ -1428,6 +1501,22 @@
           </div>
           <div class="about-grid reveal">
             <div id="about-body"></div>
+            <div class="thread" aria-hidden="true">
+              <div class="when">Today 9:41</div>
+              <div class="bub them tail">wait, what do you actually do?</div>
+              <div class="bub me">I study CS + cog sci at Queen's</div>
+              <div class="bub me tail">basically trying to figure out how thinking works</div>
+              <div class="bub them tail">like… in people?</div>
+              <div class="bub me">people and machines</div>
+              <div class="bub me tail">right now I'm raising a neural net in a simulated house 🏠</div>
+              <div class="bub them">why</div>
+              <div class="bub them tail">😭</div>
+              <div class="bub me tail">to see if a good childhood makes it any more conscious</div>
+              <div class="bub them tail">ok and when you're not doing that?</div>
+              <div class="bub me">building AI at RBC + running Queen's Web Dev</div>
+              <div class="bub me tail">and if I do anything twice I automate it</div>
+              <div class="read">Read</div>
+            </div>
           </div>
         </div>
       </section>
@@ -2285,9 +2374,22 @@
             { threshold: 0.12 },
           );
           document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+          // thread bubbles pop in one at a time as each scrolls into view
+          const bio = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.classList.add("in");
+                  bio.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 1, rootMargin: "0px 0px -12% 0px" },
+          );
+          document.querySelectorAll(".bub").forEach((el) => bio.observe(el));
         } else {
           document
-            .querySelectorAll(".reveal")
+            .querySelectorAll(".reveal, .bub")
             .forEach((el) => el.classList.add("in"));
         }
       })();
