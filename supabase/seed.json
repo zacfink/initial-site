@@ -29,7 +29,7 @@
   "hero": {
     "headlineLead": "I build things that ",
     "headlineAccent": "don't exist yet.",
-    "lede": "I'm Zac. I study CS and cognitive science at Queen's, and I build things to find out how minds work. Right now I'm raising a neural network in a simulated house to see if a good childhood makes it any more conscious. The rest of the time I'm building AI at RBC and running Queen's Web Dev.",
+    "lede": "I'm Zac. I study CS and cognitive science at Queen's, and I build things to find out how minds work. Right now I'm raising a neural network in a simulated house to see if a good childhood makes it any more conscious. The rest of the time I'm on a wealth team at RBC Dominion Securities, helping them use AI, and running Queen's Web Dev.",
     "ctas": [
       {
         "label": "See the work",
@@ -54,7 +54,7 @@
     "heading": "Hey, glad you're here.",
     "paragraphs": [
       "I study computer science at Queen's, specializing in cognitive science, which is a fancy way of saying I want to know how thinking works, in people and in machines. Most of what I build comes out of that question, or out of being annoyed at doing the same thing twice.",
-      "At RBC Dominion Securities I work with an advisor's team, finding the tedious parts of their day and handing them to AI. The agent I built there handles their emails, documents and research, and the whole team uses it every day.",
+      "At RBC Dominion Securities I work with an advisor's team, finding the tedious parts of their day and handing them to AI. The AI assistant I set up for them handles their emails, documents and research, and the whole team uses it every day.",
       "I also co-chair Queen's Web Dev. We teach people to build for the web, and this year I'm mostly building the club itself: the team, the tutorials, the new site. If you've never written a line of HTML, you're exactly who we're for."
     ],
     "facts": [
@@ -153,7 +153,7 @@
     "heading": "What I'm up to right now.",
     "roles": [
       {
-        "role": "AI Consultant",
+        "role": "Student Intern",
         "org": "RBC Dominion Securities",
         "desc": "Handing the boring parts of an advisor's day to AI. Full-time in the summer, part-time during school."
       },
