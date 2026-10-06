@@ -1501,7 +1501,7 @@
           </div>
           <div class="about-grid reveal">
             <div id="about-body"></div>
-            <div class="thread" aria-hidden="true">
+            <div class="thread" id="thread" aria-hidden="true">
               <div class="when">Today 9:41</div>
               <div class="bub them tail">wait, what do you actually do?</div>
               <div class="bub me">I study CS + cog sci at Queen's</div>
@@ -1662,6 +1662,24 @@
               { label: "Working", value: "Student Intern @ RBC Dominion Securities" },
               { label: "Leading", value: "Co-chair, Queen's Web Dev" },
             ],
+            // the text thread next to About on phones and iPads; a bubble gets its tail when the next one is the other person's
+            thread: {
+              when: "Today 9:41",
+              messages: [
+                { from: "them", text: "wait, what do you actually do?" },
+                { from: "me", text: "I study CS + cog sci at Queen's" },
+                { from: "me", text: "basically trying to figure out how thinking works" },
+                { from: "them", text: "like… in people?" },
+                { from: "me", text: "people and machines" },
+                { from: "me", text: "right now I'm raising a neural net in a simulated house 🏠" },
+                { from: "them", text: "why" },
+                { from: "them", text: "😭" },
+                { from: "me", text: "to see if a good childhood makes it any more conscious" },
+                { from: "them", text: "ok and when you're not doing that?" },
+                { from: "me", text: "helping a team at RBC use AI + running Queen's Web Dev" },
+                { from: "me", text: "and if I do anything twice I automate it" },
+              ],
+            },
           },
 
           work: {
@@ -1988,6 +2006,26 @@
           $("#about-body").innerHTML = SITE.about.paragraphs
             .map((p) => `<p>${esc(p)}</p>`)
             .join("");
+          const thread = SITE.about.thread;
+          if (thread && Array.isArray(thread.messages)) {
+            const html =
+              `<div class="when">${esc(thread.when ?? "")}</div>` +
+              thread.messages
+                .map((m, i, all) => {
+                  const who = m.from === "me" ? "me" : "them";
+                  const tail = all[i + 1]?.from !== m.from ? " tail" : "";
+                  return `<div class="bub ${who}${tail}">${esc(m.text)}</div>`;
+                })
+                .join("") +
+              `<div class="read">Read</div>`;
+            const box = $("#thread");
+            if (box.dataset.src !== html) {
+              // only redraw when the text changed, so bubbles already on screen don't pop in twice
+              box.innerHTML = html;
+              box.dataset.src = html;
+              window.watchBubbles?.();
+            }
+          }
           $("#hero-facts").innerHTML = SITE.about.facts
             .map(
               (f) =>
@@ -2386,11 +2424,15 @@
             },
             { threshold: 1, rootMargin: "0px 0px -12% 0px" },
           );
-          document.querySelectorAll(".bub").forEach((el) => bio.observe(el));
+          // also called when the published thread replaces the bubbles
+          window.watchBubbles = () =>
+            document.querySelectorAll(".bub:not(.in)").forEach((el) => bio.observe(el));
+          window.watchBubbles();
         } else {
-          document
-            .querySelectorAll(".reveal, .bub")
-            .forEach((el) => el.classList.add("in"));
+          document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
+          window.watchBubbles = () =>
+            document.querySelectorAll(".bub").forEach((el) => el.classList.add("in"));
+          window.watchBubbles();
         }
       })();
     </script>

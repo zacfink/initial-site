@@ -80,7 +80,60 @@ values (
         "label": "Leading",
         "value": "Co-chair, Queen''s Web Dev"
       }
-    ]
+    ],
+    "thread": {
+      "when": "Today 9:41",
+      "messages": [
+        {
+          "from": "them",
+          "text": "wait, what do you actually do?"
+        },
+        {
+          "from": "me",
+          "text": "I study CS + cog sci at Queen''s"
+        },
+        {
+          "from": "me",
+          "text": "basically trying to figure out how thinking works"
+        },
+        {
+          "from": "them",
+          "text": "like… in people?"
+        },
+        {
+          "from": "me",
+          "text": "people and machines"
+        },
+        {
+          "from": "me",
+          "text": "right now I''m raising a neural net in a simulated house 🏠"
+        },
+        {
+          "from": "them",
+          "text": "why"
+        },
+        {
+          "from": "them",
+          "text": "😭"
+        },
+        {
+          "from": "me",
+          "text": "to see if a good childhood makes it any more conscious"
+        },
+        {
+          "from": "them",
+          "text": "ok and when you''re not doing that?"
+        },
+        {
+          "from": "me",
+          "text": "helping a team at RBC use AI + running Queen''s Web Dev"
+        },
+        {
+          "from": "me",
+          "text": "and if I do anything twice I automate it"
+        }
+      ]
+    }
   },
   "work": {
     "eyebrow": "02 — Work",
