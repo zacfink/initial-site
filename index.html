@@ -1531,25 +1531,7 @@
         </div>
       </section>
 
-      <section class="section" id="now">
-        <div class="wrap">
-          <div class="section-head reveal">
-            <span class="eyebrow mono" id="now-eyebrow"></span>
-            <h2 id="now-heading"></h2>
-          </div>
-          <div class="now-list reveal" id="now-list"></div>
-        </div>
-      </section>
 
-      <section class="section" id="stack">
-        <div class="wrap">
-          <div class="section-head reveal">
-            <span class="eyebrow mono" id="stack-eyebrow"></span>
-            <h2 id="stack-heading"></h2>
-          </div>
-          <div class="chips reveal" id="chips"></div>
-        </div>
-      </section>
 
       <section class="section" id="thoughts">
         <div class="wrap">
@@ -1618,231 +1600,303 @@
         "use strict";
 
         let SITE = {
-          brand: "Zac",
-
-          nav: [
-            { label: "About", href: "#about" },
-            { label: "Work", href: "#work" },
-            { label: "Now", href: "#now" },
-            { label: "Stack", href: "#stack" },
-            { label: "Curious", href: "#thoughts" },
-            { label: "Contact", href: "#contact" },
+          "brand": "Zac",
+          "nav": [
+            {
+              "href": "#about",
+              "label": "About"
+            },
+            {
+              "href": "#work",
+              "label": "Work"
+            },
+            {
+              "href": "#thoughts",
+              "label": "Curious"
+            },
+            {
+              "href": "#contact",
+              "label": "Contact"
+            }
           ],
-
-          hero: {
-            headlineLead: "I build things that ",
-            headlineAccent: "don't exist yet.",
-            lede: "I'm Zac. I study CS and cognitive science at Queen's, and I build things to find out how minds work. Right now I'm raising a neural network in a simulated house to see if a good childhood makes it any more conscious. The rest of the time I'm on a wealth team at RBC Dominion Securities, helping them use AI, and running Queen's Web Dev.",
-            ctas: [
-              { label: "See the work", href: "#work", style: "primary" },
+          "hero": {
+            "ctas": [
               {
-                label: "Download résumé",
-                href: "assets/resume.pdf",
-                style: "ghost",
-                download: true,
+                "href": "#work",
+                "label": "See the work",
+                "style": "primary"
               },
-              { label: "Get in touch", href: "#contact", style: "ghost" },
+              {
+                "href": "assets/resume.pdf",
+                "label": "Download résumé",
+                "style": "ghost",
+                "download": true
+              },
+              {
+                "href": "#contact",
+                "label": "Get in touch",
+                "style": "ghost"
+              }
             ],
+            "lede": "I'm Zac. I study CS and cognitive science at Queen's, and I build things to find out how minds work. Right now I'm raising a neural network in a simulated house to see if a good childhood makes it any more conscious. The rest of the time I'm on a wealth team at RBC Dominion Securities, helping them use AI, and running Queen's Web Dev.",
+            "headlineLead": "I build things that ",
+            "headlineAccent": "don't exist yet."
           },
-
-          about: {
-            eyebrow: "01 — About",
-            heading: "Hey, glad you're here.",
-            paragraphs: [
+          "about": {
+            "facts": [
+              {
+                "label": "Based in",
+                "value": "Kingston, Ontario · from Toronto"
+              },
+              {
+                "label": "Studying",
+                "value": "Computer Science (Cognitive Science) · Queen's '28"
+              }
+            ],
+            "thread": {
+              "when": "Today 9:41",
+              "messages": [
+                {
+                  "from": "them",
+                  "text": "wait, what do you actually do?"
+                },
+                {
+                  "from": "me",
+                  "text": "I study CS + cog sci at Queen's"
+                },
+                {
+                  "from": "me",
+                  "text": "basically trying to figure out how thinking works"
+                },
+                {
+                  "from": "them",
+                  "text": "like… in people?"
+                },
+                {
+                  "from": "me",
+                  "text": "people and machines"
+                },
+                {
+                  "from": "me",
+                  "text": "right now I'm raising a neural net in a simulated house 🏠"
+                },
+                {
+                  "from": "them",
+                  "text": "why"
+                },
+                {
+                  "from": "them",
+                  "text": "😭"
+                },
+                {
+                  "from": "me",
+                  "text": "to see if a good childhood makes it any more conscious"
+                },
+                {
+                  "from": "them",
+                  "text": "ok and when you're not doing that?"
+                },
+                {
+                  "from": "me",
+                  "text": "helping a team at RBC use AI + running Queen's Web Dev"
+                },
+                {
+                  "from": "me",
+                  "text": "and if I do anything twice I automate it"
+                }
+              ]
+            },
+            "eyebrow": "01 — About",
+            "heading": "Hey, glad you're here.",
+            "paragraphs": [
               "I study computer science at Queen's, specializing in cognitive science, which is a fancy way of saying I want to know how thinking works, in people and in machines. Most of what I build comes out of that question, or out of being annoyed at doing the same thing twice.",
               "At RBC Dominion Securities I work with an advisor's team, finding the tedious parts of their day and handing them to AI. The AI assistant I set up for them handles their emails, documents and research, and the whole team uses it every day.",
-              "I also co-chair Queen's Web Dev. We teach people to build for the web, and this year I'm mostly building the club itself: the team, the tutorials, the new site. If you've never written a line of HTML, you're exactly who we're for.",
-            ],
-            facts: [
-              { label: "Based in", value: "Kingston, Ontario · from Toronto" },
-              {
-                label: "Studying",
-                value: "Computer Science (Cognitive Science) · Queen's '28",
-              },
-              { label: "Working", value: "Student Intern @ RBC Dominion Securities" },
-              { label: "Leading", value: "Co-chair, Queen's Web Dev" },
-            ],
-            // the text thread next to About on phones and iPads; a bubble gets its tail when the next one is the other person's
-            thread: {
-              when: "Today 9:41",
-              messages: [
-                { from: "them", text: "wait, what do you actually do?" },
-                { from: "me", text: "I study CS + cog sci at Queen's" },
-                { from: "me", text: "basically trying to figure out how thinking works" },
-                { from: "them", text: "like… in people?" },
-                { from: "me", text: "people and machines" },
-                { from: "me", text: "right now I'm raising a neural net in a simulated house 🏠" },
-                { from: "them", text: "why" },
-                { from: "them", text: "😭" },
-                { from: "me", text: "to see if a good childhood makes it any more conscious" },
-                { from: "them", text: "ok and when you're not doing that?" },
-                { from: "me", text: "helping a team at RBC use AI + running Queen's Web Dev" },
-                { from: "me", text: "and if I do anything twice I automate it" },
-              ],
-            },
+              "I also co-chair Queen's Web Dev. We teach people to build for the web, and this year I'm mostly building the club itself: the team, the tutorials, the new site. If you've never written a line of HTML, you're exactly who we're for."
+            ]
           },
-
-          work: {
-            eyebrow: "02 — Work",
-            heading: "Stuff I've made.",
-            featured: [
+          "work": {
+            "eyebrow": "02 — Work",
+            "heading": "Stuff I've made.",
+            "featured": [
               {
-                tags: ["AI", "Tools"],
-                title: "Brain",
-                desc: "Stops my AI re-learning my life every session. Markdown memory, a cover story of my week, and habits Claude proposes for itself.",
-                meta: "Python · JavaScript",
-                repo: "https://github.com/zacfink/brain",
-              },
-              {
-                tags: ["Web", "Club"],
-                title: "Queen's Web Dev",
-                desc: "The club's new site, shipped this term while co-chairing it. The place the curriculum and the events now live.",
-                repo: "https://www.qweb.dev",
-                linkLabel: "Visit",
-              },
-              {
-                tags: ["AI", "Automation"],
-                title: "Screen Intelligence",
-                desc: "A macOS agent you tell what to do in plain English. It reads the screen, plans the steps and drives the mouse and keyboard, checking its own work as it goes.",
-                meta: "macOS · Python",
-                repo: "https://github.com/zacfink/screen-intelligence",
-              },
-              {
-                tags: ["Tools", "Data"],
-                title: "SupaBaseFolder",
-                desc: "Turns my Supabase backends into spreadsheet and JSON files on my Mac. Save a file and the site updates, so an AI agent can run a backend just by editing files.",
-                meta: "Electron · JavaScript",
-                repo: "https://github.com/zacfink/SupaBaseFolder",
-              },
-            ],
-          },
-
-          monthly: {
-            // the label above the right-hand rail
-            label: "Log",
-            // Everything shipped, grouped by month. kind: Project, Research,
-            // Paper or Did. An entry with href links out; one with a body
-            // opens in the panel instead.
-            items: [
-              {
-                month: "2026-09",
-                kind: "Project",
-                title: "SupaBaseFolder",
-                desc: "A menu bar app that keeps Supabase tables live as spreadsheet and JSON files on my Mac, so I (or an AI agent) can edit a backend by saving a file.",
-                href: "https://github.com/zacfink/SupaBaseFolder",
-              },
-              {
-                month: "2026-09",
-                kind: "Project",
-                title: "Brain",
-                desc: "A plain-markdown second brain for working with Claude Code, with a small local app to browse and act on it.",
-                href: "https://github.com/zacfink/brain",
-              },
-              {
-                month: "2026-09",
-                kind: "Project",
-                title: "qweb.dev",
-                desc: "Rebuilt and launched the Queen's Web Development Club site with the club's dev team.",
-                href: "https://www.qweb.dev",
-              },
-            ],
-          },
-
-          now: {
-            eyebrow: "03 — Now",
-            heading: "What I'm up to right now.",
-            roles: [
-              {
-                role: "Student Intern",
-                org: "RBC Dominion Securities",
-                desc: "Handing the boring parts of an advisor's day to AI. Full-time in the summer, part-time during school.",
-              },
-              {
-                role: "Co-chair",
-                org: "Queen's Web Dev",
-                desc: "Running the club with a team of seven. This fall that's a new site, a ten-week tutorial series, and a lot of first-years building their first websites.",
-              },
-              {
-                role: "Side quest",
-                org: "Raised",
-                desc: "A for-fun research project. A blank neural network grows up in a simulated house with AI caregivers, and I'm checking whether how it's raised changes the markers of consciousness it shows. I'm not claiming it's conscious. I'm just curious.",
-              },
-            ],
-          },
-
-          stack: {
-            eyebrow: "04 — Tools",
-            heading: "What I reach for.",
-            groups: [
-              {
-                label: "Build",
-                items: [
-                  "TypeScript",
-                  "Python",
-                  "React",
-                  "React Native",
-                  "Node.js",
-                  "AWS",
+                "desc": "Stops my AI re-learning my life every session. Markdown memory, a cover story of my week, and habits Claude proposes for itself.",
+                "meta": "Python · JavaScript",
+                "repo": "https://github.com/zacfink/brain",
+                "tags": [
+                  "AI",
+                  "Tools"
                 ],
+                "title": "Brain"
               },
               {
-                label: "AI",
-                items: ["Prompt engineering", "RAG", "AI agents"],
+                "desc": "The club's new site, shipped this term while co-chairing it. The place the curriculum and the events now live.",
+                "repo": "https://www.qweb.dev",
+                "tags": [
+                  "Web",
+                  "Club"
+                ],
+                "title": "Queen's Web Dev",
+                "linkLabel": "Visit"
               },
+              {
+                "desc": "A macOS agent you tell what to do in plain English. It reads the screen, plans the steps and drives the mouse and keyboard, checking its own work as it goes.",
+                "meta": "macOS · Python",
+                "repo": "https://github.com/zacfink/screen-intelligence",
+                "tags": [
+                  "AI",
+                  "Automation"
+                ],
+                "title": "Screen Intelligence"
+              },
+              {
+                "desc": "Turns my Supabase backends into spreadsheet and JSON files on my Mac. Save a file and the site updates, so an AI agent can run a backend just by editing files.",
+                "meta": "Electron · JavaScript",
+                "repo": "https://github.com/zacfink/SupaBaseFolder",
+                "tags": [
+                  "Tools",
+                  "Data"
+                ],
+                "title": "SupaBaseFolder"
+              }
+            ]
+          },
+          "monthly": {
+            "items": [
+              {
+                "desc": "A home-screen app for my second brain. Hold to ask it anything out loud, swipe through what's next, and capture ideas on the go.",
+                "href": "https://github.com/zacfink/brain",
+                "kind": "Project",
+                "month": "2026-10",
+                "title": "Brain on my phone"
+              },
+              {
+                "desc": "First public release, with a JSON tree editor for editing nested data without touching raw JSON.",
+                "href": "https://github.com/zacfink/SupaBaseFolder",
+                "kind": "Project",
+                "month": "2026-10",
+                "title": "SupaBaseFolder 1.1"
+              },
+              {
+                "desc": "The skills, hooks and habits I use to work with Claude Code, cleaned up so anyone can copy them.",
+                "href": "https://github.com/zacfink/claude-code-setup",
+                "kind": "Project",
+                "month": "2026-10",
+                "title": "My Claude Code setup"
+              },
+              {
+                "desc": "A macOS agent that sees the screen and drives the mouse and keyboard, checking each click actually changed something.",
+                "href": "https://github.com/zacfink/screen-intelligence",
+                "kind": "Project",
+                "month": "2026-10",
+                "title": "Screen Intelligence"
+              },
+              {
+                "desc": "A menu bar app that keeps Supabase tables live as spreadsheet and JSON files on my Mac, so I (or an AI agent) can edit a backend by saving a file.",
+                "href": "https://github.com/zacfink/SupaBaseFolder",
+                "kind": "Project",
+                "month": "2026-09",
+                "title": "SupaBaseFolder"
+              },
+              {
+                "desc": "A plain-markdown second brain for working with Claude Code, with a small local app to browse and act on it.",
+                "href": "https://github.com/zacfink/brain",
+                "kind": "Project",
+                "month": "2026-09",
+                "title": "Brain"
+              },
+              {
+                "desc": "Rebuilt and launched the Queen's Web Development Club site with the club's dev team.",
+                "href": "https://www.qweb.dev",
+                "kind": "Project",
+                "month": "2026-09",
+                "title": "qweb.dev"
+              },
+              {
+                "desc": "A terminal chat assistant that talks only by picking saved sentences, grades its own answers, and asks to be taught when it doesn't know.",
+                "href": "https://github.com/zacfink/jev-reply",
+                "kind": "Project",
+                "month": "2026-09",
+                "title": "Jev-Reply"
+              },
+              {
+                "desc": "Research in progress: a blank neural network grows up in a simulated house with AI caregivers, compared on markers of consciousness.",
+                "kind": "Report",
+                "month": "2026-09",
+                "title": "Raised"
+              }
             ],
+            "label": "Log"
           },
-
-          thoughts: {
-            eyebrow: "05 — Curious about",
-            heading: "Stuff I keep thinking about.",
-            items: [
+          "now": {
+            "roles": [
               {
-                n: "01",
-                text: "Does a childhood change a mind? If you raise the same network two different ways, does it come out different in ways that matter?",
+                "org": "RBC Dominion Securities",
+                "desc": "Handing the boring parts of an advisor's day to AI. Full-time in the summer, part-time during school.",
+                "role": "Student Intern"
               },
               {
-                n: "02",
-                text: "What if AI ran software the way people do, just by editing files? Brain and SupaBaseFolder are me poking at that.",
+                "org": "Queen's Web Dev",
+                "desc": "Running the club with a team of seven. This fall that's a new site, a ten-week tutorial series, and a lot of first-years building their first websites.",
+                "role": "Co-chair"
               },
               {
-                n: "03",
-                text: "How do people actually think? Every cognitive science course I take shows me it's messier and more interesting than it looks.",
-              },
+                "org": "Raised",
+                "desc": "A for-fun research project. A blank neural network grows up in a simulated house with AI caregivers, and I'm checking whether how it's raised changes the markers of consciousness it shows. I'm not claiming it's conscious. I'm just curious.",
+                "role": "Side quest"
+              }
             ],
+            "eyebrow": "03 — Now",
+            "heading": "What I'm up to right now."
           },
-
-          contact: {
-            eyebrow: "06 — Contact",
-            heading: "Come say hi.",
-            links: [
+          "thoughts": {
+            "items": [
               {
-                label: "Email me",
-                href: "mailto:zacfinkelstein@gmail.com",
-                style: "primary",
+                "n": "01",
+                "text": "Getting an AI to remember my life so I don't have to."
               },
               {
-                label: "GitHub",
-                href: "https://github.com/zacfink",
-                style: "ghost",
+                "n": "02",
+                "text": "Automating anything I've done twice. Some things I've done once."
               },
               {
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/in/zacfinkelstein",
-                style: "ghost",
-              },
-              {
-                label: "Résumé",
-                href: "assets/resume.pdf",
-                style: "ghost",
-                download: true,
-              },
+                "n": "03",
+                "text": "Building computers, still, since grade 4."
+              }
             ],
+            "eyebrow": "05 — Curious about",
+            "heading": "Current obsessions."
           },
-
-          footer: {
-            left: "© 2026 Zac",
-            right: "Always happy to chat",
+          "contact": {
+            "links": [
+              {
+                "href": "mailto:zacfinkelstein@gmail.com",
+                "label": "Email me",
+                "style": "primary"
+              },
+              {
+                "href": "https://github.com/zacfink",
+                "label": "GitHub",
+                "style": "ghost"
+              },
+              {
+                "href": "https://www.linkedin.com/in/zacfinkelstein",
+                "label": "LinkedIn",
+                "style": "ghost"
+              },
+              {
+                "href": "assets/resume.pdf",
+                "label": "Résumé",
+                "style": "ghost",
+                "download": true
+              }
+            ],
+            "eyebrow": "06 — Contact",
+            "heading": "Come say hi."
           },
+          "footer": {
+            "left": "© 2026 Zac",
+            "right": "Always happy to chat"
+          }
         };
 
         const $ = (sel) => document.querySelector(sel);
@@ -1930,8 +1984,6 @@
         const SECTIONS = [
           "about",
           "work",
-          "now",
-          "stack",
           "thoughts",
           "contact",
         ];
@@ -2026,7 +2078,10 @@
               window.watchBubbles?.();
             }
           }
-          $("#hero-facts").innerHTML = SITE.about.facts
+          // where + what, then what I'm doing now (the roles used to be their own section)
+          const heroFacts = SITE.about.facts
+            .concat(SITE.now.roles.map((r) => ({ label: r.role, value: r.org })));
+          $("#hero-facts").innerHTML = heroFacts
             .map(
               (f) =>
                 `<div class="fact"><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`,
@@ -2044,30 +2099,6 @@
         <p>${esc(p.desc)}</p>
         <div class="foot"><span class="meta">${esc(p.meta || "")}</span>${repo(p.repo, p.linkLabel)}</div>
       </article>`,
-            )
-            .join("");
-
-          // now
-          $("#now-heading").textContent = SITE.now.heading;
-          $("#now-list").innerHTML = SITE.now.roles
-            .map(
-              (r) => `
-      <div class="now-row">
-        <div><div class="role">${esc(r.role)}</div><div class="org">${esc(r.org)}</div></div>
-        <p>${esc(r.desc)}</p>
-      </div>`,
-            )
-            .join("");
-
-          // stack
-          $("#stack-heading").textContent = SITE.stack.heading;
-          $("#chips").innerHTML = SITE.stack.groups
-            .map(
-              (g) => `
-      <div class="chip-group">
-        <span class="chip-label">${esc(g.label)}</span>
-        <div class="chip-row">${g.items.map((it) => `<span class="chip">${esc(it)}</span>`).join("")}</div>
-      </div>`,
             )
             .join("");
 
