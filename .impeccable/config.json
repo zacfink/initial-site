@@ -9,6 +9,12 @@
         "value": "space grotesk",
         "createdAt": "2026-09-09T20:27:46.803Z",
         "reason": "user confirmed: Zac rejected the replacement visual world on 2026-09-09 and chose 'improve the old page', keeping the incumbent identity of which Space Grotesk is the display face; this is refinement inside that identity, not a free type choice"
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "createdAt": "2026-10-28T23:43:19.197Z",
+        "reason": "Claude: pre-existing (761fa74, live since 2026-10-05) message-bubble pop on the About text thread; overshoot mimics chat bubbles, not part of the Log mockup"
       }
     ]
   }
