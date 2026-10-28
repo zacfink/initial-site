@@ -950,6 +950,17 @@
         border-top: 1px solid var(--hairline);
         padding-top: 1.2rem;
       }
+      /* "Picked for you": a few entries chosen by who's visiting (a ?for= link
+         or where they came from), above the months, which stay as they are */
+      .log-month.log-picked {
+        color: var(--signal);
+      }
+      .log-why {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        color: var(--ink-muted);
+        margin-top: -0.5rem;
+      }
       .log-entry {
         appearance: none;
         background: none;
@@ -2137,6 +2148,46 @@
         let peekReturn = null;
         let peekHideTimer = null;
 
+        /* Who's visiting, from a ?for= link (send zacfinkelstein.ca/?for=recruiter
+           in an application) or, failing that, the site they came from. No
+           cookies and nothing stored: it's read fresh on each visit.
+           (Inside the function: render() runs before code further down.) */
+        function audience() {
+          const PICKS = {
+            recruiter: {
+              why: "Here from a job application or LinkedIn, so these come first: the ones with the most real use behind them.",
+              titles: ["Brain", "SupaBaseFolder", "Screen Intelligence", "qweb.dev"],
+            },
+            dev: {
+              why: "Here from GitHub or a dev site, so the code-heavy ones come first.",
+              titles: ["Screen Intelligence", "SupaBaseFolder 1.1", "My Claude Code setup", "Nod"],
+            },
+            qweb: {
+              why: "Here from QWeb, so the club work and the tools it runs on come first.",
+              titles: ["qweb.dev", "SupaBaseFolder", "Brain", "Custom tiles in Brain"],
+            },
+            research: {
+              why: "Here for the research side, so the experiments come first.",
+              titles: ["Raised", "Screen Intelligence", "Nod"],
+            },
+          };
+          const FROM = [
+            [/(^|\.)linkedin\.com$|(^|\.)lnkd\.in$/, "recruiter"],
+            [/(^|\.)github\.com$|(^|\.)news\.ycombinator\.com$|(^|\.)reddit\.com$/, "dev"],
+            [/(^|\.)qweb\.dev$/, "qweb"],
+          ];
+          let key = new URLSearchParams(location.search).get("for");
+          if (!PICKS[key]) {
+            let host = "";
+            try {
+              host = document.referrer ? new URL(document.referrer).hostname : "";
+            } catch {}
+            const hit = FROM.find(([re]) => re.test(host));
+            key = hit ? hit[1] : null;
+          }
+          return key ? { key, ...PICKS[key] } : null;
+        }
+
         function renderLog(items) {
           const log = $("#log");
           log.hidden = items.length === 0;
@@ -2174,6 +2225,18 @@
           };
 
           let html = "";
+          const aud = audience();
+          if (aud) {
+            // an entry's own `for` list (set in the content) wins over the starter list in audience()
+            const tagged = ordered.filter((m) => Array.isArray(m.for) && m.for.includes(aud.key));
+            const chosen = (tagged.length ? tagged : aud.titles.map((t) => ordered.find((m) => m.title === t)))
+              .filter(Boolean)
+              .slice(0, 4);
+            if (chosen.length) {
+              html += `<li class="log-month log-picked">Picked for you</li><li class="log-why">${esc(aud.why)}</li>`;
+              chosen.forEach((m) => (html += `<li>${entry(m, ordered.indexOf(m))}</li>`));
+            }
+          }
           let month = null;
           ordered.forEach((m, i) => {
             if (m.month !== month) {
