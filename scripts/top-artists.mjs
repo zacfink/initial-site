@@ -1,4 +1,7 @@
-// Writes assets/top-artists.json from Spotify's /v1/me/top/artists.
+// Writes assets/top-artists.json from Spotify's /v1/me/top/{tracks,artists}
+// for all three time ranges:
+//   { ranges: { short_term|medium_term|long_term: { tracks: [], artists: [] } } }
+// short_term ≈ last 4 weeks, medium_term ≈ 6 months, long_term ≈ all time.
 // Run by .github/workflows/top-artists.yml; needs SPOTIFY_CLIENT_ID,
 // SPOTIFY_CLIENT_SECRET and SPOTIFY_REFRESH_TOKEN (see scripts/spotify-token.mjs).
 import { writeFileSync } from "node:fs";
@@ -17,27 +20,43 @@ const tok = await fetch("https://accounts.spotify.com/api/token", {
 if (!tok.ok) throw new Error(`token ${tok.status}: ${await tok.text()}`);
 const { access_token } = await tok.json();
 
-// medium_term = roughly the last 6 months
-const res = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=8", {
-  headers: { Authorization: `Bearer ${access_token}` },
-});
-if (!res.ok) throw new Error(`top artists ${res.status}: ${await res.text()}`);
-const { items } = await res.json();
+async function top(type, range) {
+  const res = await fetch(`https://api.spotify.com/v1/me/top/${type}?time_range=${range}&limit=8`, {
+    headers: { Authorization: `Bearer ${access_token}` },
+  });
+  if (!res.ok) throw new Error(`top ${type} ${range} ${res.status}: ${await res.text()}`);
+  return ((await res.json()).items || []).filter(Boolean);
+}
 
-const artists = items.map((a) => {
-  // images come largest first; take the smallest one that still looks sharp at 72px
-  const img = [...(a.images || [])].reverse().find((i) => (i.width || 0) >= 120) || (a.images || [])[0];
-  return {
-    name: a.name,
-    genre: (a.genres || [])[0] || "",
-    image: img ? img.url : "",
-    url: (a.external_urls || {}).spotify || "",
+// images come largest first; take the smallest one that still looks sharp at 72px
+const image = (imgs) => {
+  const img = [...(imgs || [])].reverse().find((i) => (i.width || 0) >= 120) || (imgs || [])[0];
+  return img ? img.url : "";
+};
+
+const ranges = {};
+for (const range of ["short_term", "medium_term", "long_term"]) {
+  ranges[range] = {
+    tracks: (await top("tracks", range)).map((t) => ({
+      name: t.name,
+      artist: (t.artists || []).map((a) => a.name).join(", "),
+      image: image(t.album && t.album.images),
+      url: (t.external_urls || {}).spotify || "",
+    })),
+    artists: (await top("artists", range)).map((a) => ({
+      name: a.name,
+      genre: (a.genres || [])[0] || "",
+      image: image(a.images),
+      url: (a.external_urls || {}).spotify || "",
+    })),
   };
-});
-if (!artists.length) throw new Error("Spotify returned no artists; keeping the old file");
+}
+// one empty range is fine (the page says so); nothing anywhere means a bad response
+if (Object.values(ranges).every((v) => !v.tracks.length && !v.artists.length))
+  throw new Error("Spotify returned nothing; keeping the old file");
 
 writeFileSync(
   new URL("../assets/top-artists.json", import.meta.url),
-  JSON.stringify({ artists }, null, 2) + "\n",
+  JSON.stringify({ ranges }, null, 2) + "\n",
 );
-console.log(artists.map((a) => a.name).join(", "));
+for (const [r, v] of Object.entries(ranges)) console.log(`${r}: ${v.tracks.length} songs, ${v.artists.length} artists`);

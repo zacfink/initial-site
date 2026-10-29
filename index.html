@@ -778,22 +778,61 @@
         letter-spacing: 0.14em;
         text-transform: uppercase;
       }
-      /* top artists: same rows as the teams, round photos */
-      .artists {
-        margin-top: 1.8rem;
-      }
-      .artists[hidden] {
+      /* ---------- music: same rows as the teams, covers and photos ---------- */
+      #music[hidden] {
         display: none;
       }
-      .artists a.team {
-        text-decoration: none;
+      .music-controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.8rem 1.6rem;
+        margin-bottom: 1.8rem;
       }
-      .artists a.team:hover .team-name {
+      .seg {
+        display: inline-flex;
+        border: 1px solid var(--hairline);
+      }
+      .seg button {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: none;
+        border: 0;
+        padding: 0.55rem 0.85rem;
+        min-height: 36px;
+        color: var(--ink-muted);
+        cursor: pointer;
+        transition: color 0.2s ease, background-color 0.2s ease;
+      }
+      .seg button + button {
+        border-left: 1px solid var(--hairline);
+      }
+      .seg button:hover {
+        color: var(--ink);
+      }
+      .seg button[aria-pressed="true"] {
+        background: var(--signal);
+        color: #fff;
+      }
+      .music-list a.team {
+        text-decoration: none;
+        color: inherit;
+      }
+      .music-list a.team:hover .team-name {
         color: var(--signal);
       }
-      .artists .team-logo {
-        border-radius: 50%;
+      .music-list .team-logo {
         object-fit: cover;
+      }
+      .music-list .artist .team-logo {
+        border-radius: 50%;
+      }
+      .music-empty {
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        color: var(--ink-muted);
       }
       .team-line b {
         font-weight: 500;
@@ -1817,9 +1856,24 @@
             <h2>Teams I follow.</h2>
           </div>
           <div class="teams reveal" id="teams-grid"></div>
-          <div class="teams artists" id="artists" hidden>
-            <div class="chip-group"><span class="chip-label">Top artists · Spotify</span><div class="team-list" id="artists-list"></div></div>
+        </div>
+      </section>
+
+      <section class="section" id="music" hidden>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="eyebrow mono" id="music-eyebrow"></span>
+            <h2>On repeat.</h2>
           </div>
+          <div class="music-controls">
+            <div class="seg" role="group" aria-label="Show" id="music-type">
+              <button type="button" data-type="tracks" aria-pressed="true">Top songs</button><button type="button" data-type="artists" aria-pressed="false">Top artists</button>
+            </div>
+            <div class="seg" role="group" aria-label="Time frame" id="music-range">
+              <button type="button" data-range="short_term" aria-pressed="false">Last 4 weeks</button><button type="button" data-range="medium_term" aria-pressed="true">6 months</button><button type="button" data-range="long_term" aria-pressed="false">All time</button>
+            </div>
+          </div>
+          <div class="team-list music-list" id="music-list" aria-live="polite"></div>
         </div>
       </section>
 
@@ -1908,6 +1962,10 @@
             {
               "href": "#teams",
               "label": "Teams"
+            },
+            {
+              "href": "#music",
+              "label": "Music"
             },
             {
               "href": "#contact",
@@ -2281,8 +2339,14 @@
           "work",
           "thoughts",
           "teams",
+          "music",
           "contact",
         ];
+        // a hidden section (Music before its data lands) takes no number, rail dot or nav link
+        const shown = (href) => {
+          const el = /^#[\w-]+$/.test(href) ? document.getElementById(href.slice(1)) : null;
+          return !(el && el.hidden);
+        };
 
         // "01 — About" and "Monthly" both yield "About" / "Monthly"
         const labelOf = (eyebrow, fallback) => {
@@ -2313,7 +2377,7 @@
 
         function render() {
           const items = monthlyItems();
-          const active = SECTIONS;
+          const active = SECTIONS.filter((id) => shown("#" + id));
 
           active.forEach((id, i) => {
             const n = String(i + 1).padStart(2, "0");
@@ -2332,6 +2396,7 @@
 
           $("#brand").innerHTML = `${esc(SITE.brand)}<span class="dot">.</span>`;
           $("#nav").innerHTML = SITE.nav
+            .filter((n) => shown(n.href))
             .map((n) => `<a href="${esc(safeUrl(n.href))}">${esc(n.label)}</a>`)
             .join("") +
             `<button class="nav-log" type="button" data-open-log aria-controls="log" aria-expanded="false" hidden><span class="nav-log-dot" aria-hidden="true"></span><span class="nav-log-label">Log</span></button>`;
@@ -2985,20 +3050,52 @@
           if (load) load.then((html) => (liveSlots[i].innerHTML = html)).catch(() => {}); // feed down: name + logo stay
         });
 
-        /* ---------- top artists ----------
+        /* ---------- music ----------
            assets/top-artists.json is rewritten daily by
-           .github/workflows/top-artists.yml. Missing or empty: the block stays hidden. */
+           .github/workflows/top-artists.yml: { ranges: { short_term|medium_term|long_term:
+           { tracks: [], artists: [] } } }. No data at all: the section stays hidden. */
         fetch("assets/top-artists.json", { cache: "no-cache" })
           .then((r) => (r.ok ? r.json() : null))
           .then((d) => {
-            const list = (d && Array.isArray(d.artists) ? d.artists : []).filter((a) => a && a.name);
-            if (!list.length) return;
-            $("#artists-list").innerHTML = list
-              .map(
-                (a) => `<a class="team" href="${esc(safeUrl(a.url || "#teams"))}" target="_blank" rel="noopener"><img class="team-logo" src="${esc(safeUrl(a.image || ""))}" alt="" loading="lazy" width="36" height="36" /><div><div class="team-name">${esc(a.name)}</div>${a.genre ? `<div class="team-league">${esc(a.genre)}</div>` : ""}</div></a>`,
-              )
-              .join("");
-            $("#artists").hidden = false;
+            // the pre-Music file held 6-month artists only
+            const ranges = (d && d.ranges) || (d && d.artists ? { medium_term: { artists: d.artists } } : {});
+            const pick = (range, type) =>
+              (ranges[range] && Array.isArray(ranges[range][type]) ? ranges[range][type] : []).filter((x) => x && x.name);
+            const all = ["short_term", "medium_term", "long_term"];
+            if (!all.some((r) => pick(r, "tracks").length || pick(r, "artists").length)) return;
+
+            const state = { type: "tracks", range: "medium_term" };
+            // land on something that exists
+            if (!pick(state.range, "tracks").length && !pick(state.range, "artists").length)
+              state.range = all.find((r) => pick(r, "tracks").length || pick(r, "artists").length);
+            if (!pick(state.range, state.type).length) state.type = "artists";
+
+            const item = (x, type) =>
+              `<a class="team ${type === "artists" ? "artist" : "track"}" href="${esc(safeUrl(x.url || "#music"))}" target="_blank" rel="noopener"><img class="team-logo" src="${esc(safeUrl(x.image || ""))}" alt="" loading="lazy" width="36" height="36" /><div><div class="team-name">${esc(x.name)}</div>${
+                type === "tracks"
+                  ? x.artist ? `<div class="team-line">${esc(x.artist)}</div>` : ""
+                  : x.genre ? `<div class="team-league">${esc(x.genre)}</div>` : ""
+              }</div></a>`;
+
+            const draw = () => {
+              const list = pick(state.range, state.type);
+              $("#music-list").innerHTML = list.length
+                ? list.map((x) => item(x, state.type)).join("")
+                : `<p class="music-empty">Not enough listening in this stretch yet.</p>`;
+              document.querySelectorAll("#music-type button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.type === state.type)));
+              document.querySelectorAll("#music-range button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.range === state.range)));
+            };
+            $("#music-type").addEventListener("click", (e) => {
+              const b = e.target.closest("button");
+              if (b) (state.type = b.dataset.type), draw();
+            });
+            $("#music-range").addEventListener("click", (e) => {
+              const b = e.target.closest("button");
+              if (b) (state.range = b.dataset.range), draw();
+            });
+            draw();
+            $("#music").hidden = false;
+            render(); // number it, rail dot, nav link
           })
           .catch(() => {});
 
