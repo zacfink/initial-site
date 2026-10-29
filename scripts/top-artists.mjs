@@ -1,6 +1,6 @@
-// Writes assets/top-artists.json from Spotify's /v1/me/top/{tracks,artists}
+// Writes assets/top-artists.json from Spotify's /v1/me/top/artists
 // for all three time ranges:
-//   { ranges: { short_term|medium_term|long_term: { tracks: [], artists: [] } } }
+//   { ranges: { short_term|medium_term|long_term: { artists: [] } } }
 // short_term ≈ last 4 weeks, medium_term ≈ 6 months, long_term ≈ all time.
 // Run by .github/workflows/top-artists.yml; needs SPOTIFY_CLIENT_ID,
 // SPOTIFY_CLIENT_SECRET and SPOTIFY_REFRESH_TOKEN (see scripts/spotify-token.mjs).
@@ -37,12 +37,6 @@ const image = (imgs) => {
 const ranges = {};
 for (const range of ["short_term", "medium_term", "long_term"]) {
   ranges[range] = {
-    tracks: (await top("tracks", range)).map((t) => ({
-      name: t.name,
-      artist: (t.artists || []).map((a) => a.name).join(", "),
-      image: image(t.album && t.album.images),
-      url: (t.external_urls || {}).spotify || "",
-    })),
     artists: (await top("artists", range)).map((a) => ({
       name: a.name,
       genre: (a.genres || [])[0] || "",
@@ -52,11 +46,11 @@ for (const range of ["short_term", "medium_term", "long_term"]) {
   };
 }
 // one empty range is fine (the page says so); nothing anywhere means a bad response
-if (Object.values(ranges).every((v) => !v.tracks.length && !v.artists.length))
+if (Object.values(ranges).every((v) => !v.artists.length))
   throw new Error("Spotify returned nothing; keeping the old file");
 
 writeFileSync(
   new URL("../assets/top-artists.json", import.meta.url),
   JSON.stringify({ ranges }, null, 2) + "\n",
 );
-for (const [r, v] of Object.entries(ranges)) console.log(`${r}: ${v.tracks.length} songs, ${v.artists.length} artists`);
+for (const [r, v] of Object.entries(ranges)) console.log(`${r}: ${v.artists.length} artists`);

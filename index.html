@@ -1866,9 +1866,6 @@
             <h2>On repeat.</h2>
           </div>
           <div class="music-controls">
-            <div class="seg" role="group" aria-label="Show" id="music-type">
-              <button type="button" data-type="tracks" aria-pressed="true">Top songs</button><button type="button" data-type="artists" aria-pressed="false">Top artists</button>
-            </div>
             <div class="seg" role="group" aria-label="Time frame" id="music-range">
               <button type="button" data-range="short_term" aria-pressed="false">Last 4 weeks</button><button type="button" data-range="medium_term" aria-pressed="true">6 months</button><button type="button" data-range="long_term" aria-pressed="false">All time</button>
             </div>
@@ -2990,11 +2987,11 @@
              ESPN's team endpoint has it but sends no CORS header.
              ponytail: "no upcoming game listed" = off-season, so a team in
              playoffs ESPN's schedule doesn't list reads as off-season. */
+          const done = games.filter((g) => g.done);
+          const n = (f) => done.filter(f).length;
+          const rec = d.team.recordSummary || (done.length &&
+            `${n((g) => g.us.winner)}-${n((g) => !g.us.winner && !g.them.winner)}-${n((g) => g.them.winner)}`);
           if (!next) {
-            const done = games.filter((g) => g.done);
-            const n = (f) => done.filter(f).length;
-            const rec = d.team.recordSummary || (done.length &&
-              `${n((g) => g.us.winner)}-${n((g) => !g.us.winner && !g.them.winner)}-${n((g) => g.them.winner)}`);
             const rank = d.team.standingSummary && d.team.standingSummary.replace(/ Conference Division$/, " Conference");
             const result = [rec, rank].filter(Boolean).join(", ");
             const year = String(d.season.displayName).split(" ")[0];
@@ -3002,6 +2999,7 @@
           }
 
           let out = "";
+          if (rec) out += line("Record", rec); // NHL W-L-OTL, MLS W-D-L (counted)
           if (next) out += line("Next", `${when(next.date, next.timed)} ${vs(next)}`);
           if (last) {
             const r = last.us.winner ? "W" : last.them.winner ? "L" : "T";
@@ -3019,14 +3017,15 @@
           const gp = (name) => name.replace("Grand Prix", "GP");
           const nr = next && next.MRData.RaceTable.Races[0];
           const lr = last && last.MRData.RaceTable.Races[0];
+          const st = await getJSON(api + `constructors/${team}/constructorStandings.json`).catch(() => null);
+          const list = st && st.MRData.StandingsTable.StandingsLists[0];
+          const c = list && list.ConstructorStandings[0];
           if (!nr) {
             // off-season: last season's constructors' finish
-            const st = await getJSON(api + `constructors/${team}/constructorStandings.json`).catch(() => null);
-            const list = st && st.MRData.StandingsTable.StandingsLists[0];
-            const c = list && list.ConstructorStandings[0];
             return line("Off-season", c ? `${list.season}: P${c.position} in constructors, ${c.points} pts` : "");
           }
           let out = "";
+          if (c) out += line("Constructors", `P${c.position}, ${c.points} pts`);
           if (nr) out += line("Next", `${gp(nr.raceName)} · ${when(nr.date + "T" + (nr.time || "12:00:00Z"))}`);
           if (lr) {
             const pos = (t) => (/^\d+$/.test(t) ? "P" + t : t === "R" ? "DNF" : t);
@@ -3053,7 +3052,7 @@
         /* ---------- music ----------
            assets/top-artists.json is rewritten daily by
            .github/workflows/top-artists.yml: { ranges: { short_term|medium_term|long_term:
-           { tracks: [], artists: [] } } }. No data at all: the section stays hidden. */
+           { artists: [] } } }. No data at all: the section stays hidden. */
         fetch("assets/top-artists.json", { cache: "no-cache" })
           .then((r) => (r.ok ? r.json() : null))
           .then((d) => {
@@ -3062,33 +3061,24 @@
             const pick = (range, type) =>
               (ranges[range] && Array.isArray(ranges[range][type]) ? ranges[range][type] : []).filter((x) => x && x.name);
             const all = ["short_term", "medium_term", "long_term"];
-            if (!all.some((r) => pick(r, "tracks").length || pick(r, "artists").length)) return;
+            if (!all.some((r) => pick(r, "artists").length)) return;
 
-            const state = { type: "tracks", range: "medium_term" };
+            const state = { range: "medium_term" };
             // land on something that exists
-            if (!pick(state.range, "tracks").length && !pick(state.range, "artists").length)
-              state.range = all.find((r) => pick(r, "tracks").length || pick(r, "artists").length);
-            if (!pick(state.range, state.type).length) state.type = "artists";
+            if (!pick(state.range, "artists").length) state.range = all.find((r) => pick(r, "artists").length);
 
-            const item = (x, type) =>
-              `<a class="team ${type === "artists" ? "artist" : "track"}" href="${esc(safeUrl(x.url || "#music"))}" target="_blank" rel="noopener"><img class="team-logo" src="${esc(safeUrl(x.image || ""))}" alt="" loading="lazy" width="36" height="36" /><div><div class="team-name">${esc(x.name)}</div>${
-                type === "tracks"
-                  ? x.artist ? `<div class="team-line">${esc(x.artist)}</div>` : ""
-                  : x.genre ? `<div class="team-league">${esc(x.genre)}</div>` : ""
+            const item = (x) =>
+              `<a class="team artist" href="${esc(safeUrl(x.url || "#music"))}" target="_blank" rel="noopener"><img class="team-logo" src="${esc(safeUrl(x.image || ""))}" alt="" loading="lazy" width="36" height="36" /><div><div class="team-name">${esc(x.name)}</div>${
+                x.genre ? `<div class="team-league">${esc(x.genre)}</div>` : ""
               }</div></a>`;
 
             const draw = () => {
-              const list = pick(state.range, state.type);
+              const list = pick(state.range, "artists");
               $("#music-list").innerHTML = list.length
-                ? list.map((x) => item(x, state.type)).join("")
+                ? list.map(item).join("")
                 : `<p class="music-empty">Not enough listening in this stretch yet.</p>`;
-              document.querySelectorAll("#music-type button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.type === state.type)));
               document.querySelectorAll("#music-range button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.range === state.range)));
             };
-            $("#music-type").addEventListener("click", (e) => {
-              const b = e.target.closest("button");
-              if (b) (state.type = b.dataset.type), draw();
-            });
             $("#music-range").addEventListener("click", (e) => {
               const b = e.target.closest("button");
               if (b) (state.range = b.dataset.range), draw();
