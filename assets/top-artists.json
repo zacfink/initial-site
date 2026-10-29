@@ -1,52 +1,310 @@
 {
-  "artists": [
-    {
-      "name": "Drake",
-      "genre": "",
-      "image": "https://i.scdn.co/image/ab6761610000f1784293385d324db8558179afd9",
-      "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
+  "ranges": {
+    "short_term": {
+      "tracks": [
+        {
+          "name": "Quebec",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e022685b70af798b4f272c00d8a",
+          "url": "https://open.spotify.com/track/67DgVQlvQ0qilSBN1hdkKN"
+        },
+        {
+          "name": "Cold Shoulder (feat. Don Toliver & Yebba)",
+          "artist": "Drake, Don Toliver, Yebba",
+          "image": "https://i.scdn.co/image/ab67616d00001e022685b70af798b4f272c00d8a",
+          "url": "https://open.spotify.com/track/50GVx8sCc1TDKHXumgYqEO"
+        },
+        {
+          "name": "Solar Eclipse (feat. Don Toliver)",
+          "artist": "Drake, Don Toliver",
+          "image": "https://i.scdn.co/image/ab67616d00001e022685b70af798b4f272c00d8a",
+          "url": "https://open.spotify.com/track/4IAWZw00ZI9DLKDjesx86u"
+        },
+        {
+          "name": "Classic PT2",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02de74f9038a434f4766114367",
+          "url": "https://open.spotify.com/track/41Y8xu4OoUH1wHdnQgpJky"
+        },
+        {
+          "name": "BA (feat. Future)",
+          "artist": "Quavo, Future",
+          "image": "https://i.scdn.co/image/ab67616d00001e029123c8e39e04e529d2013df9",
+          "url": "https://open.spotify.com/track/4dcIixtgEW2bs2RapmQlQ3"
+        },
+        {
+          "name": "Every Night (feat. Don Toliver)",
+          "artist": "Offset, Don Toliver",
+          "image": "https://i.scdn.co/image/ab67616d00001e02f48afa2cdf2f552f2d4e2164",
+          "url": "https://open.spotify.com/track/3BDhcu7pO83YKd7W80498k"
+        },
+        {
+          "name": "Like Yoga",
+          "artist": "Rich The Kid, BIA",
+          "image": "https://i.scdn.co/image/ab67616d00001e020c6140e9dbba73910090cc6a",
+          "url": "https://open.spotify.com/track/7JzdaWsDyXDrFWYqxlji1a"
+        },
+        {
+          "name": "MISS MY DAWG (feat. Drake)",
+          "artist": "Yeat, Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e027013f42ca4a4d0965d5ad6c1",
+          "url": "https://open.spotify.com/track/0r1Az9a4ReL7dpBvtHjq5A"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Drake",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1784293385d324db8558179afd9",
+          "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
+        },
+        {
+          "name": "Yeat",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178fc759f7938b4c65bfe41c4ff",
+          "url": "https://open.spotify.com/artist/3qiHUAX7zY4Qnjx8TNUzVx"
+        },
+        {
+          "name": "Tyler, The Creator",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178df2728294ff77dd11eeb18fb",
+          "url": "https://open.spotify.com/artist/4V8LLVI7PbaPR0K2TGSxFF"
+        },
+        {
+          "name": "IMG",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17860ec9227deb34d88f7e474ac",
+          "url": "https://open.spotify.com/artist/1XNiWyUH5vvPqNDmjvTSqX"
+        },
+        {
+          "name": "Don Toliver",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178c52b798deb89eb8414a51b7b",
+          "url": "https://open.spotify.com/artist/4Gso3d4CscCijv0lmajZWs"
+        },
+        {
+          "name": "EsDeeKid",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178fe6d53e126b70d1c2594b434",
+          "url": "https://open.spotify.com/artist/0EyhkwP3UnwGFBy6xwKjSy"
+        },
+        {
+          "name": "Gunna",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178b99bd0e431142f2919a58276",
+          "url": "https://open.spotify.com/artist/2hlmm7s2ICUX0LVIhVFlZQ"
+        },
+        {
+          "name": "Future",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1782c472c891062acb4f3068583",
+          "url": "https://open.spotify.com/artist/1RyvyyTE3xzB2ZywiAwp0i"
+        }
+      ]
     },
-    {
-      "name": "Future",
-      "genre": "",
-      "image": "https://i.scdn.co/image/ab6761610000f1782c472c891062acb4f3068583",
-      "url": "https://open.spotify.com/artist/1RyvyyTE3xzB2ZywiAwp0i"
+    "medium_term": {
+      "tracks": [
+        {
+          "name": "Make Them Cry",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/55wlsNYqcfiQsHuX8l0jmF"
+        },
+        {
+          "name": "Whisper My Name",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/7KGHenqXZofXNm5MKDbT3J"
+        },
+        {
+          "name": "Shabang",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/6vjpQIdABqntoe3zPazPec"
+        },
+        {
+          "name": "National Treasures",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/393OFJFZKIIv66JmJcNm9D"
+        },
+        {
+          "name": "Janice STFU",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/514joG57v4yKTsfQmz7stz"
+        },
+        {
+          "name": "Hoe Phase",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02539bb112d7c970545dd971e3",
+          "url": "https://open.spotify.com/track/0O6lm9N6qJclxNFHl51nkr"
+        },
+        {
+          "name": "Dust",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/4eE16RJFDKf2WxBTqqfylu"
+        },
+        {
+          "name": "Burning Bridges",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/1ijYk2EYwj0rGqYwtjiAUJ"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Drake",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1784293385d324db8558179afd9",
+          "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
+        },
+        {
+          "name": "Future",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1782c472c891062acb4f3068583",
+          "url": "https://open.spotify.com/artist/1RyvyyTE3xzB2ZywiAwp0i"
+        },
+        {
+          "name": "Tory Lanez",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1780bb76de09defd5d14e735176",
+          "url": "https://open.spotify.com/artist/2jku7tDXc6XoB6MO2hFuqg"
+        },
+        {
+          "name": "Denzel Curry",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1788e265da892579da2139b659f",
+          "url": "https://open.spotify.com/artist/6fxyWrfmjcbj5d12gXeiNV"
+        },
+        {
+          "name": "void",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
+          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
+        },
+        {
+          "name": "Freddie Gibbs",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178499def7bd0369aa26a22273c",
+          "url": "https://open.spotify.com/artist/0Y4inQK6OespitzD6ijMwb"
+        },
+        {
+          "name": "Kenny Mason",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17894fc70ad544924dfc488330e",
+          "url": "https://open.spotify.com/artist/4mwdnO2jZrMmMVrjcHsZBv"
+        },
+        {
+          "name": "Travis Scott",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17819c2790744c792d05570bb71",
+          "url": "https://open.spotify.com/artist/0Y5tJX1MQlPlqiwlOH1tJY"
+        }
+      ]
     },
-    {
-      "name": "Tory Lanez",
-      "genre": "",
-      "image": "https://i.scdn.co/image/ab6761610000f1780bb76de09defd5d14e735176",
-      "url": "https://open.spotify.com/artist/2jku7tDXc6XoB6MO2hFuqg"
-    },
-    {
-      "name": "Denzel Curry",
-      "genre": "",
-      "image": "https://i.scdn.co/image/ab6761610000f1788e265da892579da2139b659f",
-      "url": "https://open.spotify.com/artist/6fxyWrfmjcbj5d12gXeiNV"
-    },
-    {
-      "name": "void",
-      "genre": "",
-      "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
-      "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
-    },
-    {
-      "name": "Freddie Gibbs",
-      "genre": "",
-      "image": "https://i.scdn.co/image/ab6761610000f178499def7bd0369aa26a22273c",
-      "url": "https://open.spotify.com/artist/0Y4inQK6OespitzD6ijMwb"
-    },
-    {
-      "name": "Kenny Mason",
-      "genre": "",
-      "image": "https://i.scdn.co/image/ab6761610000f17894fc70ad544924dfc488330e",
-      "url": "https://open.spotify.com/artist/4mwdnO2jZrMmMVrjcHsZBv"
-    },
-    {
-      "name": "Travis Scott",
-      "genre": "",
-      "image": "https://i.scdn.co/image/ab6761610000f17819c2790744c792d05570bb71",
-      "url": "https://open.spotify.com/artist/0Y5tJX1MQlPlqiwlOH1tJY"
+    "long_term": {
+      "tracks": [
+        {
+          "name": "Make Them Cry",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/55wlsNYqcfiQsHuX8l0jmF"
+        },
+        {
+          "name": "Whisper My Name",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/7KGHenqXZofXNm5MKDbT3J"
+        },
+        {
+          "name": "Shabang",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/6vjpQIdABqntoe3zPazPec"
+        },
+        {
+          "name": "National Treasures",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/393OFJFZKIIv66JmJcNm9D"
+        },
+        {
+          "name": "Janice STFU",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/514joG57v4yKTsfQmz7stz"
+        },
+        {
+          "name": "Hoe Phase",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02539bb112d7c970545dd971e3",
+          "url": "https://open.spotify.com/track/0O6lm9N6qJclxNFHl51nkr"
+        },
+        {
+          "name": "Dust",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/4eE16RJFDKf2WxBTqqfylu"
+        },
+        {
+          "name": "Burning Bridges",
+          "artist": "Drake",
+          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
+          "url": "https://open.spotify.com/track/1ijYk2EYwj0rGqYwtjiAUJ"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Drake",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1784293385d324db8558179afd9",
+          "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
+        },
+        {
+          "name": "Future",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1782c472c891062acb4f3068583",
+          "url": "https://open.spotify.com/artist/1RyvyyTE3xzB2ZywiAwp0i"
+        },
+        {
+          "name": "J. Cole",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178c401ea77e86ee984b1ba9fc2",
+          "url": "https://open.spotify.com/artist/6l3HvQ5sa6mXTsMTB19rO5"
+        },
+        {
+          "name": "Tory Lanez",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1780bb76de09defd5d14e735176",
+          "url": "https://open.spotify.com/artist/2jku7tDXc6XoB6MO2hFuqg"
+        },
+        {
+          "name": "Travis Scott",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17819c2790744c792d05570bb71",
+          "url": "https://open.spotify.com/artist/0Y5tJX1MQlPlqiwlOH1tJY"
+        },
+        {
+          "name": "Zach Bryan",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1786492861f8e00ecfb8cabea3f",
+          "url": "https://open.spotify.com/artist/40ZNYROS4zLfyyBSs2PGe2"
+        },
+        {
+          "name": "Gunna",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178b99bd0e431142f2919a58276",
+          "url": "https://open.spotify.com/artist/2hlmm7s2ICUX0LVIhVFlZQ"
+        },
+        {
+          "name": "Kanye West",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1786e835a500e791bf9c27a422a",
+          "url": "https://open.spotify.com/artist/5K4W6rqBFWDnAN6FQUkS6x"
+        }
+      ]
     }
-  ]
+  }
 }
