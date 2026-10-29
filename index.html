@@ -990,6 +990,127 @@
       }
 
 
+      /* ---------- résumé viewer ----------
+         Every link to the résumé PDF opens it here instead: PDF.js draws the
+         file's pages to canvas, so the PDF itself stays the single source. */
+      .rv {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: var(--paper-2);
+        color: var(--ink);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+      .rv::backdrop {
+        background: var(--paper-2);
+      }
+      html:has(.rv[open]) {
+        overflow: hidden;
+      }
+      .rv-head {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        height: 60px;
+        padding: 0 var(--pad);
+        background: var(--paper-blur);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+        border-bottom: 1px solid var(--hairline);
+      }
+      .rv-title {
+        margin: 0 auto 0 0;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .rv-head .btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.72rem;
+        color: var(--ink);
+      }
+      .rv-close {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        margin-right: -10px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: var(--ink-muted);
+        cursor: pointer;
+      }
+      .rv-close:hover {
+        color: var(--signal);
+      }
+      .rv-close svg {
+        width: 18px;
+        height: 18px;
+      }
+      .rv :focus-visible {
+        outline: 2px solid var(--signal);
+        outline-offset: 2px;
+      }
+      .rv-pages {
+        display: grid;
+        gap: 1.5rem;
+        justify-items: center;
+        padding: 2rem var(--pad) 3rem;
+      }
+      .rv-page {
+        position: relative;
+        width: 100%;
+        max-width: 850px;
+        background: #fff;
+        box-shadow:
+          0 0 0 1px var(--hairline),
+          0 12px 40px rgba(0, 0, 0, 0.08);
+      }
+      .rv-page canvas {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .rv-page a {
+        position: absolute;
+      }
+      .rv-page a:hover {
+        background: var(--signal-dim);
+      }
+      .rv-status {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--ink-muted);
+      }
+      .rv-status a {
+        color: var(--signal);
+      }
+      .rv-sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: pre-wrap;
+      }
+      @media (max-width: 600px) {
+        .rv-pages {
+          gap: 0.75rem;
+          padding: 0.75rem 0.5rem 2rem;
+        }
+      }
+
       /* ---------- the log: a drawer from the right ----------
          Opened from "Log" in the top bar at every width. It sits above the
          bar and below the entry panel, and slides fully off-screen (and out
@@ -1710,6 +1831,17 @@
         <ul class="log-items" id="log-items"></ul>
       </div>
     </aside>
+
+    <dialog class="rv" id="rv" aria-labelledby="rv-title">
+      <div class="rv-head">
+        <h2 class="rv-title" id="rv-title">Résumé</h2>
+        <a class="btn ghost" id="rv-download" href="assets/resume.pdf" download>Download PDF</a>
+        <button class="rv-close" id="rv-close" type="button" aria-label="Close résumé">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+        </button>
+      </div>
+      <div class="rv-pages" id="rv-pages" aria-live="polite"></div>
+    </dialog>
 
     <div class="peek" id="peek" hidden>
       <div class="peek-scrim" id="peek-scrim"></div>
@@ -2470,6 +2602,132 @@
             first.focus();
           }
         });
+
+        /* ---------- résumé viewer ----------
+           Any link to the résumé PDF opens the in-site viewer. PDF.js loads on
+           first open; pages render to canvas with the PDF's own links laid on
+           top and its text kept for screen readers. Modifier-clicks still get
+           the raw file. Back, Esc and the X all close it. */
+        const rv = $("#rv");
+        let rvSrc = null;
+        let pdfjsReady = null;
+        const loadPdfjs = () =>
+          (pdfjsReady ||= new Promise((ok, fail) => {
+            const s = document.createElement("script");
+            s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+            s.integrity = "sha384-/1qUCSGwTur9vjf/z9lmu/eCUYbpOTgSjmpbMQZ1/CtX2v/WcAIKqRv+U1DUCG6e";
+            s.crossOrigin = "anonymous";
+            s.onload = () => {
+              pdfjsLib.GlobalWorkerOptions.workerSrc =
+                "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+              ok(pdfjsLib);
+            };
+            s.onerror = () => {
+              pdfjsReady = null;
+              s.remove();
+              fail(new Error("pdf.js failed to load"));
+            };
+            document.head.appendChild(s);
+          }));
+
+        async function renderResume(src) {
+          const box = $("#rv-pages");
+          box.innerHTML = `<p class="rv-status">Loading résumé…</p>`;
+          try {
+            const lib = await loadPdfjs();
+            const pdf = await lib.getDocument(src).promise;
+            const frag = document.createDocumentFragment();
+            // ponytail: drawn once at open-time width (2x for pinch, capped);
+            // re-render on resize if a rotated phone ever looks soft
+            const px = Math.min(2400, Math.ceil(Math.min(850, innerWidth) * (devicePixelRatio || 1) * 2));
+            for (let n = 1; n <= pdf.numPages; n++) {
+              const page = await pdf.getPage(n);
+              const base = page.getViewport({ scale: 1 });
+              const vp = page.getViewport({ scale: px / base.width });
+              const wrap = document.createElement("div");
+              wrap.className = "rv-page";
+              const canvas = document.createElement("canvas");
+              canvas.width = Math.floor(vp.width);
+              canvas.height = Math.floor(vp.height);
+              canvas.setAttribute("aria-hidden", "true");
+              wrap.appendChild(canvas);
+              await page.render({ canvasContext: canvas.getContext("2d"), viewport: vp }).promise;
+              const text = await page.getTextContent();
+              const sr = document.createElement("div");
+              sr.className = "rv-sr";
+              sr.textContent =
+                (pdf.numPages > 1 ? `Page ${n} of ${pdf.numPages}. ` : "") +
+                text.items.map((t) => t.str + (t.hasEOL ? "\n" : "")).join("");
+              wrap.appendChild(sr);
+              for (const a of await page.getAnnotations()) {
+                const url = a.subtype === "Link" && a.url && safeUrl(a.url);
+                if (!url || url === "#") continue;
+                const [x1, y1, x2, y2] = vp.convertToViewportRectangle(a.rect);
+                const link = document.createElement("a");
+                link.href = url;
+                link.target = "_blank";
+                link.rel = "noopener";
+                link.setAttribute("aria-label", url.replace(/^mailto:|^https?:\/\/(www\.)?/, ""));
+                Object.assign(link.style, {
+                  left: `${(Math.min(x1, x2) / vp.width) * 100}%`,
+                  top: `${(Math.min(y1, y2) / vp.height) * 100}%`,
+                  width: `${(Math.abs(x2 - x1) / vp.width) * 100}%`,
+                  height: `${(Math.abs(y2 - y1) / vp.height) * 100}%`,
+                });
+                wrap.appendChild(link);
+              }
+              frag.appendChild(wrap);
+            }
+            box.replaceChildren(frag);
+            rvSrc = src;
+          } catch {
+            box.innerHTML = `<p class="rv-status">Couldn't show the résumé here. <a href="${esc(src)}">Open the PDF</a>.</p>`;
+          }
+        }
+
+        function openResume(src, push = true) {
+          $("#rv-download").href = src;
+          if (!rv.open) {
+            setMenu(false);
+            if (logOpen()) setLog(false);
+            rv.showModal();
+            $("#rv-close").focus();
+            if (push) history.pushState({ resume: true }, "", "#resume");
+          }
+          if (rvSrc !== src) renderResume(src);
+        }
+        function closeResume() {
+          if (!rv.open) return;
+          if (history.state && history.state.resume) history.back(); // popstate closes it
+          else {
+            rv.close();
+            if (location.hash === "#resume") history.replaceState(null, "", location.pathname + location.search);
+          }
+        }
+        addEventListener("popstate", () => {
+          const want = !!(history.state && history.state.resume);
+          if (rv.open && !want) rv.close();
+          else if (!rv.open && want) openResume($("#rv-download").href, false);
+        });
+        rv.addEventListener("cancel", (e) => {
+          e.preventDefault();
+          closeResume();
+        });
+        $("#rv-close").addEventListener("click", closeResume);
+        document.addEventListener("click", (e) => {
+          const a = e.target.closest('a[href$="resume.pdf"]');
+          if (!a || a.id === "rv-download" || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+          e.preventDefault();
+          rvReturn = a;
+          openResume(a.href);
+        });
+        // Safari never focuses a clicked link, so hand focus back explicitly
+        let rvReturn = null;
+        rv.addEventListener("close", () => {
+          if (rvReturn && document.contains(rvReturn)) rvReturn.focus({ preventScroll: true });
+          rvReturn = null;
+        });
+        if (location.hash === "#resume") openResume(new URL("assets/resume.pdf", location.href).href, false);
 
         /* Rail position, from the same scroll pass idea as everything else:
            the section whose top has most recently passed the reading line
