@@ -1,56 +1,6 @@
 {
   "ranges": {
     "short_term": {
-      "tracks": [
-        {
-          "name": "Quebec",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e022685b70af798b4f272c00d8a",
-          "url": "https://open.spotify.com/track/67DgVQlvQ0qilSBN1hdkKN"
-        },
-        {
-          "name": "Cold Shoulder (feat. Don Toliver & Yebba)",
-          "artist": "Drake, Don Toliver, Yebba",
-          "image": "https://i.scdn.co/image/ab67616d00001e022685b70af798b4f272c00d8a",
-          "url": "https://open.spotify.com/track/50GVx8sCc1TDKHXumgYqEO"
-        },
-        {
-          "name": "Solar Eclipse (feat. Don Toliver)",
-          "artist": "Drake, Don Toliver",
-          "image": "https://i.scdn.co/image/ab67616d00001e022685b70af798b4f272c00d8a",
-          "url": "https://open.spotify.com/track/4IAWZw00ZI9DLKDjesx86u"
-        },
-        {
-          "name": "Classic PT2",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02de74f9038a434f4766114367",
-          "url": "https://open.spotify.com/track/41Y8xu4OoUH1wHdnQgpJky"
-        },
-        {
-          "name": "BA (feat. Future)",
-          "artist": "Quavo, Future",
-          "image": "https://i.scdn.co/image/ab67616d00001e029123c8e39e04e529d2013df9",
-          "url": "https://open.spotify.com/track/4dcIixtgEW2bs2RapmQlQ3"
-        },
-        {
-          "name": "Every Night (feat. Don Toliver)",
-          "artist": "Offset, Don Toliver",
-          "image": "https://i.scdn.co/image/ab67616d00001e02f48afa2cdf2f552f2d4e2164",
-          "url": "https://open.spotify.com/track/3BDhcu7pO83YKd7W80498k"
-        },
-        {
-          "name": "Like Yoga",
-          "artist": "Rich The Kid, BIA",
-          "image": "https://i.scdn.co/image/ab67616d00001e020c6140e9dbba73910090cc6a",
-          "url": "https://open.spotify.com/track/7JzdaWsDyXDrFWYqxlji1a"
-        },
-        {
-          "name": "MISS MY DAWG (feat. Drake)",
-          "artist": "Yeat, Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e027013f42ca4a4d0965d5ad6c1",
-          "url": "https://open.spotify.com/track/0r1Az9a4ReL7dpBvtHjq5A"
-        }
-      ],
       "artists": [
         {
           "name": "Drake",
@@ -103,56 +53,6 @@
       ]
     },
     "medium_term": {
-      "tracks": [
-        {
-          "name": "Make Them Cry",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/55wlsNYqcfiQsHuX8l0jmF"
-        },
-        {
-          "name": "Whisper My Name",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/7KGHenqXZofXNm5MKDbT3J"
-        },
-        {
-          "name": "Shabang",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/6vjpQIdABqntoe3zPazPec"
-        },
-        {
-          "name": "National Treasures",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/393OFJFZKIIv66JmJcNm9D"
-        },
-        {
-          "name": "Janice STFU",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/514joG57v4yKTsfQmz7stz"
-        },
-        {
-          "name": "Hoe Phase",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02539bb112d7c970545dd971e3",
-          "url": "https://open.spotify.com/track/0O6lm9N6qJclxNFHl51nkr"
-        },
-        {
-          "name": "Dust",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/4eE16RJFDKf2WxBTqqfylu"
-        },
-        {
-          "name": "Burning Bridges",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/1ijYk2EYwj0rGqYwtjiAUJ"
-        }
-      ],
       "artists": [
         {
           "name": "Drake",
@@ -205,56 +105,6 @@
       ]
     },
     "long_term": {
-      "tracks": [
-        {
-          "name": "Make Them Cry",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/55wlsNYqcfiQsHuX8l0jmF"
-        },
-        {
-          "name": "Whisper My Name",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/7KGHenqXZofXNm5MKDbT3J"
-        },
-        {
-          "name": "Shabang",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/6vjpQIdABqntoe3zPazPec"
-        },
-        {
-          "name": "National Treasures",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/393OFJFZKIIv66JmJcNm9D"
-        },
-        {
-          "name": "Janice STFU",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/514joG57v4yKTsfQmz7stz"
-        },
-        {
-          "name": "Hoe Phase",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02539bb112d7c970545dd971e3",
-          "url": "https://open.spotify.com/track/0O6lm9N6qJclxNFHl51nkr"
-        },
-        {
-          "name": "Dust",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/4eE16RJFDKf2WxBTqqfylu"
-        },
-        {
-          "name": "Burning Bridges",
-          "artist": "Drake",
-          "image": "https://i.scdn.co/image/ab67616d00001e02fe9d3ab9adb1d3b59835b81c",
-          "url": "https://open.spotify.com/track/1ijYk2EYwj0rGqYwtjiAUJ"
-        }
-      ],
       "artists": [
         {
           "name": "Drake",
