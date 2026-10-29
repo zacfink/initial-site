@@ -58,7 +58,7 @@
       :root {
         --paper: #ffffff;
         --paper-2: #f5f6f7;
-        --paper-blur: rgba(255, 255, 255, 0.82);
+        --paper-blur: rgba(255, 255, 255, 0.72);
         --ink: #0a0a0a;
         --ink-muted: #5a5f66;
         --hairline: #e3e5e8;
@@ -81,7 +81,7 @@
         :root {
           --paper: #0b0c0e;
           --paper-2: #14161a;
-          --paper-blur: rgba(11, 12, 14, 0.82);
+          --paper-blur: rgba(11, 12, 14, 0.72);
           --ink: #f2f3f5;
           --ink-muted: #9aa0a8;
           --hairline: #242830;
@@ -126,7 +126,7 @@
         scrollbar-gutter: stable;
         scroll-behavior: smooth;
         /* the header is sticky, so an anchor landing at y=0 lands underneath
-           it. Every in-page link clears the header's 60px plus some air. */
+           it. Every in-page link clears the header's 44px plus some air. */
         scroll-padding-top: 5rem;
       }
 
@@ -167,46 +167,85 @@
         color: var(--ink-muted);
       }
 
-      /* ---------- top bar ---------- */
+      /* ---------- top bar ----------
+         After apple.com's global nav: one thin full-width bar, every item
+         centred in a single evenly spaced row, small light text, the
+         wordmark first and two quiet icons last. The bar's own palette is
+         in the --bar-* tokens so the menu sheet can share it. */
       .topbar {
+        --bar-h: 44px;
+        /* frosted paper: follows the page, light or dark */
+        --bar-bg: var(--paper-blur);
+        --bar-sheet: var(--paper);
+        --bar-ink: var(--ink);
+        --bar-muted: var(--ink-muted);
+        --bar-line: var(--hairline);
+        --bar-signal: var(--signal);
+        --bar-signal-dim: var(--signal-dim);
         position: sticky;
         top: 0;
         z-index: 50;
-        background: var(--paper-blur);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--hairline);
+        background: var(--bar-bg);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+        border-bottom: 1px solid var(--bar-line);
+        color: var(--bar-ink);
       }
       .topbar .wrap {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 60px;
+        max-width: 1024px;
+        height: var(--bar-h);
+        padding: 0 22px;
       }
       .brand {
         font-family: var(--display);
         font-weight: 600;
         letter-spacing: -0.02em;
-        font-size: 1.15rem;
+        font-size: 1rem;
+        line-height: var(--bar-h);
         text-decoration: none;
+        color: var(--bar-ink);
       }
       .brand .dot {
-        color: var(--signal);
+        color: var(--bar-signal);
       }
-      .nav {
-        display: flex;
-        gap: 1.75rem;
+      /* the links and icons become items of the bar itself, so
+         space-between spaces the whole row evenly, Apple style */
+      .nav,
+      .nav-icons {
+        display: contents;
       }
-      .nav a {
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
+      .nav a,
+      .nav-icons a {
+        font-family: var(--body);
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        line-height: var(--bar-h);
         text-decoration: none;
-        color: var(--ink-muted);
+        color: var(--bar-muted);
         transition: color 0.2s ease;
       }
-      .nav a:hover {
-        color: var(--signal);
+      .nav a:hover,
+      .nav-icons a:hover {
+        color: var(--bar-ink);
+      }
+      .nav-icons a {
+        display: inline-flex;
+        align-items: center;
+        height: var(--bar-h);
+      }
+      .nav-icons svg {
+        width: 15px;
+        height: 15px;
+        fill: currentColor;
+      }
+      .topbar :focus-visible {
+        outline: 2px solid var(--bar-signal);
+        outline-offset: 2px;
+        border-radius: 2px;
       }
       /* phones: six links don't fit the bar, so Contact stays one tap away
          and the rest fold into a menu that drops under the bar */
@@ -217,37 +256,47 @@
       }
       .nav-contact,
       .nav-toggle {
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
+        font-family: var(--body);
+        font-size: 12px;
         text-decoration: none;
         padding: 0.6rem 0;
       }
       .nav-contact {
-        color: var(--signal);
+        color: var(--bar-signal);
       }
       .nav-toggle {
         background: none;
         border: 0;
-        color: var(--ink);
+        color: var(--bar-ink);
         cursor: pointer;
       }
       @media (max-width: 640px) {
+        .topbar {
+          --bar-h: 48px;
+        }
+        .topbar .wrap {
+          padding: 0 var(--pad);
+        }
+        .brand {
+          font-size: 1.1rem;
+        }
         .nav-phone {
           display: flex;
+        }
+        .nav-icons {
+          display: none;
         }
         .nav {
           display: none;
           position: absolute;
-          top: 60px;
+          top: var(--bar-h);
           left: 0;
           right: 0;
           flex-direction: column;
           gap: 0;
           padding: 0.25rem var(--pad) 0.75rem;
-          background: var(--paper);
-          border-bottom: 1px solid var(--hairline);
+          background: var(--bar-sheet);
+          border-bottom: 1px solid var(--bar-line);
         }
         .topbar.menu-open .nav {
           display: flex;
@@ -255,10 +304,11 @@
         .nav a {
           padding: 0.95rem 0;
           font-size: 0.8rem;
-          color: var(--ink);
+          line-height: 1.4;
+          color: var(--bar-ink);
         }
         .nav a + a {
-          border-top: 1px solid var(--hairline);
+          border-top: 1px solid var(--bar-line);
         }
         .nav .nav-log {
           display: none;
@@ -1089,11 +1139,10 @@
         display: inline-flex;
         align-items: center;
         gap: 0.45rem;
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--signal);
+        font-family: var(--body);
+        font-size: 12px;
+        letter-spacing: -0.01em;
+        color: var(--bar-signal);
       }
       .nav-log[hidden] {
         display: none;
@@ -1102,8 +1151,8 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: var(--signal);
-        box-shadow: 0 0 0 3px var(--signal-dim);
+        background: var(--bar-signal);
+        box-shadow: 0 0 0 3px var(--bar-signal-dim);
       }
 
       /* ---------- the panel ----------
@@ -1478,7 +1527,7 @@
           left: 11px;
           right: 11px;
           height: 1.5px;
-          background: var(--ink);
+          background: var(--bar-ink);
           transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .nav-toggle::before {
@@ -1497,7 +1546,7 @@
         /* menu: a full-height sheet of big, numbered section links */
         .nav {
           counter-reset: n;
-          height: calc(100dvh - 60px);
+          height: calc(100dvh - var(--bar-h));
           overflow-y: auto;
           padding: 1.25rem var(--pad) 2rem;
           border-bottom: 0;
@@ -1548,6 +1597,7 @@
       <div class="wrap">
         <a class="brand" id="brand" href="#top"></a>
         <nav class="nav" id="nav" aria-label="Sections"></nav>
+        <span class="nav-icons" id="nav-icons"></span>
         <div class="nav-phone">
           <button class="nav-log" type="button" data-open-log aria-controls="log" aria-expanded="false" hidden><span class="nav-log-dot" aria-hidden="true"></span><span class="nav-log-label">Log</span></button>
           <a class="nav-contact" id="nav-contact" href="#contact">Contact</a>
@@ -2129,6 +2179,19 @@
             .map((n) => `<a href="${esc(safeUrl(n.href))}">${esc(n.label)}</a>`)
             .join("") +
             `<button class="nav-log" type="button" data-open-log aria-controls="log" aria-expanded="false" hidden><span class="nav-log-dot" aria-hidden="true"></span><span class="nav-log-label">Log</span></button>`;
+          // two quiet icons close the bar, taken from the Contact links
+          const ICONS = {
+            github: '<path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.72 1.22 1.88.87 2.33.66.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/>',
+            resume: '<path d="M4 0h5.5L14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2Zm5 1.5V5h3.5L9 1.5ZM5 8h6v1.2H5V8Zm0 2.6h6v1.2H5v-1.2Zm0-5.2h2.5v1.2H5V5.4Z"/>',
+          };
+          const iconLinks = (SITE.contact && SITE.contact.links) || [];
+          $("#nav-icons").innerHTML = [
+            ["github", iconLinks.find((l) => /github\.com/.test(l.href))],
+            ["resume", iconLinks.find((l) => /resume\.pdf$/.test(l.href))],
+          ]
+            .filter(([, l]) => l)
+            .map(([k, l]) => `<a href="${esc(safeUrl(l.href))}" aria-label="${esc(l.label)}" title="${esc(l.label)}"${/^https?:/.test(l.href) ? ' target="_blank" rel="noopener"' : ""}><svg viewBox="0 0 16 16" aria-hidden="true">${ICONS[k]}</svg></a>`)
+            .join("");
           // the phone shortcut follows whichever nav item points at #contact
           const contactLink = SITE.nav.find((n) => n.href === "#contact");
           $("#nav-contact").hidden = !contactLink;
