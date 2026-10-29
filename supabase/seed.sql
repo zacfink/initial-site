@@ -24,6 +24,10 @@ values (
       "label": "Teams"
     },
     {
+      "href": "#music",
+      "label": "Music"
+    },
+    {
       "href": "#contact",
       "label": "Contact"
     }
