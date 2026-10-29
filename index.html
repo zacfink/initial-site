@@ -686,6 +686,54 @@
         }
       }
 
+      /* ---------- teams (sport rows reuse .chip-group / .chip-label) ---------- */
+      .teams {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+      }
+      .team-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+        gap: 1.2rem clamp(1.2rem, 2.4vw, 2rem);
+      }
+      .team {
+        display: grid;
+        grid-template-columns: 36px 1fr;
+        gap: 0.85rem;
+        align-items: start;
+        border-top: 1px solid var(--hairline);
+        padding-top: 0.9rem;
+      }
+      .team-logo {
+        width: 36px;
+        height: 36px;
+        object-fit: contain;
+      }
+      .team-name {
+        font-family: var(--display);
+        font-weight: 500;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+      }
+      .team-league,
+      .team-line {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        color: var(--ink-muted);
+        margin-top: 0.25rem;
+      }
+      .team-league {
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .team-line b {
+        font-weight: 500;
+        color: var(--signal);
+        margin-right: 0.4em;
+      }
+
       /* ---------- thoughts ---------- */
       .thoughts {
         display: grid;
@@ -1543,6 +1591,16 @@
         </div>
       </section>
 
+      <section class="section" id="teams">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="eyebrow mono" id="teams-eyebrow"></span>
+            <h2>Teams I follow.</h2>
+          </div>
+          <div class="teams reveal" id="teams-grid"></div>
+        </div>
+      </section>
+
       <section class="section contact" id="contact">
         <div class="wrap">
           <span class="eyebrow mono reveal" id="contact-eyebrow"></span>
@@ -1985,13 +2043,14 @@
           "about",
           "work",
           "thoughts",
+          "teams",
           "contact",
         ];
 
         // "01 — About" and "Monthly" both yield "About" / "Monthly"
         const labelOf = (eyebrow, fallback) => {
           const m = String(eyebrow || "").match(/^\s*(?:\d+\s*[—–-]\s*)?(.+?)\s*$/);
-          return m ? m[1] : fallback;
+          return m ? m[1] : fallback.charAt(0).toUpperCase() + fallback.slice(1);
         };
 
         const MONTH_NAMES = [
@@ -2425,6 +2484,130 @@
         }
 
         loadPublishedContent();
+
+        /* ---------- teams ----------
+           Hard-coded here, not in Supabase. Each card renders name + logo
+           straight away; the live line (next game, last score) is filled in
+           from a public feed if one exists and answers. Both feeds send
+           Access-Control-Allow-Origin: *. Teams with no feed stay static. */
+        const ESPN = "https://site.api.espn.com/apis/site/v2/sports/";
+        const LOGO = "https://a.espncdn.com/i/teamlogos/";
+        const TEAMS = [
+          { sport: "Football", teams: [
+            { name: "Green Bay Packers", league: "NFL", logo: LOGO + "nfl/500/gb.png", espn: "football/nfl/teams/gb" },
+            { name: "Queen's Gaels", league: "U Sports", logo: "assets/teams/queens-gaels.svg" },
+            { name: "Michigan State Spartans", league: "NCAA", logo: LOGO + "ncaa/500/127.png", espn: "football/college-football/teams/127" },
+          ] },
+          { sport: "Basketball", teams: [
+            { name: "Toronto Raptors", league: "NBA", logo: LOGO + "nba/500/tor.png", espn: "basketball/nba/teams/tor" },
+            { name: "Sacramento Kings", league: "NBA", logo: LOGO + "nba/500/sac.png", espn: "basketball/nba/teams/sac" },
+            { name: "Toronto Tempo", league: "WNBA", logo: LOGO + "wnba/500/tor.png", espn: "basketball/wnba/teams/131935" },
+          ] },
+          { sport: "Hockey", teams: [
+            { name: "Toronto Maple Leafs", league: "NHL", logo: LOGO + "nhl/500/tor.png", espn: "hockey/nhl/teams/tor" },
+            { name: "Team Canada", league: "International", logo: LOGO + "countries/500/can.png" },
+          ] },
+          { sport: "Soccer", teams: [
+            { name: "Toronto FC", league: "MLS", logo: LOGO + "soccer/500/7318.png", espn: "soccer/usa.1/teams/7318" },
+          ] },
+          { sport: "F1", teams: [
+            { name: "McLaren", league: "Formula 1", logo: "assets/teams/mclaren.svg", f1: "mclaren" },
+          ] },
+        ];
+
+        // timed = false: ESPN has only the day (its placeholder is midnight Eastern)
+        const when = (iso, timed = true) =>
+          new Date(iso).toLocaleString("en-CA", timed
+            ? { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }
+            : { weekday: "short", month: "short", day: "numeric", timeZone: "America/New_York" });
+        const line = (label, text) =>
+          `<div class="team-line"><b>${esc(label)}</b>${esc(text)}</div>`;
+        const getJSON = async (url) => {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(res.status);
+          return res.json();
+        };
+
+        async function espnLines(path) {
+          const d = await getJSON(ESPN + path + "/schedule");
+          const id = d.team.id;
+          const games = (d.events || [])
+            .map((e) => {
+              const c = e.competitions[0];
+              const us = c.competitors.find((x) => x.team.id === id);
+              const them = c.competitors.find((x) => x !== us);
+              return { date: e.date, timed: e.timeValid !== false, state: c.status.type.state, done: c.status.type.completed, us, them };
+            })
+            .filter((g) => g.us && g.them)
+            .sort((a, b) => a.date.localeCompare(b.date));
+          const vs = (g) => `${g.us.homeAway === "away" ? "@" : "vs"} ${g.them.team.abbreviation}`;
+          const next = games.find((g) => g.state === "pre" && new Date(g.date) > Date.now());
+          const last = games.filter((g) => g.done).pop();
+
+          /* Off-season card: just how the season that ended went. The soccer
+             feed carries no record, so it is counted from the games (W-D-L);
+             ESPN's team endpoint has it but sends no CORS header.
+             ponytail: "no upcoming game listed" = off-season, so a team in
+             playoffs ESPN's schedule doesn't list reads as off-season. */
+          if (!next) {
+            const done = games.filter((g) => g.done);
+            const n = (f) => done.filter(f).length;
+            const rec = d.team.recordSummary || (done.length &&
+              `${n((g) => g.us.winner)}-${n((g) => !g.us.winner && !g.them.winner)}-${n((g) => g.them.winner)}`);
+            const rank = d.team.standingSummary && d.team.standingSummary.replace(/ Conference Division$/, " Conference");
+            const result = [rec, rank].filter(Boolean).join(", ");
+            const year = String(d.season.displayName).split(" ")[0];
+            return line("Off-season", result ? `${year}: ${result}` : "");
+          }
+
+          let out = "";
+          if (next) out += line("Next", `${when(next.date, next.timed)} ${vs(next)}`);
+          if (last) {
+            const r = last.us.winner ? "W" : last.them.winner ? "L" : "T";
+            out += line("Last", `${r} ${last.us.score.displayValue}–${last.them.score.displayValue} ${vs(last)}`);
+          }
+          return out;
+        }
+
+        async function f1Lines(team) {
+          const api = "https://api.jolpi.ca/ergast/f1/current/";
+          const [next, last] = await Promise.all([
+            getJSON(api + "next.json").catch(() => null),
+            getJSON(api + `last/constructors/${team}/results.json`).catch(() => null),
+          ]);
+          const gp = (name) => name.replace("Grand Prix", "GP");
+          const nr = next && next.MRData.RaceTable.Races[0];
+          const lr = last && last.MRData.RaceTable.Races[0];
+          if (!nr) {
+            // off-season: last season's constructors' finish
+            const st = await getJSON(api + `constructors/${team}/constructorStandings.json`).catch(() => null);
+            const list = st && st.MRData.StandingsTable.StandingsLists[0];
+            const c = list && list.ConstructorStandings[0];
+            return line("Off-season", c ? `${list.season}: P${c.position} in constructors, ${c.points} pts` : "");
+          }
+          let out = "";
+          if (nr) out += line("Next", `${gp(nr.raceName)} · ${when(nr.date + "T" + (nr.time || "12:00:00Z"))}`);
+          if (lr) {
+            const pos = (t) => (/^\d+$/.test(t) ? "P" + t : t === "R" ? "DNF" : t);
+            out += line("Last", `${gp(lr.raceName)}: ` +
+              lr.Results.map((r) => `${pos(r.positionText)} ${r.Driver.familyName}`).join(", "));
+          }
+          return out;
+        }
+
+        $("#teams-grid").innerHTML = TEAMS.map(
+          (g) => `<div class="chip-group"><span class="chip-label">${esc(g.sport)}</span><div class="team-list">${g.teams
+            .map(
+              (t) => `<div class="team"><img class="team-logo" src="${esc(t.logo)}" alt="" loading="lazy" width="36" height="36" /><div><div class="team-name">${esc(t.name)}</div><div class="team-league">${esc(t.league)}</div><div class="team-live"></div></div></div>`,
+            )
+            .join("")}</div></div>`,
+        ).join("");
+
+        const liveSlots = $("#teams-grid").querySelectorAll(".team-live");
+        TEAMS.flatMap((g) => g.teams).forEach((t, i) => {
+          const load = t.espn ? espnLines(t.espn) : t.f1 ? f1Lines(t.f1) : null;
+          if (load) load.then((html) => (liveSlots[i].innerHTML = html)).catch(() => {}); // feed down: name + logo stay
+        });
 
         // scroll reveal — runs after content is in the DOM
         const reduce = window.matchMedia(
