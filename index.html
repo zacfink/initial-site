@@ -734,6 +734,37 @@
         margin-right: 0.4em;
       }
 
+      @media (max-width: 600px) {
+        .teams {
+          gap: 1rem;
+        }
+        .teams .chip-group {
+          gap: 0.4rem;
+        }
+        .team-list {
+          grid-template-columns: 1fr 1fr;
+          gap: 0.7rem 0.9rem;
+        }
+        .team {
+          grid-template-columns: 24px 1fr;
+          gap: 0.5rem;
+          padding-top: 0.55rem;
+        }
+        .team-logo {
+          width: 24px;
+          height: 24px;
+        }
+        .team-name {
+          font-size: 0.85rem;
+          line-height: 1.2;
+        }
+        .team-league,
+        .team-line {
+          font-size: 0.6rem;
+          margin-top: 0.15rem;
+        }
+      }
+
       /* ---------- thoughts ---------- */
       .thoughts {
         display: grid;
