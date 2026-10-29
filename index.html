@@ -778,6 +778,23 @@
         letter-spacing: 0.14em;
         text-transform: uppercase;
       }
+      /* top artists: same rows as the teams, round photos */
+      .artists {
+        margin-top: 1.8rem;
+      }
+      .artists[hidden] {
+        display: none;
+      }
+      .artists a.team {
+        text-decoration: none;
+      }
+      .artists a.team:hover .team-name {
+        color: var(--signal);
+      }
+      .artists .team-logo {
+        border-radius: 50%;
+        object-fit: cover;
+      }
       .team-line b {
         font-weight: 500;
         color: var(--signal);
@@ -1800,6 +1817,9 @@
             <h2>Teams I follow.</h2>
           </div>
           <div class="teams reveal" id="teams-grid"></div>
+          <div class="teams artists" id="artists" hidden>
+            <div class="chip-group"><span class="chip-label">Top artists · Spotify</span><div class="team-list" id="artists-list"></div></div>
+          </div>
         </div>
       </section>
 
@@ -1884,6 +1904,10 @@
             {
               "href": "#thoughts",
               "label": "Curious"
+            },
+            {
+              "href": "#teams",
+              "label": "Teams"
             },
             {
               "href": "#contact",
@@ -2960,6 +2984,23 @@
           const load = t.espn ? espnLines(t.espn) : t.f1 ? f1Lines(t.f1) : null;
           if (load) load.then((html) => (liveSlots[i].innerHTML = html)).catch(() => {}); // feed down: name + logo stay
         });
+
+        /* ---------- top artists ----------
+           assets/top-artists.json is rewritten daily by
+           .github/workflows/top-artists.yml. Missing or empty: the block stays hidden. */
+        fetch("assets/top-artists.json", { cache: "no-cache" })
+          .then((r) => (r.ok ? r.json() : null))
+          .then((d) => {
+            const list = (d && Array.isArray(d.artists) ? d.artists : []).filter((a) => a && a.name);
+            if (!list.length) return;
+            $("#artists-list").innerHTML = list
+              .map(
+                (a) => `<a class="team" href="${esc(safeUrl(a.url || "#teams"))}" target="_blank" rel="noopener"><img class="team-logo" src="${esc(safeUrl(a.image || ""))}" alt="" loading="lazy" width="36" height="36" /><div><div class="team-name">${esc(a.name)}</div>${a.genre ? `<div class="team-league">${esc(a.genre)}</div>` : ""}</div></a>`,
+              )
+              .join("");
+            $("#artists").hidden = false;
+          })
+          .catch(() => {});
 
         // scroll reveal — runs after content is in the DOM
         const reduce = window.matchMedia(

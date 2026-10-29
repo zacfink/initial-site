@@ -20,6 +20,10 @@ values (
       "label": "Curious"
     },
     {
+      "href": "#teams",
+      "label": "Teams"
+    },
+    {
       "href": "#contact",
       "label": "Contact"
     }
