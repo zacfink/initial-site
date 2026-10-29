@@ -265,7 +265,7 @@ values (
     "items": [
       {
         "n": "01",
-        "text": "Getting an AI to remember my life so I don''t have to."
+        "text": "Getting an AI to remember my life, understand it, and find the right bit when I need it."
       },
       {
         "n": "02",
