@@ -39,16 +39,16 @@
           "url": "https://open.spotify.com/artist/0EyhkwP3UnwGFBy6xwKjSy"
         },
         {
+          "name": "Key Glock",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17882b15c0121aac8f615e13d41",
+          "url": "https://open.spotify.com/artist/0RESbWvOMyua0yuyVrztJ5"
+        },
+        {
           "name": "Gunna",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178b99bd0e431142f2919a58276",
           "url": "https://open.spotify.com/artist/2hlmm7s2ICUX0LVIhVFlZQ"
-        },
-        {
-          "name": "Future",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f1782c472c891062acb4f3068583",
-          "url": "https://open.spotify.com/artist/1RyvyyTE3xzB2ZywiAwp0i"
         }
       ]
     },
@@ -79,28 +79,28 @@
           "url": "https://open.spotify.com/artist/6fxyWrfmjcbj5d12gXeiNV"
         },
         {
-          "name": "void",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
-          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
-        },
-        {
           "name": "Freddie Gibbs",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178499def7bd0369aa26a22273c",
           "url": "https://open.spotify.com/artist/0Y4inQK6OespitzD6ijMwb"
         },
         {
-          "name": "Kenny Mason",
+          "name": "void",
           "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17894fc70ad544924dfc488330e",
-          "url": "https://open.spotify.com/artist/4mwdnO2jZrMmMVrjcHsZBv"
+          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
+          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
         },
         {
           "name": "Travis Scott",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f17819c2790744c792d05570bb71",
           "url": "https://open.spotify.com/artist/0Y5tJX1MQlPlqiwlOH1tJY"
+        },
+        {
+          "name": "J. Cole",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178c401ea77e86ee984b1ba9fc2",
+          "url": "https://open.spotify.com/artist/6l3HvQ5sa6mXTsMTB19rO5"
         }
       ]
     },
