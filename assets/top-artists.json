@@ -21,16 +21,16 @@
           "url": "https://open.spotify.com/artist/4V8LLVI7PbaPR0K2TGSxFF"
         },
         {
-          "name": "IMG",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17860ec9227deb34d88f7e474ac",
-          "url": "https://open.spotify.com/artist/1XNiWyUH5vvPqNDmjvTSqX"
-        },
-        {
           "name": "Don Toliver",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178c52b798deb89eb8414a51b7b",
           "url": "https://open.spotify.com/artist/4Gso3d4CscCijv0lmajZWs"
+        },
+        {
+          "name": "IMG",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17860ec9227deb34d88f7e474ac",
+          "url": "https://open.spotify.com/artist/1XNiWyUH5vvPqNDmjvTSqX"
         },
         {
           "name": "EsDeeKid",
