@@ -1766,6 +1766,44 @@
           transition: none;
         }
       }
+
+      /* ---------- apple-ish sections (mockup branch) ---------- */
+      .section-head h2 { font-size: clamp(2.8rem, 7.5vw, 5.6rem); letter-spacing: -0.045em; line-height: 0.98; }
+      .spring { transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; }
+      .spring:hover { transform: translateY(-6px) scale(1.012); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.14); }
+      @media (prefers-reduced-motion: reduce) { .spring, .spring:hover { transition: none; transform: none; } }
+
+      /* D: bento work grid */
+      #featured.bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(210px, auto); gap: 16px; }
+      .bento .proj { border: 0; border-radius: 26px; padding: 26px; background: color-mix(in srgb, var(--ink) 5%, var(--paper)); justify-content: flex-end; }
+      .bento .proj::before { display: none; }
+      .bento .proj .foot { border-top-color: color-mix(in srgb, var(--ink) 12%, transparent); }
+      .bento .proj:nth-child(1) { grid-column: span 2; grid-row: span 2; background: linear-gradient(140deg, #3a35ff, #8f5bff); color: #fff; }
+      .bento .proj:nth-child(1) h3 { font-size: clamp(2.2rem, 4vw, 3.4rem); }
+      .bento .proj:nth-child(1) p, .bento .proj:nth-child(1) .meta, .bento .proj:nth-child(1) .tag { color: #e6e4ff; }
+      .bento .proj:nth-child(1) a { color: #fff; }
+      .bento .proj:nth-child(2) { grid-column: span 2; }
+      @media (max-width: 760px) { #featured.bento { grid-template-columns: 1fr; } .bento .proj:nth-child(n) { grid-column: auto; grid-row: auto; } }
+
+      /* E: keynote-dark forks */
+      #forks.keynote { background: #000; color: #f5f5f7; }
+      #forks.keynote .eyebrow { color: #a1a1a6; }
+      #forks.keynote h2 .grad { background: linear-gradient(90deg, #8f8bff, #ff7ad9, #ffb86b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      #forks.keynote .proj { border: 0; border-radius: 26px; padding: 30px; background: #1d1d1f; }
+      #forks.keynote .proj::before { display: none; }
+      #forks.keynote .proj p, #forks.keynote .meta { color: #a1a1a6; }
+      #forks.keynote .tag { color: #8f8bff; }
+      #forks.keynote .proj .foot { border-top-color: #333; }
+      #forks.keynote a { color: #f5f5f7; }
+
+      /* F: widget obsessions */
+      #thoughts.widgets { background: linear-gradient(180deg, color-mix(in srgb, var(--signal) 12%, var(--paper)), color-mix(in srgb, #ff7ad9 8%, var(--paper))); }
+      .widgets .thoughts { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 220px)); gap: 18px; }
+      .widgets .thought { aspect-ratio: 1; border-radius: 28px; padding: 20px; border: 0;
+        background: color-mix(in srgb, var(--paper) 70%, transparent); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        display: flex; flex-direction: column; justify-content: space-between; }
+      .widgets .thought .n { font-size: 1rem; }
+      .widgets .thought p { font-size: 1rem; line-height: 1.35; }
     </style>
   </head>
   <body>
@@ -1833,11 +1871,11 @@
             <span class="eyebrow mono" id="work-eyebrow"></span>
             <h2 id="work-heading"></h2>
           </div>
-          <div class="featured reveal" id="featured"></div>
+          <div class="featured bento reveal" id="featured"></div>
         </div>
       </section>
 
-      <section class="section" id="forks">
+      <section class="section keynote" id="forks">
         <div class="wrap">
           <div class="section-head reveal">
             <span class="eyebrow mono" id="forks-eyebrow"></span>
@@ -1849,7 +1887,7 @@
 
 
 
-      <section class="section" id="thoughts">
+      <section class="section widgets" id="thoughts">
         <div class="wrap">
           <div class="section-head reveal">
             <span class="eyebrow mono" id="thoughts-eyebrow"></span>
@@ -2496,7 +2534,7 @@
           $("#featured").innerHTML = SITE.work.featured
             .map(
               (p) => `
-      <article class="proj" data-id="${slug(p.title)}">
+      <article class="proj spring" data-id="${slug(p.title)}">
         <div class="tags">${p.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}<span class="seen-flag">Viewed</span></div>
         <h3>${esc(p.title)}</h3>
         <p>${esc(p.desc)}</p>
@@ -2508,11 +2546,15 @@
           // forks: other people's projects I'm changing; hidden when there are none
           const forks = (SITE.forks && Array.isArray(SITE.forks.items)) ? SITE.forks.items : [];
           $("#forks").hidden = !forks.length;
-          $("#forks-heading").textContent = (SITE.forks && SITE.forks.heading) || "Currently forking.";
+          {
+            const h = (SITE.forks && SITE.forks.heading) || "Currently forking.";
+            const i = h.trim().lastIndexOf(" ");
+            $("#forks-heading").innerHTML = i < 0 ? esc(h) : `${esc(h.slice(0, i))} <span class="grad">${esc(h.slice(i + 1))}</span>`;
+          }
           $("#forks-grid").innerHTML = forks
             .map(
               (p) => `
-      <article class="proj">
+      <article class="proj spring">
         <div class="tags">${(p.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
         <h3>${esc(p.title)}</h3>
         <p>${esc(p.desc)}</p>
@@ -2526,7 +2568,7 @@
           $("#thoughts-grid").innerHTML = SITE.thoughts.items
             .map(
               (t) =>
-                `<div class="thought"><span class="n">${esc(t.n)}</span><p>${esc(t.text)}</p></div>`,
+                `<div class="thought spring"><span class="n">${esc(t.n)}</span><p>${esc(t.text)}</p></div>`,
             )
             .join("");
 
