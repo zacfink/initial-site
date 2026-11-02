@@ -1882,7 +1882,10 @@
         .widgets .thought { aspect-ratio: auto; flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 14px; padding: 16px 18px; border-radius: 20px; }
         .music-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 12px; }
         .art b { font-size: 0.8rem; margin-top: 6px; }
-        .hero-cta { gap: 8px; }
+        /* all three buttons on one row, same size */
+        .hero-cta { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+        .hero-cta .btn.primary { grid-column: auto; }
+        .hero-cta .btn { font-size: 0.6rem; letter-spacing: 0.04em; padding: 0.8rem 0.25rem; text-align: center; white-space: nowrap; }
         .hero .hero-facts { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory;
           margin-inline: -20px; padding: 0 20px 6px; scroll-padding: 0 20px; scrollbar-width: none; }
         .hero .hero-facts::-webkit-scrollbar { display: none; }
