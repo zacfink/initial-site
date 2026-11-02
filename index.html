@@ -1833,7 +1833,7 @@
       #teams-grid { display: block; }
       .tcard { width: 250px; border-radius: 24px; padding: 22px; color: #fff; display: flex; flex-direction: column; gap: 22px;
         background: linear-gradient(160deg, var(--tc), color-mix(in srgb, var(--tc) 35%, #000)); }
-      .tcard .team-logo { width: 88px; height: 88px; object-fit: contain; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.4)); }
+      .tcard .team-logo { width: 88px; height: 88px; object-fit: contain; padding: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.94); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35); }
       .tcard .team-name { font: 600 1.3rem var(--display); }
       .tcard .team-league, .tcard .team-live { color: rgba(255, 255, 255, 0.78); font-size: 0.85rem; }
       .tcard .team-line b { color: #fff; margin-right: 6px; }
@@ -1855,10 +1855,11 @@
       @media (max-width: 560px) { #contact-links { grid-template-columns: 1fr 1fr; } }
 
       /* ---------- round 3 fixes ---------- */
-      .timeline.sc { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); overflow: visible; gap: 12px; }
-      @media (max-width: 960px) { .timeline.sc { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-      @media (max-width: 520px) { .timeline.sc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-      .timeline .step { width: auto; min-width: 0; min-height: 170px; overflow-wrap: anywhere; display: flex; flex-direction: column; justify-content: space-between; padding: 18px; }
+      /* about: a row you swipe, snapping to whole squares; 4 show on desktop, 2 on phones */
+      .timeline.sc { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * 14px) / 4); gap: 14px;
+        overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0; overscroll-behavior-x: contain; padding-bottom: 12px; }
+      @media (max-width: 760px) { .timeline.sc { grid-auto-columns: calc((100% - 14px) / 2); } }
+      .timeline .step { width: auto; min-width: 0; aspect-ratio: 1; scroll-snap-align: start; overflow-wrap: anywhere; display: flex; flex-direction: column; justify-content: space-between; padding: 18px; }
       .timeline .step h3 { font-size: 1.1rem; margin: 0 0 0.3rem; }
       .timeline .step p { font-size: 0.84rem; line-height: 1.35; }
       .art { text-align: center; }
@@ -1866,6 +1867,12 @@
       .seg { border: 0; gap: 8px; display: inline-flex; flex-wrap: wrap; }
       .seg button { border-radius: 99px !important; border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent) !important; padding: 9px 18px; font: 600 0.9rem system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
       .seg button[aria-pressed="true"] { background: var(--signal); border-color: var(--signal) !important; color: #fff; }
+      .sc-nav { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+      .sc-nav button { width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer; font-size: 1.3rem; line-height: 1;
+        background: color-mix(in srgb, var(--ink) 9%, var(--paper)); color: var(--ink); transition: opacity 0.2s; }
+      .sc-nav button:disabled { opacity: 0.3; cursor: default; }
+      .sc-nav button:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+      .timeline.sc { scrollbar-width: none; } .timeline.sc::-webkit-scrollbar { display: none; }
     </style>
   </head>
   <body>
@@ -1907,6 +1914,7 @@
             <h2 id="about-heading"></h2>
           </div>
           <div class="sc timeline reveal" id="timeline"></div>
+          <div class="sc-nav" aria-label="Scroll the timeline"><button type="button" data-dir="-1" aria-label="Earlier">‹</button><button type="button" data-dir="1" aria-label="Later">›</button></div>
           <div hidden><div id="about-body"></div><div class="thread" id="thread"></div></div>
         </div>
       </section>
@@ -3215,6 +3223,22 @@
             )
             .join("")}</div>`,
         ).join("");
+        // timeline arrows: one square per click; disabled at either end
+        {
+          const tl = $("#timeline"), nav = document.querySelector(".sc-nav");
+          const step = () => (tl.firstElementChild ? tl.firstElementChild.getBoundingClientRect().width + 14 : 200);
+          const sync = () => {
+            const [a, b] = nav.querySelectorAll("button");
+            a.disabled = tl.scrollLeft <= 2;
+            b.disabled = tl.scrollLeft + tl.clientWidth >= tl.scrollWidth - 2;
+          };
+          nav.addEventListener("click", (e) => {
+            const b = e.target.closest("button");
+            if (b) tl.scrollBy({ left: step() * Number(b.dataset.dir), behavior: "smooth" });
+          });
+          tl.addEventListener("scroll", sync, { passive: true });
+          sync();
+        }
         $("#sport-tabs").addEventListener("click", (e) => {
           const b = e.target.closest("button");
           if (!b) return;
