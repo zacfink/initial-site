@@ -1874,6 +1874,31 @@
       .sc-nav button:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
       .timeline.sc { scrollbar-width: none; } .timeline.sc::-webkit-scrollbar { display: none; }
 
+
+      /* ---------- placement pass ---------- */
+      .hero-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 30px; margin-top: 2rem; }
+      .hero-links .lnk { color: var(--signal); font-weight: 600; font-size: 1.08rem; text-decoration: none; }
+      .hero-links .lnk span { display: inline-block; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .hero-links .lnk:hover span { transform: translateX(4px); }
+      .hero-links .lnk:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+      /* soft labels instead of typewriter caps */
+      .eyebrow, .proj .tag, .proj .meta, .repo, .hero-facts .fact dt, .timeline .step .when, .team-league, .thought .n {
+        font-family: system-ui, -apple-system, sans-serif !important; text-transform: none !important; letter-spacing: 0 !important; }
+      .eyebrow { font-size: 0.9rem; color: var(--ink-muted); }
+      .proj .tag { font-size: 0.78rem; font-weight: 600; }
+      .proj .meta, .repo { font-size: 0.82rem; }
+      .hero-facts .fact dt, .timeline .step .when { font-size: 0.78rem; }
+      .team-league { font-size: 0.85rem; }
+
+      /* Brain's tile gets its app icon */
+      .bento .proj[data-id="brain"]::after { content: ""; position: absolute; top: 28px; left: 28px; width: 84px; height: 84px; border-radius: 20px;
+        background: url(assets/brain-icon.png) center / cover; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); }
+
+      /* obsessions across the full width */
+      .widgets .thoughts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .widgets .thought { aspect-ratio: 16 / 10; }
+
       /* ---------- phone pass ---------- */
       @media (max-width: 760px) {
         .section { padding-top: 2.6rem; padding-bottom: 2.6rem; }
@@ -1882,6 +1907,8 @@
         .widgets .thought { aspect-ratio: auto; flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 14px; padding: 16px 18px; border-radius: 20px; }
         .music-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 12px; }
         .art b { font-size: 0.8rem; margin-top: 6px; }
+        .hero-links { gap: 8px 22px; margin-top: 1.4rem; }
+        .hero-links .lnk { font-size: 0.98rem; }
         /* all three buttons on one row, same size */
         .hero-cta { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
         .hero-cta .btn.primary { grid-column: auto; }
@@ -1910,18 +1937,14 @@
 
     <main id="top">
       <section class="hero">
-        <div class="hud-frame" aria-hidden="true">
-          <span class="tl"></span><span class="tr"></span
-          ><span class="bl"></span><span class="br"></span>
-        </div>
         <div class="wrap hero-grid">
           <div>
             <p class="hero-name">Zac Finkelstein</p>
             <h1 id="hero-headline"></h1>
             <p class="lede" id="hero-lede"></p>
-            <div class="hero-cta" id="hero-cta"></div>
           </div>
           <dl class="facts hero-facts" id="hero-facts"></dl>
+          <div class="hero-links" id="hero-cta"></div>
         </div>
       </section>
 
@@ -2573,7 +2596,10 @@
           $("#hero-headline").innerHTML =
             `${esc(SITE.hero.headlineLead)}<em>${esc(SITE.hero.headlineAccent)}</em>`;
           $("#hero-lede").textContent = SITE.hero.lede;
-          $("#hero-cta").innerHTML = SITE.hero.ctas.map(btn).join("");
+          // apple.com-style text links: "See the work ›"
+          $("#hero-cta").innerHTML = SITE.hero.ctas
+            .map((l) => `<a class="lnk" href="${esc(safeUrl(l.href))}"${l.download ? " download" : ""}>${esc(String(l.label).replace(/^Download\s+/i, "").replace(/^./, (c) => c.toUpperCase()))} <span aria-hidden="true">›</span></a>`)
+            .join("");
           // the facts lead the page now; they still live under about in the
           // content object, so the published row keeps its shape
 
