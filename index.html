@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -42,12 +42,12 @@
       property="og:description"
       content="CS and cognitive science at Queen's. I build things to find out how minds work, help a team at RBC Dominion Securities work faster with AI, and co-chair Queen's Web Dev."
     />
-    <meta property="og:image" content="https://zacfinkelstein.ca/assets/og.png" />
+    <meta property="og:image" content="https://zacfinkelstein.ca/assets/og.png?v=20261101" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="627" />
     <meta property="og:image:alt" content="Zac Finkelstein's site: I build things that don't exist yet." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://zacfinkelstein.ca/assets/og.png" />
+    <meta name="twitter:image" content="https://zacfinkelstein.ca/assets/og.png?v=20261101" />
     <meta name="twitter:title" content="Zac Finkelstein" />
     <meta
       name="twitter:description"
@@ -70,8 +70,9 @@
         --field-rule: rgba(255, 255, 255, 0.28);
 
         --display: "Space Grotesk", system-ui, sans-serif;
-        --body: "IBM Plex Sans", system-ui, sans-serif;
-        --mono: "IBM Plex Mono", ui-monospace, monospace;
+        /* one body family: the system font (SF on Apple devices); Space Grotesk stays for headings */
+        --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
+        --mono: var(--body);
 
         --pad: clamp(1.25rem, 5vw, 4rem);
         --maxw: 1080px;
@@ -1905,13 +1906,24 @@
       footer .mono { font-size: 0.85rem; }
       .proj .seen-flag { font-size: 0.75rem; }
 
+
+      /* ---------- critique pass ---------- */
+      .contact { background: color-mix(in srgb, var(--ink) 4%, var(--paper)); color: var(--ink); border-top: 1px solid var(--hairline); }
+      .contact .eyebrow { color: var(--ink-muted); }
+      /* music: one row of circles; swipe if there are more */
+      .music-grid { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: calc((100% - 7 * 14px) / 8);
+        gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 6px; }
+      .music-grid::-webkit-scrollbar { display: none; }
+      .music-grid .art { scroll-snap-align: start; min-width: 0; }
+      .art b { font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      @media (max-width: 760px) { .music-grid { grid-auto-columns: calc((100% - 3 * 12px) / 4); gap: 12px; } }
+
       /* ---------- phone pass ---------- */
       @media (max-width: 760px) {
         .section { padding-top: 2.6rem; padding-bottom: 2.6rem; }
         .section-head h2 { font-size: clamp(2.2rem, 11vw, 3rem); }
         .widgets .thoughts { grid-template-columns: 1fr; gap: 10px; }
         .widgets .thought { aspect-ratio: auto; flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 14px; padding: 16px 18px; border-radius: 20px; }
-        .music-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 12px; }
         .art b { font-size: 0.8rem; margin-top: 6px; }
         .hero-links { gap: 8px 22px; margin-top: 1.4rem; }
         .bento .proj[data-id="brain"] { padding-top: 124px; }
@@ -2105,6 +2117,10 @@
               "label": "Work"
             },
             {
+              "href": "#forks",
+              "label": "Forking"
+            },
+            {
               "href": "#thoughts",
               "label": "Curious"
             },
@@ -2140,7 +2156,7 @@
                 "style": "ghost"
               }
             ],
-            "lede": "I'm Zac. I study CS and cognitive science at Queen's, and I build things to find out how minds work. Right now I'm raising a neural network in a simulated house to see if a good childhood makes it any more conscious. The rest of the time I'm on a wealth team at RBC Dominion Securities, helping them use AI, and running Queen's Web Dev.",
+            "lede": "I build things to find out how minds work, in people and in machines.",
             "headlineLead": "I build things that ",
             "headlineAccent": "don't exist yet."
           },
@@ -2565,7 +2581,7 @@
             const n = String(i + 1).padStart(2, "0");
             const label = labelOf(SITE[id] && SITE[id].eyebrow, id);
             const el = document.getElementById(id + "-eyebrow");
-            if (el) el.textContent = `${n} — ${label}`;
+            if (el) el.textContent = label;
           });
 
           $("#rail").innerHTML = active
@@ -2606,7 +2622,7 @@
           $("#hero-lede").textContent = SITE.hero.lede;
           // apple.com-style text links: "See the work ›"
           $("#hero-cta").innerHTML = SITE.hero.ctas
-            .map((l) => `<a class="lnk" href="${esc(safeUrl(l.href))}"${l.download ? " download" : ""}>${esc(String(l.label).replace(/^Download\s+/i, "").replace(/^./, (c) => c.toUpperCase()))} <span aria-hidden="true">›</span></a>`)
+            .map((l) => `<a class="lnk" href="${esc(safeUrl(l.href))}"${/\.pdf$/i.test(l.href) ? ' target="_blank" rel="noopener"' : ""}>${esc(String(l.label).replace(/^Download\s+/i, "").replace(/^./, (c) => c.toUpperCase()))} <span aria-hidden="true">›</span></a>`)
             .join("");
           // the facts lead the page now; they still live under about in the
           // content object, so the published row keeps its shape
@@ -2705,7 +2721,7 @@
             cols[1][1].push({ href: "https://www.qweb.dev", label: "Queen's Web Dev" });
             $("#contact-links").innerHTML = cols
               .map(([h, ls]) => `<div class="ccol"><b>${h}</b>${ls
-                .map((l) => `<a href="${esc(safeUrl(l.href))}"${l.download ? " download" : ""}${/^https?:/.test(l.href) ? ' target="_blank" rel="noopener"' : ""}>${esc(l.label === "Résumé" ? "Résumé (PDF)" : l.label)}</a>`)
+                .map((l) => `<a href="${esc(safeUrl(l.href))}"${/^https?:|\.pdf$/i.test(l.href) ? ' target="_blank" rel="noopener"' : ""}>${esc(l.label === "Résumé" ? "Résumé (PDF)" : l.label)}</a>`)
                 .join("")}</div>`)
               .join("");
           }
