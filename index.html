@@ -1899,6 +1899,12 @@
       .widgets .thoughts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .widgets .thought { aspect-ratio: 16 / 10; }
 
+      .team-line, .team-line b, footer .mono, .proj .seen-flag {
+        font-family: system-ui, -apple-system, sans-serif !important; text-transform: none !important; letter-spacing: 0 !important; }
+      .team-line { font-size: 0.82rem; }
+      footer .mono { font-size: 0.85rem; }
+      .proj .seen-flag { font-size: 0.75rem; }
+
       /* ---------- phone pass ---------- */
       @media (max-width: 760px) {
         .section { padding-top: 2.6rem; padding-bottom: 2.6rem; }
@@ -1908,6 +1914,8 @@
         .music-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 12px; }
         .art b { font-size: 0.8rem; margin-top: 6px; }
         .hero-links { gap: 8px 22px; margin-top: 1.4rem; }
+        .bento .proj[data-id="brain"] { padding-top: 124px; }
+        .bento .proj[data-id="brain"]::after { top: 24px; left: 24px; width: 76px; height: 76px; border-radius: 18px; }
         .hero-links .lnk { font-size: 0.98rem; }
         /* all three buttons on one row, same size */
         .hero-cta { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
