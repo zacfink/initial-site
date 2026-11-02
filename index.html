@@ -1873,6 +1873,21 @@
       .sc-nav button:disabled { opacity: 0.3; cursor: default; }
       .sc-nav button:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
       .timeline.sc { scrollbar-width: none; } .timeline.sc::-webkit-scrollbar { display: none; }
+
+      /* ---------- phone pass ---------- */
+      @media (max-width: 760px) {
+        .section { padding-top: 2.6rem; padding-bottom: 2.6rem; }
+        .section-head h2 { font-size: clamp(2.2rem, 11vw, 3rem); }
+        .widgets .thoughts { grid-template-columns: 1fr; gap: 10px; }
+        .widgets .thought { aspect-ratio: auto; flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 14px; padding: 16px 18px; border-radius: 20px; }
+        .music-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 12px; }
+        .art b { font-size: 0.8rem; margin-top: 6px; }
+        .hero-cta { gap: 8px; }
+        .hero .hero-facts { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory;
+          margin-inline: -20px; padding: 0 20px 6px; scroll-padding: 0 20px; scrollbar-width: none; }
+        .hero .hero-facts::-webkit-scrollbar { display: none; }
+        .hero .hero-facts .fact { flex: 0 0 auto; scroll-snap-align: start; white-space: nowrap; }
+      }
     </style>
   </head>
   <body>
