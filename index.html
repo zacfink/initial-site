@@ -1804,6 +1804,55 @@
         display: flex; flex-direction: column; justify-content: space-between; }
       .widgets .thought .n { font-size: 1rem; }
       .widgets .thought p { font-size: 1rem; line-height: 1.35; }
+
+      /* ---------- hero 1 + chips ---------- */
+      .hero-grid { display: block; text-align: center; }
+      .hero-name { font: 500 1.25rem var(--display); color: var(--ink-muted); margin: 0 0 0.6rem; }
+      .hero h1 { font-size: clamp(3rem, 9vw, 7rem); letter-spacing: -0.05em; line-height: 0.96; margin-inline: auto; }
+      .hero h1 em { font-style: normal; display: block; background: linear-gradient(90deg, #8f8bff, #ff7ad9, #ffb86b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .hero .lede { margin-inline: auto; max-width: 640px; }
+      .hero-cta { justify-content: center; }
+      .hero-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 2.2rem auto 0; border: 0; }
+      .hero-facts .fact { background: color-mix(in srgb, var(--ink) 6%, var(--paper)); border-radius: 16px; padding: 12px 16px; text-align: left; border: 0; }
+      .hero-facts .fact dt { font-size: 0.72rem; color: var(--ink-muted); }
+      .hero-facts .fact dd { margin: 0; font-weight: 600; }
+
+      /* ---------- swipe rows (timeline, teams) ---------- */
+      .sc { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; scrollbar-width: thin; }
+      .sc > * { scroll-snap-align: start; flex: 0 0 auto; }
+      .timeline .step { width: 250px; border-radius: 24px; padding: 22px; background: color-mix(in srgb, var(--ink) 5%, var(--paper)); }
+      .timeline .step .when { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); }
+      .timeline .step h3 { font: 600 1.35rem/1.15 var(--display); margin: 0.5rem 0; letter-spacing: -0.02em; }
+      .timeline .step p { margin: 0; color: var(--ink-muted); font-size: 0.94rem; }
+      .timeline .step.now { background: linear-gradient(140deg, #3a35ff, #8f5bff); color: #fff; }
+      .timeline .step.now .when, .timeline .step.now p { color: #e6e4ff; }
+
+      .sport-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+      .sport-tabs button { font: 600 0.9rem var(--body, inherit); padding: 9px 18px; border-radius: 99px; border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); background: none; color: var(--ink); cursor: pointer; }
+      .sport-tabs button[aria-selected="true"] { background: var(--signal); border-color: var(--signal); color: #fff; }
+      #teams-grid { display: block; }
+      .tcard { width: 250px; border-radius: 24px; padding: 22px; color: #fff; display: flex; flex-direction: column; gap: 22px;
+        background: linear-gradient(160deg, var(--tc), color-mix(in srgb, var(--tc) 35%, #000)); }
+      .tcard .team-logo { width: 88px; height: 88px; object-fit: contain; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.4)); }
+      .tcard .team-name { font: 600 1.3rem var(--display); }
+      .tcard .team-league, .tcard .team-live { color: rgba(255, 255, 255, 0.78); font-size: 0.85rem; }
+      .tcard .team-line b { color: #fff; margin-right: 6px; }
+
+      #teams-grid .sport[hidden] { display: none; }
+      .hero .hero-facts { display: flex !important; flex-direction: row; max-width: 900px; }
+      .hero .hero-facts .fact { flex: 0 0 auto; width: auto; max-width: none; border-bottom: 0; display: block; }
+      /* ---------- music grid ---------- */
+      .music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+      .art { display: block; color: var(--ink); text-decoration: none; }
+      .art img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 16px; display: block; background: color-mix(in srgb, var(--ink) 8%, var(--paper)); }
+      .art b { display: block; margin-top: 8px; font-weight: 600; }
+
+      /* ---------- contact: apple footer ---------- */
+      #contact-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid var(--hairline); padding-top: 24px; margin-top: 2rem; }
+      .ccol { display: flex; flex-direction: column; gap: 10px; font-size: 0.95rem; }
+      .ccol a { color: var(--ink-muted); text-decoration: none; }
+      .ccol a:hover { color: var(--signal); }
+      @media (max-width: 560px) { #contact-links { grid-template-columns: 1fr 1fr; } }
     </style>
   </head>
   <body>
@@ -1829,6 +1878,7 @@
         </div>
         <div class="wrap hero-grid">
           <div>
+            <p class="hero-name">Zac Finkelstein</p>
             <h1 id="hero-headline"></h1>
             <p class="lede" id="hero-lede"></p>
             <div class="hero-cta" id="hero-cta"></div>
@@ -1843,25 +1893,8 @@
             <span class="eyebrow mono" id="about-eyebrow"></span>
             <h2 id="about-heading"></h2>
           </div>
-          <div class="about-grid reveal">
-            <div id="about-body"></div>
-            <div class="thread" id="thread" aria-hidden="true">
-              <div class="when">Today 9:41</div>
-              <div class="bub them tail">wait, what do you actually do?</div>
-              <div class="bub me">I study CS + cog sci at Queen's</div>
-              <div class="bub me tail">basically trying to figure out how thinking works</div>
-              <div class="bub them tail">like… in people?</div>
-              <div class="bub me">people and machines</div>
-              <div class="bub me tail">right now I'm raising a neural net in a simulated house 🏠</div>
-              <div class="bub them">why</div>
-              <div class="bub them tail">😭</div>
-              <div class="bub me tail">to see if a good childhood makes it any more conscious</div>
-              <div class="bub them tail">ok and when you're not doing that?</div>
-              <div class="bub me">helping a team at RBC use AI + running Queen's Web Dev</div>
-              <div class="bub me tail">and if I do anything twice I automate it</div>
-              <div class="read">Read</div>
-            </div>
-          </div>
+          <div class="sc timeline reveal" id="timeline"></div>
+          <div hidden><div id="about-body"></div><div class="thread" id="thread"></div></div>
         </div>
       </section>
 
@@ -1903,6 +1936,7 @@
             <span class="eyebrow mono" id="teams-eyebrow"></span>
             <h2>Teams I follow.</h2>
           </div>
+          <div class="sport-tabs" id="sport-tabs" role="tablist" aria-label="Sport"></div>
           <div class="teams reveal" id="teams-grid"></div>
         </div>
       </section>
@@ -1918,7 +1952,7 @@
               <button type="button" data-range="short_term" aria-pressed="false">Last 4 weeks</button><button type="button" data-range="medium_term" aria-pressed="true">6 months</button><button type="button" data-range="long_term" aria-pressed="false">All time</button>
             </div>
           </div>
-          <div class="team-list music-list" id="music-list" aria-live="polite"></div>
+          <div class="music-grid" id="music-list" aria-live="polite"></div>
         </div>
       </section>
 
@@ -2246,6 +2280,17 @@
             "eyebrow": "03 — Now",
             "heading": "What I'm up to right now."
           },
+          "timeline": {
+            "heading": "How I got here.",
+            "items": [
+              { "when": "Age 6", "title": "First code", "text": "Coding since I was six. My mom has the report cards." },
+              { "when": "Grade 4", "title": "First PC build", "text": "Still building computers." },
+              { "when": "2024", "title": "Queen's", "text": "Computer science with cognitive science." },
+              { "when": "Summer 2026", "title": "RBC Dominion Securities", "text": "Set up the AI assistant an advisor's team uses every day." },
+              { "when": "Fall 2026", "title": "Co-chair, Queen's Web Dev", "text": "A new site, ten weeks of tutorials, a team of seven." },
+              { "when": "Now", "title": "Raised", "text": "Raising a neural network in a simulated house.", "now": true }
+            ]
+          },
           "forks": {
             "eyebrow": "03 — Forking",
             "heading": "Currently forking.",
@@ -2495,7 +2540,11 @@
 
 
           // about
-          $("#about-heading").textContent = SITE.about.heading;
+          const tl = SITE.timeline || { items: [] };
+          $("#about-heading").textContent = tl.heading || SITE.about.heading;
+          $("#timeline").innerHTML = (tl.items || [])
+            .map((s) => `<div class="step spring${s.now ? " now" : ""}"><span class="when mono">${esc(s.when)}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div>`)
+            .join("");
           $("#about-body").innerHTML = SITE.about.paragraphs
             .map((p) => `<p>${esc(p)}</p>`)
             .join("");
@@ -2574,7 +2623,19 @@
 
           // contact
           $("#contact-heading").textContent = SITE.contact.heading;
-          $("#contact-links").innerHTML = SITE.contact.links.map(btn).join("");
+          // Apple-style footer columns, sorted from the contact links by where they go
+          {
+            const L = SITE.contact.links || [];
+            const col = (l) => /^mailto:|linkedin\./i.test(l.href) ? 0 : /github\.|qweb\./i.test(l.href) ? 1 : 2;
+            const cols = [["Talk", []], ["Code", []], ["Paper", []]];
+            L.forEach((l) => cols[col(l)][1].push(l));
+            cols[1][1].push({ href: "https://www.qweb.dev", label: "Queen's Web Dev" });
+            $("#contact-links").innerHTML = cols
+              .map(([h, ls]) => `<div class="ccol"><b>${h}</b>${ls
+                .map((l) => `<a href="${esc(safeUrl(l.href))}"${l.download ? " download" : ""}${/^https?:/.test(l.href) ? ' target="_blank" rel="noopener"' : ""}>${esc(l.label === "Résumé" ? "Résumé (PDF)" : l.label)}</a>`)
+                .join("")}</div>`)
+              .join("");
+          }
 
           applySeen();
 
@@ -3125,13 +3186,28 @@
           return out;
         }
 
-        $("#teams-grid").innerHTML = TEAMS.map(
-          (g) => `<div class="chip-group"><span class="chip-label">${esc(g.sport)}</span><div class="team-list">${g.teams
-            .map(
-              (t) => `<div class="team"><img class="team-logo" src="${esc(t.logo)}" alt="" loading="lazy" width="36" height="36" /><div><div class="team-name">${esc(t.name)}</div><div class="team-league">${esc(t.league)}</div><div class="team-live"></div></div></div>`,
-            )
-            .join("")}</div></div>`,
+        // team colours for the swipe cards (dark end of each team's main colour)
+        const TEAM_COLOR = {
+          "Green Bay Packers": "#203731", "Queen's Gaels": "#b90e31", "Michigan State Spartans": "#18453b",
+          "Toronto Raptors": "#ce1141", "Sacramento Kings": "#5a2d81", "Toronto Tempo": "#6b2c8f",
+          "Toronto Maple Leafs": "#00205b", "Team Canada": "#d52b1e", "Toronto FC": "#b81137", "McLaren": "#c85a00",
+        };
+        $("#sport-tabs").innerHTML = TEAMS.map(
+          (g, i) => `<button type="button" role="tab" data-sport="${i}" aria-selected="${i === 0}">${esc(g.sport)}</button>`,
         ).join("");
+        $("#teams-grid").innerHTML = TEAMS.map(
+          (g, i) => `<div class="sc sport" data-sport="${i}"${i ? " hidden" : ""}>${g.teams
+            .map(
+              (t) => `<div class="team tcard spring" style="--tc:${TEAM_COLOR[t.name] || "#2a2b30"}"><img class="team-logo" src="${esc(t.logo)}" alt="" loading="lazy" width="88" height="88" /><div><div class="team-name">${esc(t.name)}</div><div class="team-league">${esc(t.league)}</div><div class="team-live"></div></div></div>`,
+            )
+            .join("")}</div>`,
+        ).join("");
+        $("#sport-tabs").addEventListener("click", (e) => {
+          const b = e.target.closest("button");
+          if (!b) return;
+          document.querySelectorAll("#sport-tabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+          document.querySelectorAll("#teams-grid .sport").forEach((s) => (s.hidden = s.dataset.sport !== b.dataset.sport));
+        });
 
         const liveSlots = $("#teams-grid").querySelectorAll(".team-live");
         TEAMS.flatMap((g) => g.teams).forEach((t, i) => {
@@ -3158,9 +3234,7 @@
             if (!pick(state.range, "artists").length) state.range = all.find((r) => pick(r, "artists").length);
 
             const item = (x) =>
-              `<a class="team artist" href="${esc(safeUrl(x.url || "#music"))}" target="_blank" rel="noopener"><img class="team-logo" src="${esc(safeUrl(x.image || ""))}" alt="" loading="lazy" width="36" height="36" /><div><div class="team-name">${esc(x.name)}</div>${
-                x.genre ? `<div class="team-league">${esc(x.genre)}</div>` : ""
-              }</div></a>`;
+              `<a class="art spring" href="${esc(safeUrl(x.url || "#music"))}" target="_blank" rel="noopener"><img src="${esc(safeUrl(x.image || ""))}" alt="" loading="lazy" /><b>${esc(x.name)}</b></a>`;
 
             const draw = () => {
               const list = pick(state.range, "artists");
