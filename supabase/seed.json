@@ -225,6 +225,46 @@
   "monthly": {
     "items": [
       {
+        "month": "2026-11",
+        "kind": "Design",
+        "title": "This site, redone",
+        "desc": "Rebuilt this site from scratch in an Apple keynote style: a scrolling timeline of how I got here, a bento grid of work, and live scores for the teams I follow.",
+        "href": "https://github.com/zacfink/initial-site"
+      },
+      {
+        "month": "2026-11",
+        "kind": "Fork",
+        "title": "Glissé fork",
+        "desc": "Forked a trackpad app so my MacBook taps me when Claude finishes a task. No more checking the terminal.",
+        "href": "https://github.com/zacfink/glisse"
+      },
+      {
+        "month": "2026-11",
+        "kind": "Project",
+        "title": "Scout",
+        "desc": "A small AI that lives on my Mac and runs fully offline. It reads my calendar, flags important emails to my phone within two minutes, and I can text it from anywhere."
+      },
+      {
+        "month": "2026-11",
+        "kind": "Experiment",
+        "title": "Betting against my AI",
+        "desc": "Claude and I both put odds on real things in my life, like whether a recruiter replies by Friday. A scoreboard settles who knows me better."
+      },
+      {
+        "month": "2026-10",
+        "kind": "Project",
+        "title": "Brain 1.0",
+        "desc": "First proper release of my second brain, with a download page.",
+        "href": "https://github.com/zacfink/brain"
+      },
+      {
+        "month": "2026-10",
+        "kind": "Fork",
+        "title": "Boring Notch fork",
+        "desc": "Turned my MacBook's notch into a little Brain dashboard: what Claude's doing, my next nudge, my next event.",
+        "href": "https://github.com/zacfink/boring.notch"
+      },
+      {
         "desc": "Any markdown file can now be its own tile on Brain's home screen, with its own page. Tell Claude \"I want a recently played tile\" and it builds one. The first shows what I'm listening to.",
         "href": "https://github.com/zacfink/brain",
         "kind": "Project",
