@@ -1895,6 +1895,10 @@
       /* Brain's tile gets its app icon */
       .bento .proj[data-id="brain"]::after { content: ""; position: absolute; top: 28px; left: 28px; width: 84px; height: 84px; border-radius: 20px;
         background: url(assets/brain-icon.png) center / cover; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); }
+      /* and a peek at the app itself, top right, bleeding off the edge */
+      .bento .proj[data-id="brain"] { overflow: hidden; }
+      .bento .proj[data-id="brain"]::before { display: block; content: ""; position: absolute; top: 28px; right: -18%; width: 62%; aspect-ratio: 1440 / 913; height: auto; left: auto; bottom: auto; transform: none; transition: none;
+        background: url(assets/brain-front-page.png) top left / cover; border-radius: 12px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35); pointer-events: none; }
 
       /* obsessions across the full width */
       .widgets .thoughts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1931,6 +1935,7 @@
         .hero-links { gap: 8px 22px; margin-top: 1.4rem; }
         .bento .proj[data-id="brain"] { padding-top: 124px; }
         .bento .proj[data-id="brain"]::after { top: 24px; left: 24px; width: 76px; height: 76px; border-radius: 18px; }
+        .bento .proj[data-id="brain"]::before { display: none; }
         .hero-links .lnk { font-size: 0.98rem; }
         /* all three buttons on one row, same size */
         .hero-cta { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
