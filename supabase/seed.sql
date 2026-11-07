@@ -368,6 +368,16 @@ values (
         "style": "ghost"
       },
       {
+        "href": "https://www.instagram.com/zac.finkelstein/",
+        "label": "Instagram",
+        "style": "ghost"
+      },
+      {
+        "href": "https://x.com/zacfinkelstein",
+        "label": "X",
+        "style": "ghost"
+      },
+      {
         "href": "assets/resume.pdf",
         "label": "Résumé",
         "style": "ghost",
