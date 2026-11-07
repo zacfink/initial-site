@@ -16,6 +16,10 @@ values (
       "label": "Work"
     },
     {
+      "href": "#forks",
+      "label": "Forking"
+    },
+    {
       "href": "#thoughts",
       "label": "Curious"
     },
@@ -51,7 +55,7 @@ values (
         "style": "ghost"
       }
     ],
-    "lede": "I''m Zac. I study CS and cognitive science at Queen''s, and I build things to find out how minds work. Right now I''m raising a neural network in a simulated house to see if a good childhood makes it any more conscious. The rest of the time I''m on a wealth team at RBC Dominion Securities, helping them use AI, and running Queen''s Web Dev.",
+    "lede": "I build things to find out how minds work, in people and in machines.",
     "headlineLead": "I build things that ",
     "headlineAccent": "don''t exist yet."
   },
@@ -59,7 +63,7 @@ values (
     "facts": [
       {
         "label": "Based in",
-        "value": "Kingston, Ontario · from Toronto"
+        "value": "Toronto, Ontario"
       },
       {
         "label": "Studying",
@@ -260,6 +264,73 @@ values (
     ],
     "eyebrow": "03 — Now",
     "heading": "What I''m up to right now."
+  },
+  "timeline": {
+    "heading": "How I got here.",
+    "items": [
+      {
+        "when": "Age 6",
+        "title": "First code",
+        "text": "Coding since I was six. My mom has the report cards."
+      },
+      {
+        "when": "Grade 4",
+        "title": "First PC build",
+        "text": "Still building computers."
+      },
+      {
+        "when": "Grade 9",
+        "title": "My art room, in VR",
+        "text": "Built a VR version of my art room for my IB project."
+      },
+      {
+        "when": "2024",
+        "title": "Queen''s",
+        "text": "Computer science with cognitive science."
+      },
+      {
+        "when": "2025 – 2026",
+        "title": "RBC Dominion Securities",
+        "text": "Two years on an advisor''s team. Set up the AI assistant they use every day."
+      },
+      {
+        "when": "Fall 2026",
+        "title": "Co-chair, Queen''s Web Dev",
+        "text": "A new site, ten weeks of tutorials, a team of seven."
+      },
+      {
+        "when": "Now",
+        "title": "Raised",
+        "text": "Raising a neural network in a simulated house.",
+        "now": true
+      }
+    ]
+  },
+  "forks": {
+    "eyebrow": "03 — Forking",
+    "heading": "Currently forking.",
+    "items": [
+      {
+        "title": "Glissé",
+        "desc": "Slide along the trackpad edges for brightness and volume. My fork taps the trackpad twice when Claude finishes a task, so I feel it without looking.",
+        "meta": "Swift · fork of Glissé",
+        "repo": "https://github.com/zacfink/glisse",
+        "tags": [
+          "Fork",
+          "macOS"
+        ]
+      },
+      {
+        "title": "Boring Notch",
+        "desc": "Turns the MacBook notch into a Dynamic Island. My fork adds a Brain tab: what Claude is doing, my most overdue nudge, my next event and a quick-capture box.",
+        "meta": "Swift · fork of Boring Notch",
+        "repo": "https://github.com/zacfink/boring.notch",
+        "tags": [
+          "Fork",
+          "macOS"
+        ]
+      }
+    ]
   },
   "thoughts": {
     "items": [

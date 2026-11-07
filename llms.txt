@@ -1,0 +1,22 @@
+# Zac Finkelstein
+
+> Software developer in Toronto. Computer Science (Cognitive Science specialization) at Queen's University, class of 2028. Builds AI tools that do real work, with a person still in charge.
+
+- Set up the AI assistant an RBC Dominion Securities advisory team uses every day (client emails, documents, research).
+- Co-chair of Queen's Web Development Club (QWeb), 2026-27: rebuilt qweb.dev, runs a ten-week tutorial series, team of seven.
+- Side project: Raised, raising a neural network in a simulated house to see whether how it's raised changes how it thinks.
+
+## Projects
+
+- [Brain](https://github.com/zacfink/brain): a local app over a markdown "digital brain" for Claude Code, so the AI stops re-learning his life every session.
+- [Screen Intelligence](https://github.com/zacfink/screen-intelligence): a macOS agent that drives the mouse and keyboard from a plain-English plan, and reads web pages through their DOM instead of screenshots.
+- [SupaBaseFolder](https://github.com/zacfink/SupaBaseFolder): keeps Supabase tables live as files, so an AI agent can run a backend by editing files.
+- [qweb.dev](https://www.qweb.dev): the Queen's Web Development Club site.
+
+## Links
+
+- Site: https://zacfinkelstein.ca
+- GitHub: https://github.com/zacfink
+- LinkedIn: https://www.linkedin.com/in/zacfinkelstein
+- Email: zacfinkelstein@gmail.com
+- Résumé: https://zacfinkelstein.ca/assets/resume.pdf

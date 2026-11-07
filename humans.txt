@@ -1,0 +1,11 @@
+/* TEAM */
+Built by: Zac Finkelstein
+Site: https://zacfinkelstein.ca
+GitHub: zacfink
+Location: Toronto, Ontario, Canada
+
+/* SITE */
+Last update: 2026-11-07
+Standards: HTML5, CSS3, JavaScript
+Content: Supabase
+Hosting: GitHub Pages
