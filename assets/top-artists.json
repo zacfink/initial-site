@@ -9,16 +9,16 @@
           "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
         },
         {
-          "name": "Yeat",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f178fc759f7938b4c65bfe41c4ff",
-          "url": "https://open.spotify.com/artist/3qiHUAX7zY4Qnjx8TNUzVx"
-        },
-        {
           "name": "Jack Harlow",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178a429476ce354e2f9047ee841",
           "url": "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+        },
+        {
+          "name": "Yeat",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178fc759f7938b4c65bfe41c4ff",
+          "url": "https://open.spotify.com/artist/3qiHUAX7zY4Qnjx8TNUzVx"
         },
         {
           "name": "CONNIE",
@@ -39,16 +39,16 @@
           "url": "https://open.spotify.com/artist/1XNiWyUH5vvPqNDmjvTSqX"
         },
         {
+          "name": "Skepta",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1789b4eb6af9fdcc71799c5c5ba",
+          "url": "https://open.spotify.com/artist/2p1fiYHYiXz9qi0JJyxBzN"
+        },
+        {
           "name": "Don Toliver",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178c52b798deb89eb8414a51b7b",
           "url": "https://open.spotify.com/artist/4Gso3d4CscCijv0lmajZWs"
-        },
-        {
-          "name": "EsDeeKid",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f178fe6d53e126b70d1c2594b434",
-          "url": "https://open.spotify.com/artist/0EyhkwP3UnwGFBy6xwKjSy"
         }
       ]
     },
@@ -85,6 +85,12 @@
           "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
         },
         {
+          "name": "Jack Harlow",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178a429476ce354e2f9047ee841",
+          "url": "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+        },
+        {
           "name": "Freddie Gibbs",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178499def7bd0369aa26a22273c",
@@ -95,12 +101,6 @@
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f17882b15c0121aac8f615e13d41",
           "url": "https://open.spotify.com/artist/0RESbWvOMyua0yuyVrztJ5"
-        },
-        {
-          "name": "Travis Scott",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17819c2790744c792d05570bb71",
-          "url": "https://open.spotify.com/artist/0Y5tJX1MQlPlqiwlOH1tJY"
         }
       ]
     },
