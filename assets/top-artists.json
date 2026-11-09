@@ -21,16 +21,16 @@
           "url": "https://open.spotify.com/artist/3qiHUAX7zY4Qnjx8TNUzVx"
         },
         {
+          "name": "Skepta",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1789b4eb6af9fdcc71799c5c5ba",
+          "url": "https://open.spotify.com/artist/2p1fiYHYiXz9qi0JJyxBzN"
+        },
+        {
           "name": "CONNIE",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178b4531a5d306cf9171368f909",
           "url": "https://open.spotify.com/artist/1DevMHY3GQWCIDWbkoaHQe"
-        },
-        {
-          "name": "Tyler, The Creator",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f178df2728294ff77dd11eeb18fb",
-          "url": "https://open.spotify.com/artist/4V8LLVI7PbaPR0K2TGSxFF"
         },
         {
           "name": "IMG",
@@ -39,16 +39,16 @@
           "url": "https://open.spotify.com/artist/1XNiWyUH5vvPqNDmjvTSqX"
         },
         {
-          "name": "Skepta",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f1789b4eb6af9fdcc71799c5c5ba",
-          "url": "https://open.spotify.com/artist/2p1fiYHYiXz9qi0JJyxBzN"
-        },
-        {
           "name": "Don Toliver",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178c52b798deb89eb8414a51b7b",
           "url": "https://open.spotify.com/artist/4Gso3d4CscCijv0lmajZWs"
+        },
+        {
+          "name": "EsDeeKid",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178fe6d53e126b70d1c2594b434",
+          "url": "https://open.spotify.com/artist/0EyhkwP3UnwGFBy6xwKjSy"
         }
       ]
     },
