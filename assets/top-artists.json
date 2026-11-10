@@ -79,16 +79,16 @@
           "url": "https://open.spotify.com/artist/6fxyWrfmjcbj5d12gXeiNV"
         },
         {
-          "name": "void",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
-          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
-        },
-        {
           "name": "Jack Harlow",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178a429476ce354e2f9047ee841",
           "url": "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
+        },
+        {
+          "name": "void",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
+          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
         },
         {
           "name": "Freddie Gibbs",
