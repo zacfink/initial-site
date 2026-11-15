@@ -1946,11 +1946,6 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       .seg { border: 0; gap: 8px; display: inline-flex; flex-wrap: wrap; }
       .seg button { border-radius: 99px !important; border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent) !important; padding: 9px 18px; font: 600 0.9rem system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
       .seg button[aria-pressed="true"] { background: var(--signal); border-color: var(--signal) !important; color: #fff; }
-      .sc-nav { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
-      .sc-nav button { width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer; font-size: 1.3rem; line-height: 1;
-        background: color-mix(in srgb, var(--ink) 9%, var(--paper)); color: var(--ink); transition: opacity 0.2s; }
-      .sc-nav button:disabled { opacity: 0.3; cursor: default; }
-      .sc-nav button:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
       .timeline.sc { scrollbar-width: none; } .timeline.sc::-webkit-scrollbar { display: none; }
 
 
@@ -2077,6 +2072,197 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         .term { width: 90%; font-size: 12.5px; padding: 16px 18px; }
         .stats { gap: 20px; } .stats div { flex: 1; } .stats b { font-size: 28px; } .stats span { font-size: 13px; }
       }
+
+      /* ---------- phone polish (Nov 2026): one link style, quieter forks, readable phone layouts ---------- */
+      .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+      .lnk { color: var(--signal); font-weight: 600; text-decoration: none; }
+      .lnk:hover { text-decoration: underline; text-underline-offset: 4px; }
+      .lnk span { display: inline-block; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .lnk:hover span { transform: translateX(4px); }
+      .stats { max-width: 560px; margin: 28px auto 0; padding: 22px 16px; border-radius: 20px; background: color-mix(in srgb, var(--ink) 5%, var(--paper)); }
+      .forks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 760px; margin: 0 auto; }
+      .fork { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 20px; text-align: left; background: color-mix(in srgb, var(--ink) 5%, var(--paper)); }
+      .fork-icon { width: 44px; height: 44px; border-radius: 10px; margin-bottom: 4px; }
+      .fork h3 { margin: 0; font: 600 1.05rem/1.2 var(--display); letter-spacing: -0.01em; }
+      .fork p { flex: 1; margin: 0; font-size: 0.9rem; line-height: 1.45; color: var(--ink-muted); }
+      .fork .lnk { font-size: 0.9rem; margin-top: 4px; }
+      #forks .section-head { margin-bottom: 16px !important; }
+      #teams .section-head, #music .section-head { text-align: center; }
+      .sport-tabs, #music .seg { justify-content: center; }
+      .nav-foot { display: none; }
+      .facts-dots { display: none; }
+      .rv-title:focus, .log-label:focus { outline: none; }
+
+      @media (max-width: 640px) {
+        /* tighter rhythm: no screen-tall gaps between the hero and About */
+        .hero { padding-top: 2.25rem; padding-bottom: 1.25rem; }
+        #about.b-sec { padding-top: 32px !important; }
+        .tlb { margin-top: 20px; }
+        .section-head { margin-bottom: 20px !important; }
+        /* one type scale: heading 34, title 28/17, body 15-16 */
+        .section-head h2 { font-size: 2.1rem; line-height: 1.02; }
+        .prod { padding-top: 44px; }
+        .prod h3 { font-size: 1.75rem; }
+        .plede { font-size: 1rem; }
+        .plinks { flex-direction: column; align-items: center; gap: 4px; font-size: 1rem; }
+        .tlb b { font-size: 17px; }
+        .tlb p { font-size: 15px; line-height: 1.45; }
+        /* facts: the desktop row, swiped. Whole cards only: each snaps into place, text wraps inside, dots show where you are */
+        .hero .hero-facts { flex-wrap: nowrap; justify-content: flex-start; align-items: stretch; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory;
+          margin: 1.4rem -20px 0; padding: 0 20px; scroll-padding: 0 20px; scrollbar-width: none; }
+        .hero .hero-facts .fact { flex: 0 0 auto; max-width: 72vw; scroll-snap-align: start; white-space: normal; padding: 10px 14px; }
+        .hero .hero-facts .fact dd { font-size: 0.9rem; line-height: 1.3; }
+        .facts-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+        .facts-dots i { width: 6px; height: 6px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 18%, transparent); transition: background 0.2s, width 0.2s; }
+        .facts-dots i.on { width: 16px; border-radius: 3px; background: var(--ink-muted); }
+        /* the terminal is one box, not a box in a box */
+        .stage:has(.term) { background: none; aspect-ratio: auto; }
+        .term { width: 100%; box-shadow: none; }
+        .stats b { font-size: 26px; }
+        .stats span { display: block; line-height: 1.3; }
+        .forks { gap: 10px; }
+        .fork { padding: 14px; }
+        .fork p { font-size: 0.84rem; }
+        /* teams: compact rows, no sideways scroll */
+        #teams-grid .sc { display: grid; gap: 10px; overflow: visible; padding: 0; }
+        .tcard { width: auto; flex-direction: row; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 18px; }
+        .tcard.spring:hover { transform: none; }
+        .tcard .team-logo { flex: 0 0 52px; width: 52px; height: 52px; padding: 7px; }
+        .tcard .team-name { font-size: 1.05rem; }
+        .tcard .team-line { font-size: 0.8rem; }
+        .sport-tabs { gap: 6px; flex-wrap: nowrap; }
+        .sport-tabs button { padding: 7px 11px; font-size: 0.8rem; }
+        /* menu: links arrive one after another, leave together, and a sign-off fills the bottom */
+        .nav > a::before { display: inline-block; width: 1.7rem; }
+        .topbar.menu-open .nav > * { animation: link-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .topbar.menu-open .nav > :nth-child(2) { animation-delay: 0.03s; } .topbar.menu-open .nav > :nth-child(3) { animation-delay: 0.06s; }
+        .topbar.menu-open .nav > :nth-child(4) { animation-delay: 0.09s; } .topbar.menu-open .nav > :nth-child(5) { animation-delay: 0.12s; }
+        .topbar.menu-open .nav > :nth-child(6) { animation-delay: 0.15s; } .topbar.menu-open .nav > :nth-child(7) { animation-delay: 0.18s; }
+        .topbar.menu-open .nav > :nth-child(n + 8) { animation-delay: 0.22s; }
+        .topbar.menu-closing .nav { display: flex; animation: menu-out 0.22s ease forwards; }
+        .nav-foot { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 28px; }
+        .nav > a { padding: 0.55rem 0; font-size: 1.9rem; }
+        .nav { padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
+        .nav-stamp { font-size: 1.9rem; }
+        /* the bar's name steps aside while the menu is open: the sign-off below is the name now */
+        .brand { transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s; }
+        .topbar.menu-open .brand { opacity: 0; transform: translateY(-8px) scale(0.96); filter: blur(4px); pointer-events: none; }
+        .nav-where { display: none; }
+        .nav-foot { gap: 8px; padding-top: 18px; }
+        .nav-stamp { font: 600 2.6rem/1 var(--display); letter-spacing: -0.04em; color: var(--bar-ink); }
+        .nav-stamp .dot { color: var(--signal); }
+        .nav-where { font-size: 0.85rem; color: var(--ink-muted); }
+        .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+        .nav .nav-foot a { counter-increment: none; display: inline-flex; padding: 0.45rem 0.85rem; border: 1px solid var(--bar-line); border-radius: 99px;
+          font: 500 0.85rem var(--body); letter-spacing: 0; color: var(--bar-ink); }
+        .nav .nav-foot a::before { content: none; }
+      }
+      @keyframes link-in { from { opacity: 0; transform: translateY(10px); } }
+      @keyframes menu-out { to { opacity: 0; transform: translateY(-8px); } }
+      @media (prefers-reduced-motion: reduce) { .topbar.menu-open .nav > * { animation: none; } .topbar.menu-closing .nav { animation: none; display: none; } }
+
+      /* ---------- the log as a subway: thread dots, chips, folded steps; rails on a wide drawer ---------- */
+      .log-inner { width: min(34rem, 92vw); }
+      .log-items { position: relative; gap: 0; }
+      .log-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0.25rem 0 0.5rem; }
+      .log-chips button { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.6rem; border: 1px solid var(--hairline); border-radius: 99px;
+        background: none; color: var(--ink); font: 500 0.75rem var(--body); cursor: pointer; }
+      .log-chips i { width: 7px; height: 7px; border-radius: 50%; }
+      .log-chips button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+      .log-month[hidden], .log-row[hidden], .log-steps[hidden] { display: none; }
+      .log-row { position: relative; display: grid; grid-template-columns: 14px minmax(0, 1fr); column-gap: 10px; padding: 0.55rem 0; }
+      .log-row > :not(.log-dot) { grid-column: 2; }
+      .log-dot { grid-column: 1; grid-row: 1 / span 2; position: relative; z-index: 1; width: 10px; height: 10px; margin-top: 4px; border-radius: 50%;
+        background: var(--c); box-shadow: 0 0 0 3px var(--paper); }
+      .log-dot.small { width: 8px; height: 8px; margin-left: 1px; background: var(--paper); border: 2px solid var(--c); box-sizing: border-box; }
+      .log-day { font: 500 0.7rem var(--body); color: var(--ink-muted); }
+      .log-title { justify-self: start; padding: 0; border: 0; background: none; font-family: var(--display); font-weight: 500; font-size: 1rem; letter-spacing: -0.01em;
+        text-align: left; color: var(--ink); text-decoration: none; }
+      a.log-title:hover, button.log-title:hover { color: var(--signal); }
+      button.log-title { cursor: pointer; }
+      .log-row .log-when { font-family: var(--body); font-size: 0.7rem; letter-spacing: 0; text-transform: none; }
+      .log-step .log-title { font-size: 0.88rem; }
+      .log-step .log-desc { font-size: 0.8rem; }
+      .log-steps { justify-self: start; padding: 0.3rem 0 0; border: 0; background: none; color: var(--signal); font: 500 0.78rem var(--body); cursor: pointer; }
+      .log-items.wide .log-row { grid-template-columns: 102px minmax(0, 1fr); }
+      .log-items.wide .log-dot { margin-left: calc(var(--lane) * 12px); }
+      .log-items.wide .log-dot.small { margin-left: calc(var(--lane) * 12px + 1px); }
+      .log-rails { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+      .log-rails line { stroke-width: 2.5; stroke-linecap: round; opacity: 0.7; }
+
+      /* ---------- the résumé as text on phones ---------- */
+      .rv-pages.flow { display: block; padding: 1.25rem var(--pad) 6rem; }
+      .rf { max-width: 640px; margin: 0 auto; }
+      .rf-name { margin: 0 0 0.4rem; font: 600 1.9rem var(--display); letter-spacing: -0.02em; }
+      .rf-contact { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 0 0 1rem; font-size: 0.85rem; color: var(--ink-muted); }
+      .rf-contact a { color: var(--signal); text-decoration: none; }
+      .rf-h { margin: 1.6rem 0 0.7rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--hairline); font: 600 0.8rem var(--body); letter-spacing: 0.12em;
+        text-transform: uppercase; color: var(--signal); }
+      .rf-entry { margin: 0 0 1.1rem; }
+      .rf-top, .rf-sub { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 10px; }
+      .rf-top b { font: 600 1.02rem var(--display); }
+      .rf-top span, .rf-sub span { font-size: 0.8rem; color: var(--ink-muted); white-space: nowrap; }
+      .rf-sub i { font-size: 0.9rem; color: var(--ink-muted); }
+      .rf ul { margin: 0.45rem 0 0; padding-left: 1.1rem; }
+      .rf li { margin: 0 0 0.35rem; font-size: 0.92rem; line-height: 1.5; }
+      .rf-skill { margin: 0 0 0.45rem; font-size: 0.92rem; line-height: 1.5; }
+      @media (max-width: 600px) {
+        .rv-head { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--paper-2); } /* a filtered parent would trap the fixed button */
+        .rv-head .btn { position: fixed; z-index: 2; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); justify-content: center;
+          padding: 0.95rem; border-radius: 14px; background: var(--ink); color: var(--paper); text-align: center; }
+      }
+
+      /* ---------- timeline: icons on a gradient line, display-type years, tap to open ---------- */
+      .tlb { grid-template-columns: repeat(var(--n, 7), minmax(0, 1fr)); }
+      .tlb-s::before { display: none; }
+      .tlb-track, .tlb-fill { top: 13px; }
+      .tlb-fill { background: linear-gradient(90deg, #8f8bff, #ff7ad9, #ffb86b); }
+      .tlb-s { padding-top: 42px; }
+      .tlb-ic { position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; box-sizing: border-box;
+        background: var(--paper); border: 2px solid var(--hairline); color: var(--ink-muted); transition: background 0.4s, border-color 0.4s, color 0.4s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .tlb-ic svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+      .tlb-s.lit .tlb-ic { border-color: transparent; background: linear-gradient(135deg, #8f8bff, #ff7ad9); color: #fff; transform: scale(1.08); }
+      .tlb-s.now.lit .tlb-ic { background: linear-gradient(135deg, var(--signal), #ff7ad9); box-shadow: 0 0 0 5px color-mix(in srgb, var(--signal) 18%, transparent); }
+      .tlb small { font: 600 15px var(--display); letter-spacing: -0.01em; color: var(--ink); }
+      .tlb-s.lit small { background: linear-gradient(90deg, #8f8bff, #ff7ad9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .tlb-s.has-more { cursor: pointer; }
+      .tlb-more { display: grid; max-height: 0; overflow: hidden; opacity: 0; margin: 0 !important; transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s, margin 0.3s; }
+      .tlb-s.open .tlb-more { max-height: 12em; opacity: 1; margin-top: 8px !important; color: var(--ink) !important; }
+      .tlb-hint { display: inline-block; margin-top: 6px; font: 600 12px var(--body); color: var(--signal); }
+      .tlb-hint span { display: inline-block; transition: transform 0.3s; }
+      .tlb-s.open .tlb-hint span { transform: rotate(90deg); }
+      .tlb-s.has-more:focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; border-radius: 8px; }
+      @media (max-width: 760px) {
+        .tlb { grid-template-columns: 1fr; padding-left: 42px; }
+        .tlb-track, .tlb-fill { top: 0; left: 13px; }
+        .tlb-fill { background: linear-gradient(180deg, #8f8bff, #ff7ad9, #ffb86b); }
+        .tlb-s { padding: 2px 0 26px; }
+        .tlb-ic { left: -42px; }
+      }
+
+      .tlb-showmore { display: none; }
+      @media (max-width: 760px) {
+        .tlb { transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .tlb.folded { overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 90px), transparent); mask-image: linear-gradient(180deg, #000 calc(100% - 90px), transparent); }
+        .tlb-showmore:not([hidden]) { display: flex; align-items: center; gap: 6px; margin: 6px auto 0; padding: 0.7rem 1.3rem; border: 1px solid var(--hairline);
+          border-radius: 99px; background: var(--paper); color: var(--signal); font: 600 0.95rem var(--body); cursor: pointer; }
+        .tlb-showmore span { display: inline-block; transform: rotate(90deg); }
+      }
+
+      /* the page dims behind the open log, and scrolling stays inside the drawer */
+      .log::before { content: ""; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.28); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; }
+      .log.open::before { opacity: 1; }
+      .log-inner { overscroll-behavior: contain; }
+
+      /* desktop: two rows of five; each moment draws its own connector, lit ones in the gradient */
+      @media (min-width: 761px) {
+        .tlb { grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 18px; row-gap: 44px; }
+        .tlb-track, .tlb-fill { display: none; }
+        .tlb-s::after { content: ""; position: absolute; top: 13px; left: 34px; right: -12px; height: 2px; border-radius: 2px; background: var(--hairline); transition: background 0.5s; }
+        .tlb-s.lit::after { background: linear-gradient(90deg, #8f8bff, #ff7ad9); }
+        .tlb-s:last-child::after { display: none; }
+        .tlb p { overflow-wrap: anywhere; }
+      }
     </style>
   </head>
   <body>
@@ -2131,6 +2317,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             <p class="lede" id="hero-lede"></p>
           </div>
           <dl class="facts hero-facts" id="hero-facts"></dl>
+          <div class="facts-dots" id="facts-dots" aria-hidden="true"></div>
           <div class="hero-links" id="hero-cta"></div>
         </div>
       </section>
@@ -2142,7 +2329,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             <h2 id="about-heading"></h2>
           </div>
           <div class="tlb reveal" id="timeline"></div>
-          <div class="sc-nav" hidden aria-label="Scroll the timeline"><button type="button" data-dir="-1" aria-label="Earlier">‹</button><button type="button" data-dir="1" aria-label="Later">›</button></div>
+          <button class="tlb-showmore" id="tlb-showmore" type="button" aria-controls="timeline" hidden>Show more <span aria-hidden="true">›</span></button>
           <div hidden><div id="about-body"></div><div class="thread" id="thread"></div></div>
         </div>
       </section>
@@ -2157,15 +2344,6 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         </div>
       </section>
 
-      <section class="section b-sec" id="forks">
-        <div class="wrap">
-          <div class="section-head reveal">
-            <span class="eyebrow mono" id="forks-eyebrow"></span>
-            <h2 id="forks-heading"></h2>
-          </div>
-          <p class="forkline reveal" id="forks-grid"></p>
-        </div>
-      </section>
 
 
 
@@ -2176,6 +2354,16 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             <h2 id="thoughts-heading"></h2>
           </div>
           <div class="reads reveal" id="thoughts-grid"></div>
+        </div>
+      </section>
+
+      <section class="section b-sec" id="forks">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="eyebrow mono" id="forks-eyebrow"></span>
+            <h2 id="forks-heading" class="sr-only"></h2>
+          </div>
+          <div class="forks reveal" id="forks-grid"></div>
         </div>
       </section>
 
@@ -2227,7 +2415,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
     <aside class="log" id="log" aria-labelledby="log-label" hidden>
       <div class="log-inner">
         <div class="log-head">
-          <h2 class="log-label" id="log-label"></h2>
+          <h2 class="log-label" id="log-label" tabindex="-1"></h2>
           <button class="log-close" id="log-close" type="button">Close</button>
         </div>
         <ul class="log-items" id="log-items"></ul>
@@ -2236,7 +2424,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
 
     <dialog class="rv" id="rv" aria-labelledby="rv-title">
       <div class="rv-head">
-        <h2 class="rv-title" id="rv-title">Résumé</h2>
+        <h2 class="rv-title" id="rv-title" tabindex="-1">Résumé</h2>
         <a class="btn ghost" id="rv-download" href="assets/resume.pdf" download>Download PDF</a>
         <button class="rv-close" id="rv-close" type="button" aria-label="Close résumé">
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
@@ -2536,29 +2724,34 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           "timeline": {
             "heading": "How I got here.",
             "items": [
-              { "when": "Age 6", "title": "First code", "text": "Coding since I was six. My mom has the report cards." },
-              { "when": "Grade 4", "title": "First PC build", "text": "Still building computers." },
-              { "when": "Grade 9", "title": "My art room, in VR", "text": "Built a VR version of my art room for my IB project." },
-              { "when": "2024", "title": "Queen's", "text": "Computer science with cognitive science." },
-              { "when": "2025 – 2026", "title": "RBC Dominion Securities", "text": "Two years on an advisor's team. Set up the AI assistant they use every day." },
-              { "when": "Fall 2026", "title": "Co-chair, Queen's Web Dev", "text": "A new site, ten weeks of tutorials, a team of seven." },
-              { "when": "Now", "title": "Raised", "text": "Raising a neural network in a simulated house.", "now": true }
+              { "when": "Age 6", "icon": "code", "title": "First code", "text": "Coding since I was six. My mom has the report cards." },
+              { "when": "Grade 4", "icon": "cpu", "title": "First PC build", "text": "Still building computers." },
+              { "when": "Grade 9", "icon": "vr", "title": "My art room, in VR", "text": "Built a VR version of my art room for my IB project." },
+              { "when": "2024", "icon": "cap", "title": "Queen's", "text": "Computer science with cognitive science.", "more": "Bachelor of Computing, specializing in Cognitive Science. Class of '28." },
+              { "when": "2024", "icon": "teach", "title": "Teaching at QWeb", "text": "Education exec: weekly React, Next.js and Git workshops.", "more": "September 2024 to June 2026. Every workshop had full participation, and I supervised project teams that shipped client websites on time." },
+              { "when": "2025 – 2026", "icon": "work", "title": "RBC Dominion Securities", "text": "Two years on an advisor's team. Set up the AI assistant they use every day.", "more": "The agent handles the team's emails, documents, research and calculations. I also organized almost 20 years of files so any record is near-instant to find." },
+              { "when": "May 2026", "icon": "video", "title": "An AI-narrated seminar", "text": "Turned a client seminar into an AI-narrated video.", "more": "The tool turns slides and scripts into narrated videos: 10+ hours of client training so far, with 80% less recording time." },
+              { "when": "June 2026", "icon": "globe", "title": "This site", "text": "zacfinkelstein.ca went live.", "more": "Rebuilt from scratch in November in an Apple keynote style, and the Log tracks everything I ship." },
+              { "when": "Fall 2026", "icon": "team", "title": "Co-chair, Queen's Web Dev", "text": "A new site, ten weeks of tutorials, a team of seven.", "more": "Hired the directors and rebuilt qweb.dev with React, TypeScript and Supabase, so the execs edit club content without code." },
+              { "when": "Now", "icon": "spark", "title": "Raised", "text": "Raising a neural network in a simulated house.", "now": true, "more": "A recurrent agent learns from random weights to survive a house with caregivers run by local LLMs. It survived 20 of 20 held-out runs; a random agent survived none." }
             ]
           },
           "forks": {
-            "eyebrow": "03 — Forking",
+            "eyebrow": "Currently forking",
             "heading": "Currently forking.",
             "items": [
               {
                 "title": "Glissé",
-                "desc": "Slide along the trackpad edges for brightness and volume. My fork taps the trackpad twice when Claude finishes a task, so I feel it without looking.",
+                "desc": "Taps the trackpad when Claude finishes a task.",
+                "icon": "assets/forks/glisse.png",
                 "meta": "Swift · fork of Glissé",
                 "repo": "https://github.com/zacfink/glisse",
                 "tags": ["Fork", "macOS"]
               },
               {
                 "title": "Boring Notch",
-                "desc": "Turns the MacBook notch into a Dynamic Island. My fork adds a Brain tab: what Claude is doing, my most overdue nudge, my next event and a quick-capture box.",
+                "desc": "Adds a Brain tab: Claude's status, my next nudge and event.",
+                "icon": "assets/forks/boring-notch.png",
                 "meta": "Swift · fork of Boring Notch",
                 "repo": "https://github.com/zacfink/boring.notch",
                 "tags": ["Fork", "macOS"]
@@ -2711,8 +2904,8 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         const SECTIONS = [
           "about",
           "work",
-          "forks",
           "thoughts",
+          "forks",
           "teams",
           "music",
           "contact",
@@ -2770,10 +2963,17 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             .join("");
 
           $("#brand").innerHTML = `${esc(SITE.brand)}<span class="dot">.</span>`;
-          $("#nav").innerHTML = SITE.nav
+          const order = (n) => { const i = SECTIONS.indexOf(String(n.href).slice(1)); return i < 0 ? 99 : i; };
+          const footLinks = ((SITE.contact && SITE.contact.links) || [])
+            .map((l) => `<a href="${esc(safeUrl(l.href))}"${/^https?:/.test(l.href) ? ' target="_blank" rel="noopener"' : ""}>${esc(l.label === "Email me" ? "Email" : l.label)}</a>`)
+            .join("");
+          $("#nav").innerHTML = [...SITE.nav]
+            .sort((a, b) => order(a) - order(b))
             .filter((n) => shown(n.href))
             .map((n) => `<a href="${esc(safeUrl(n.href))}">${esc(n.label)}</a>`)
             .join("") +
+            // the phone menu's sign-off: who, where, and every way to reach me
+            `<div class="nav-foot"><span class="nav-stamp">${esc(SITE.brand)}<span class="dot">.</span></span><span class="nav-where">${esc((SITE.about.facts.find((f) => /stud/i.test(f.label)) || {}).value || "")}</span><span class="nav-links">${footLinks}</span></div>` +
             `<button class="nav-log" type="button" data-open-log aria-controls="log" aria-expanded="false" hidden><span class="nav-log-dot" aria-hidden="true"></span><span class="nav-log-label">Log</span></button>`;
           // two quiet icons close the bar, taken from the Contact links
           const ICONS = {
@@ -2808,8 +3008,18 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           // about
           const tl = SITE.timeline || { items: [] };
           $("#about-heading").textContent = tl.heading || SITE.about.heading;
+          // each moment: an icon on the line, the when in display type, and (if there's more) a tap to open it
+          const TL_ICON = {
+            code: "M5 4 1 8l4 4M11 4l4 4-4 4", cpu: "M4 4h8v8H4zM6 1v3M10 1v3M6 12v3M10 12v3M1 6h3M1 10h3M12 6h3M12 10h3",
+            vr: "M1.5 6a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3L8 10.5 6.5 12h-3a2 2 0 0 1-2-2z", cap: "M1 6l7-3 7 3-7 3zM4 7.5V11c0 1 2 2 4 2s4-1 4-2V7.5",
+            teach: "M2 3h12v8H2zM5 14l3-3 3 3", work: "M2 5h12v8H2zM6 5V3h4v2M2 9h12", video: "M2 4h9v8H2zM11 7l3-2v6l-3-2",
+            globe: "M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 1 0 0-13M8 1.5c2 2 2 11 0 13M8 1.5c-2 2-2 11 0 13M1.5 8h13",
+            team: "M6 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM1.5 14c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4M11 2.5a2.2 2.2 0 0 1 0 4.4M12 10c1.6.3 2.5 1.7 2.5 4",
+            spark: "M8 1v4M8 11v4M1 8h4M11 8h4M3 3l2.5 2.5M10.5 10.5 13 13M13 3l-2.5 2.5M5.5 10.5 3 13",
+          };
+          $("#timeline").style.setProperty("--n", (tl.items || []).length);
           $("#timeline").innerHTML = (tl.items || [])
-            .map((s) => `<div class="tlb-s${s.now ? " now" : ""}"><small>${esc(s.when)}</small><b>${esc(s.title)}</b><p>${esc(s.text)}</p></div>`)
+            .map((s) => `<div class="tlb-s${s.now ? " now" : ""}${s.more ? " has-more" : ""}"${s.more ? ' role="button" tabindex="0" aria-expanded="false"' : ""}><span class="tlb-ic" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="${TL_ICON[s.icon] || TL_ICON.spark}"/></svg></span><small>${esc(s.when)}</small><b>${esc(s.title)}</b><p>${esc(s.text)}</p>${s.more ? `<p class="tlb-more">${esc(s.more)}</p><span class="tlb-hint">More <span aria-hidden="true">›</span></span>` : ""}</div>`)
             .join("");
           $("#timeline").insertAdjacentHTML("afterbegin", '<div class="tlb-track"></div><div class="tlb-fill" id="tlb-fill"></div>');
           $("#about-body").innerHTML = SITE.about.paragraphs
@@ -2841,7 +3051,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           $("#hero-facts").innerHTML = heroFacts
             .map(
               (f) =>
-                `<div class="fact"><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`,
+                `<div class="fact"><dt>${esc(f.label)}</dt><dd>${esc(f.value).replace(/ (&#39;|')(\d\d)\b/g, "&nbsp;$1$2")}</dd></div>`, // "Queen's '28" never splits
             )
             .join("");
 
@@ -2875,8 +3085,8 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             $("#forks-heading").innerHTML = i < 0 ? esc(h) : `${esc(h.slice(0, i))} <span class="grad">${esc(h.slice(i + 1))}</span>`;
           }
           $("#forks-grid").innerHTML = forks
-            .map((p) => `<strong>${esc(p.title)}.</strong> ${esc(p.desc)}${p.repo ? ` <a class="lnk" href="${esc(safeUrl(p.repo))}" target="_blank" rel="noopener">Repo <span aria-hidden="true">›</span></a>` : ""}`)
-            .join("<br><br>");
+            .map((p) => `<article class="fork">${p.icon ? `<img class="fork-icon" src="${esc(safeUrl(p.icon))}" alt="" width="44" height="44" loading="lazy">` : ""}<h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>${p.repo ? `<a class="lnk" href="${esc(safeUrl(p.repo))}" target="_blank" rel="noopener">Repo <span aria-hidden="true">›</span></a>` : ""}</article>`)
+            .join("");
 
           // thoughts
           $("#thoughts-heading").textContent = SITE.thoughts.heading;
@@ -2915,6 +3125,57 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           $("#footer-right").textContent = SITE.footer.right;
         }
 
+        /* The Log as a subway map: each entry belongs to a thread of work (a
+           coloured line), the newest is on top, and the small steps that led to
+           each entry fold under it. Threads, exact dates and steps live here
+           because the published row only has month/kind/title/desc/href.
+           ponytail: hand-kept maps; move them into the row if they go stale. */
+        const LOG_THREAD = { brain: ["Brain", "#7b76f5"], claude: ["Claude tools", "#f08a3c"], desk: ["desk", "#1fa7d6"], sbf: ["SupaBaseFolder", "#2fb47c"],
+          site: ["This site", "#c99a00"], raised: ["Raised", "#e85d5d"], qweb: ["QWeb", "#e35aa8"], solo: ["Standalone", "#9a9aa3"] };
+        const LOG_LANES = Object.keys(LOG_THREAD);
+        const threadOf = (title) => ([[/SupaBaseFolder/i, "sbf"], [/Screen Intelligence|\bdesk\b/i, "desk"], [/qweb|COMPSA/i, "qweb"], [/^This site/i, "site"],
+          [/^Raised/i, "raised"], [/Claude|^Nod$|Glissé|Boring Notch/i, "claude"], [/Brain|Betting|^Wall$/i, "brain"]].find(([re]) => re.test(title)) || [0, "solo"])[1];
+        const LOG_DATES = { "Raised": "2026-09-16", "Jev-Reply": "2026-09-29", "qweb.dev": "2026-09-07", "Brain": "2026-09-14", "SupaBaseFolder": "2026-09-23",
+          "Screen Intelligence": "2026-09-30", "My Claude Code setup": "2026-10-06", "SupaBaseFolder 1.1": "2026-10-06", "Brain on my phone": "2026-10-13",
+          "Letter-dot app icons": "2026-10-18", "SupaBaseFolder on Awesome Supabase": "2026-10-20", "Claude Status": "2026-10-17", "Nod": "2026-10-21",
+          "Brain themes and a home that rearranges itself": "2026-10-20", "Custom tiles in Brain": "2026-10-22", "Boring Notch fork": "2026-10-29", "Brain 1.0": "2026-10-29",
+          "Betting against my AI": "2026-11-03", "Scout": "2026-11-03", "Glissé fork": "2026-11-01", "This site, redone": "2026-11-01", "Brain's front page": "2026-11-04",
+          "desk js": "2026-11-07", "Copilot on CarPlay": "2026-11-10", "desk roam and a Wikipedia race": "2026-11-10", "COMPSA × QWeb GitHub workshop": "2026-11-11", "Wall": "2026-11-14" };
+        const LOG_STEPS = [
+          ["2026-09-02", "qweb", "Real content", "Real projects, stats, term schedule and team in place of placeholder content."],
+          ["2026-09-08", "site", "Content from Supabase", "The site reads its content from a database, with a local fallback."],
+          ["2026-09-14", "qweb", "Director applications", "The Join button opens the application form."],
+          ["2026-09-16", "site", "The Log", "Monthly became a log of everything shipped."],
+          ["2026-09-22", "sbf", "Backend Sync", "First build: a sync engine between Supabase and files, then four rounds of data-loss fixes."],
+          ["2026-09-23", "brain", "Map tile", "Draws the knowledge graph of my notes inside the app."],
+          ["2026-09-27", "brain", "Knows-you score", "A prediction log and a calibration score for how well Claude knows me."],
+          ["2026-09-27", "brain", "Phone version, v0", "A GitHub-backed phone version for when the Mac is off."],
+          ["2026-09-27", "site", "Copy rewrite", "A curious, conversational voice."],
+          ["2026-09-28", "brain", "Light and dark themes", "One colour file shared by the Mac and the phone."],
+          ["2026-09-28", "sbf", "Table window", "Open a synced table in a native-looking window and edit cells inline."],
+          ["2026-09-28", "raised", "Raised with parents", "The kid trains alongside its AI parents."],
+          ["2026-10-04", "site", "SEO basics", "A real favicon, structured data and a sitemap."],
+          ["2026-10-06", "desk", "Change-checked clicks", "Every click is checked against the screen before the next step."],
+          ["2026-10-06", "raised", "Marker tests", "Tests for agency, metacognition and a self-model."],
+          ["2026-10-08", "brain", "Hold to ask", "Dictate a question on the phone; Claude answers from the notes."],
+          ["2026-10-17", "desk", "Jev drives desk", "Jev picks each step and desk types at about 100 wpm."],
+          ["2026-10-18", "claude", "Status hooks for anyone", "Claude Code hooks drive the status bar on anyone's Mac."],
+          ["2026-10-18", "sbf", "Faster big tables", "Counts first, then fetches six pages in parallel."],
+          ["2026-10-19", "brain", "Routines tile", "Shows my scheduled Claude Code routines and what each did."],
+          ["2026-10-22", "sbf", "Approval mode", "An agent's edits wait in the menu bar until I approve them."],
+          ["2026-10-25", "brain", "Brain as a Mac app", "Its own see-through Mac window, plus a Glass theme."],
+          ["2026-10-26", "brain", "Move tiles", "Drag tiles on the Mac, hold and tap on the phone."],
+          ["2026-10-28", "raised", "Talk to Mom or Dad", "Chat with one of the kid's parents after a simulated day."],
+          ["2026-10-29", "claude", "Status pill", "The full-width bar became a compact pill."],
+          ["2026-10-29", "site", "Teams and Music", "Live scores for my teams and top artists from Spotify."],
+          ["2026-11-04", "desk", "Short-term memory", "desk remembers what it found on the page."],
+          ["2026-11-04", "raised", "Trial four", "Meals become a matter of survival."],
+          ["2026-11-07", "site", "Profile data", "Structured data and rel=me links across my accounts."],
+          ["2026-11-10", "brain", "Tiles that learn", "Home orders tiles by urgency and when I usually open them."],
+        ];
+        let logFilter = null;
+        const fmtDay = (d) => new Date(d + "T12:00").toLocaleString("en-CA", { month: "short", day: "numeric" });
+
         render();
 
         /* The accordion and the rail are wired once, on containers that
@@ -2941,41 +3202,99 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             .querySelectorAll(".nav-log-label")
             .forEach((el) => (el.textContent = label));
 
-          // newest month first; within a month, the order they were written in
+          // newest first, by the real ship date (or the end of its month)
           const ordered = items
-            .map((m, i) => [m, i])
-            .sort(
-              ([a, ai], [b, bi]) =>
-                String(b.month).localeCompare(String(a.month)) || ai - bi,
-            )
-            .map(([m]) => m);
+            .map((m) => ({ ...m, date: LOG_DATES[m.title] || `${m.month}-28`, thread: threadOf(m.title) }))
+            .sort((a, b) => b.date.localeCompare(a.date));
+          // each step folds under the next thing shipped on its thread (or the last one, if nothing came after)
+          const steps = new Map();
+          for (const [date, thread, title, desc] of LOG_STEPS) {
+            const mine = ordered.filter((m) => m.thread === thread);
+            const owner = mine.filter((m) => m.date >= date).pop() || mine[0];
+            if (owner) (steps.get(owner) || steps.set(owner, []).get(owner)).push({ date, thread, title, desc });
+          }
 
-          const entry = (m, i) => {
-            const inner = `
-          <span class="log-when">${esc(m.kind || "")}</span>
-          <span class="log-title">${esc(m.title)}</span>${m.href ? `<span class="log-out" aria-hidden="true">↗</span>` : ""}${m.desc ? `
-          <span class="log-desc">${esc(m.desc)}</span>` : ""}`;
-            const href = m.href ? safeUrl(m.href) : "#";
-            if (href !== "#")
-              return `<a class="log-entry" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${inner}</a>`;
-            if (Array.isArray(m.body) && m.body.length)
-              return `<button class="log-entry" type="button" data-i="${i}">${inner}</button>`;
-            return `<span class="log-entry">${inner}</span>`;
-          };
-
-          let html = "";
+          const present = LOG_LANES.filter((k) => ordered.some((m) => m.thread === k));
+          const dot = (k, small) => `<span class="log-dot${small ? " small" : ""}" style="--c:${LOG_THREAD[k][1]};--lane:${LOG_LANES.indexOf(k)}" aria-hidden="true"></span>`;
+          let html = `<li class="log-chips" role="group" aria-label="Show one thread">${present
+            .map((k) => `<button type="button" data-thread="${k}" aria-pressed="${logFilter === k}"><i style="background:${LOG_THREAD[k][1]}"></i>${esc(LOG_THREAD[k][0])}</button>`)
+            .join("")}</li>`;
           let month = null;
           ordered.forEach((m, i) => {
             if (m.month !== month) {
               month = m.month;
               html += `<li class="log-month">${esc(monthLabel(m.month))}</li>`;
             }
-            html += `<li>${entry(m, i)}</li>`;
+            const href = m.href ? safeUrl(m.href) : "#";
+            const title = href !== "#"
+              ? `<a class="log-title" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(m.title)}<span class="log-out" aria-hidden="true"> ↗</span></a>`
+              : Array.isArray(m.body) && m.body.length
+                ? `<button class="log-title" type="button" data-i="${i}">${esc(m.title)}</button>`
+                : `<span class="log-title">${esc(m.title)}</span>`;
+            const st = steps.get(m) || [];
+            html += `<li class="log-row" data-thread="${m.thread}">${dot(m.thread)}<time class="log-day" datetime="${m.date}">${fmtDay(m.date)}</time>${title}
+              <span class="log-when">${esc(m.kind || "")} · ${esc(LOG_THREAD[m.thread][0])}</span>${m.desc ? `<span class="log-desc">${esc(m.desc)}</span>` : ""}${st.length
+                ? `<button class="log-steps" type="button" aria-expanded="false" data-row="${i}">+ ${st.length} step${st.length > 1 ? "s" : ""} along the way</button>` : ""}</li>`;
+            html += st.map((x) => `<li class="log-row log-step" data-thread="${x.thread}" data-owner="${i}" hidden>${dot(x.thread, true)}<time class="log-day" datetime="${x.date}">${fmtDay(x.date)}</time><span class="log-title">${esc(x.title)}</span><span class="log-desc">${esc(x.desc)}</span></li>`).join("");
           });
           $("#log-items").innerHTML = html;
-
           $("#log-items").dataset.json = JSON.stringify(ordered);
+          applyLogFilter();
         }
+
+        function applyLogFilter() {
+          const list = $("#log-items");
+          list.querySelectorAll(".log-chips button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.thread === logFilter)));
+          list.querySelectorAll(".log-steps").forEach((b) => (b.hidden = !!logFilter)); // a filtered thread already shows every step
+          list.querySelectorAll(".log-row").forEach((r) => {
+            const owner = r.dataset.owner && list.querySelector(`.log-steps[data-row="${r.dataset.owner}"]`);
+            const open = !owner || owner.getAttribute("aria-expanded") === "true" || logFilter;
+            r.hidden = (logFilter && r.dataset.thread !== logFilter) || !open;
+          });
+          // a month heading with nothing under it hides too
+          list.querySelectorAll(".log-month").forEach((h) => {
+            let n = h.nextElementSibling, any = false;
+            while (n && !n.classList.contains("log-month")) { if (!n.hidden) any = true; n = n.nextElementSibling; }
+            h.hidden = !any;
+          });
+          drawLogRails();
+        }
+
+        // rails: on a wide drawer, each thread is a coloured line through its dots
+        function drawLogRails() {
+          const list = $("#log-items");
+          list.querySelector(".log-rails")?.remove();
+          if (!$("#log").classList.contains("open") || !list.classList.contains("wide")) return;
+          const box = list.getBoundingClientRect(), NS = "http://www.w3.org/2000/svg";
+          const svg = document.createElementNS(NS, "svg");
+          svg.setAttribute("class", "log-rails"); svg.setAttribute("aria-hidden", "true");
+          const pts = {};
+          list.querySelectorAll(".log-row:not([hidden]) .log-dot").forEach((d) => {
+            const r = d.getBoundingClientRect(), k = d.closest(".log-row").dataset.thread;
+            if (k !== "solo") (pts[k] ||= []).push([r.left + r.width / 2 - box.left, r.top + r.height / 2 - box.top]);
+          });
+          for (const [k, p] of Object.entries(pts)) for (let i = 1; i < p.length; i++) {
+            const l = document.createElementNS(NS, "line");
+            Object.entries({ x1: p[i - 1][0], y1: p[i - 1][1], x2: p[i][0], y2: p[i][1], stroke: LOG_THREAD[k][1] }).forEach(([a, v]) => l.setAttribute(a, v));
+            svg.appendChild(l);
+          }
+          list.prepend(svg);
+        }
+        $("#log-items").addEventListener("click", (e) => {
+          const chip = e.target.closest(".log-chips button");
+          if (chip) { logFilter = logFilter === chip.dataset.thread ? null : chip.dataset.thread; return applyLogFilter(); }
+          const more = e.target.closest(".log-steps");
+          if (more) {
+            const open = more.getAttribute("aria-expanded") !== "true";
+            more.setAttribute("aria-expanded", String(open));
+            more.textContent = (open ? "− " : "+ ") + more.textContent.slice(2);
+            return applyLogFilter();
+          }
+        });
+        new ResizeObserver(() => {
+          $("#log-items").classList.toggle("wide", $("#log .log-inner").clientWidth >= 460);
+          drawLogRails();
+        }).observe($("#log .log-inner"));
 
         function openPeek(entry, trigger) {
           if (peekHideTimer) {
@@ -3034,8 +3353,13 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           if (entry) openPeek(entry, b);
         });
 
-        function setMenu(open) {
-          document.querySelector(".topbar").classList.toggle("menu-open", open);
+        function setMenu(open, instant = false) {
+          const bar = document.querySelector(".topbar");
+          if (!open && !instant && bar.classList.contains("menu-open") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            bar.classList.add("menu-closing");
+            setTimeout(() => bar.classList.remove("menu-closing"), 240);
+          }
+          bar.classList.toggle("menu-open", open);
           $("#nav-toggle").setAttribute("aria-expanded", String(open));
           $("#nav-toggle").textContent = open ? "Close" : "Menu";
         }
@@ -3065,9 +3389,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             .querySelectorAll("[data-open-log]")
             .forEach((b) => b.setAttribute("aria-expanded", String(open)));
           if (open) {
-            setMenu(false);
+            setMenu(false, true); // the drawer covers it: no fade-out under the slide-in
+            setTimeout(drawLogRails, 460); // after the slide-in, when positions are final
             logReturn = trigger || null;
-            $("#log-close").focus({ preventScroll: true });
+            $("#log-label").focus({ preventScroll: true }); // not the Close button: a tap shouldn't paint a focus ring
           } else if (logReturn && document.contains(logReturn)) {
             logReturn.focus({ preventScroll: true });
             logReturn = null;
@@ -3141,6 +3466,15 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           try {
             const lib = await loadPdfjs();
             const pdf = await lib.getDocument(src).promise;
+            // phones get the résumé as real, readable text rebuilt from the same PDF
+            if (matchMedia("(max-width: 600px)").matches) {
+              box.innerHTML = await resumeFlow(pdf);
+              box.classList.add("flow");
+              rv.scrollTop = 0; // always start at the name
+              rvSrc = src;
+              return;
+            }
+            box.classList.remove("flow");
             const frag = document.createDocumentFragment();
             // ponytail: drawn once at open-time width (2x for pinch, capped);
             // re-render on resize if a rotated phone ever looks soft
@@ -3190,13 +3524,72 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           }
         }
 
+        /* Rebuild the résumé's structure from the PDF's own text: lines are
+           grouped by baseline, text on the right third is a date or place,
+           "–" starts a bullet, and known headings start sections. */
+        async function resumeFlow(pdf) {
+          const lines = [];
+          for (let n = 1; n <= pdf.numPages; n++) {
+            const page = await pdf.getPage(n), W = page.getViewport({ scale: 1 }).width;
+            const tc = await page.getTextContent(), rows = [];
+            for (const it of tc.items) {
+              if (!it.str.trim()) continue;
+              const x = it.transform[4], y = it.transform[5], h = Math.abs(it.transform[3]) || it.height;
+              let row = rows.find((r) => Math.abs(r.y - y) < 2.5);
+              if (!row) rows.push((row = { y, items: [] }));
+              row.items.push({ x, w: it.width, str: it.str, h });
+            }
+            rows.sort((a, b) => b.y - a.y).forEach((r) => {
+              r.items.sort((a, b) => a.x - b.x);
+              const join = (arr) => arr.reduce((t, it, i) => t + (i && it.x - (arr[i - 1].x + arr[i - 1].w) > 1 && !/\s$/.test(t) ? " " : "") + it.str, "").replace(/\s+/g, " ").trim();
+              const split = W * 0.62;
+              lines.push({ x: r.items[0].x, h: Math.max(...r.items.map((i) => i.h)),
+                left: join(r.items.filter((i) => i.x < split)), right: join(r.items.filter((i) => i.x >= split)) });
+            });
+          }
+          const HEAD = /^(education|experience|projects|technical skills|skills|leadership|awards|volunteering|activities)$/i;
+          const big = Math.max(...lines.map((l) => l.h));
+          let out = "", section = "", entry = null, bullet = false, inList = false, contact = [];
+          const closeList = () => { if (inList) { out += "</ul>"; inList = false; } };
+          const closeEntry = () => { closeList(); if (entry) { out += "</div>"; entry = null; } };
+          for (const l of lines) {
+            const text = (l.left + (l.right ? " " + l.right : "")).trim();
+            if (l.h >= big - 0.5 && !out) { out += `<h1 class="rf-name">${esc(text)}</h1>`; continue; }
+            if (!section && !HEAD.test(text)) { contact.push(text); continue; }
+            if (HEAD.test(text)) {
+              if (!section && contact.length) out += `<p class="rf-contact">${contact.join(" ").split("|").map((c) => (/@/.test(c) ? `<a href="mailto:${esc(c.trim())}">${esc(c.trim())}</a>` : /^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(c.trim()) ? `<a href="https://${esc(c.trim())}" target="_blank" rel="noopener">${esc(c.trim())}</a>` : `<span>${esc(c.trim())}</span>`)).join("")}</p>`;
+              closeEntry(); section = text.toLowerCase(); out += `<h2 class="rf-h">${esc(text)}</h2>`; continue;
+            }
+            if (/^[–•-]\s?/.test(l.left)) {
+              if (!entry) { out += `<div class="rf-entry">`; entry = { sub: true }; }
+              if (!inList) { out += "<ul>"; inList = true; }
+              out += `<li>${esc(l.left.replace(/^[–•-]\s?/, ""))}`; bullet = true; out += "</li>"; continue;
+            }
+            if (bullet && inList && !l.right) { out = out.replace(/<\/li>$/, ` ${esc(l.left)}</li>`); continue; }
+            bullet = false;
+            if (/skill/.test(section)) {
+              const m = l.left.match(/^([^:]{2,24}):\s*(.*)$/);
+              if (m) out += `<p class="rf-skill"><b>${esc(m[1])}</b> ${esc(m[2])}</p>`;
+              else out = out.replace(/<\/p>$/, ` ${esc(l.left)}</p>`);
+              continue;
+            }
+            if (entry && !entry.sub && !inList) { out += `<div class="rf-sub"><i>${esc(l.left)}</i><span>${esc(l.right)}</span></div>`; entry.sub = true; continue; }
+            closeEntry();
+            out += `<div class="rf-entry"><div class="rf-top"><b>${esc(l.left)}</b><span>${esc(l.right)}</span></div>`; entry = { sub: false };
+          }
+          closeEntry();
+          return `<article class="rf">${out}</article>`;
+        }
+
         function openResume(src, push = true) {
           $("#rv-download").href = src;
           if (!rv.open) {
             setMenu(false);
             if (logOpen()) setLog(false);
             rv.showModal();
-            $("#rv-close").focus();
+            rv.scrollTop = 0;
+            // focus the title, not the X: a tap shouldn't paint a keyboard focus ring
+            $("#rv-title").focus();
             if (push) history.pushState({ resume: true }, "", "#resume");
           }
           if (rvSrc !== src) renderResume(src);
@@ -3470,20 +3863,50 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             )
             .join("")}</div>`,
         ).join("");
-        // timeline arrows: one square per click; disabled at either end
+        // phones: the timeline starts folded, fading out across "2024 · Queen's" as a teaser
         {
-          const tl = $("#timeline"), nav = document.querySelector(".sc-nav");
-          const step = () => (tl.firstElementChild ? tl.firstElementChild.getBoundingClientRect().width + 14 : 200);
-          const sync = () => {
-            const [a, b] = nav.querySelectorAll("button");
-            a.disabled = tl.scrollLeft <= 2;
-            b.disabled = tl.scrollLeft + tl.clientWidth >= tl.scrollWidth - 2;
+          const tl = $("#timeline"), btn = $("#tlb-showmore"), phone = matchMedia("(max-width: 760px)");
+          let unfolded = false;
+          const fold = () => {
+            const tease = [...tl.querySelectorAll(".tlb-s")].find((s) => s.querySelector("small")?.textContent.trim() === "2024");
+            const on = phone.matches && !unfolded && tease;
+            tl.classList.toggle("folded", !!on);
+            btn.hidden = !on;
+            tl.style.maxHeight = on ? tease.offsetTop + 64 + "px" : "";
           };
-          nav.addEventListener("click", (e) => {
-            const b = e.target.closest("button");
-            if (b) tl.scrollBy({ left: step() * Number(b.dataset.dir), behavior: "smooth" });
+          btn.addEventListener("click", () => {
+            unfolded = true;
+            tl.style.maxHeight = tl.scrollHeight + "px"; // animate open, then let it size itself
+            tl.classList.remove("folded"); btn.hidden = true;
+            setTimeout(() => { tl.style.maxHeight = ""; window.bTick?.(); }, 650);
           });
-          tl.addEventListener("scroll", sync, { passive: true });
+          new MutationObserver(fold).observe(tl, { childList: true });
+          phone.addEventListener("change", fold);
+          fold();
+        }
+        // timeline moments with more to tell open on tap (or Enter)
+        {
+          const toggle = (el) => { const open = !el.classList.contains("open"); el.classList.toggle("open", open); el.setAttribute("aria-expanded", String(open)); window.bTick?.(); };
+          $("#timeline").addEventListener("click", (e) => { const el = e.target.closest(".tlb-s.has-more"); if (el) toggle(el); });
+          $("#timeline").addEventListener("keydown", (e) => { const el = e.target.closest(".tlb-s.has-more"); if (el && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggle(el); } });
+        }
+        // the facts strip on phones: one dot per card, the current one stretched
+        {
+          const row = $("#hero-facts"), dots = $("#facts-dots");
+          // one dot per place the strip can actually stop (the last cards share the final stop)
+          const stops = () => {
+            const cards = [...row.children], max = row.scrollWidth - row.clientWidth;
+            return [...new Set(cards.map((c) => Math.min(max, Math.max(0, c.offsetLeft - cards[0].offsetLeft))))];
+          };
+          const sync = () => {
+            if (!row.children.length) return;
+            const st = stops(), x = row.scrollLeft;
+            if (dots.children.length !== st.length) dots.innerHTML = st.map(() => "<i></i>").join("");
+            const cur = st.reduce((b, v, i) => (Math.abs(v - x) < Math.abs(st[b] - x) ? i : b), 0);
+            [...dots.children].forEach((d, i) => d.classList.toggle("on", i === cur));
+          };
+          row.addEventListener("scroll", sync, { passive: true });
+          new MutationObserver(sync).observe(row, { childList: true });
           sync();
         }
         $("#sport-tabs").addEventListener("click", (e) => {
@@ -3543,11 +3966,16 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             const vh = innerHeight, tl = $("#timeline"), fill = $("#tlb-fill");
             if (tl && fill) {
               const r = tl.getBoundingClientRect(), mobile = matchMedia("(max-width: 760px)").matches;
-              const k = Math.min(1, Math.max(0, (vh * 0.8 - r.top) / (vh * 0.6 + (mobile ? r.height : 0))));
-              fill.style[mobile ? "height" : "width"] = k * 100 + "%";
-              fill.style[mobile ? "width" : "height"] = "";
               const st = [...tl.querySelectorAll(".tlb-s")];
-              st.forEach((s, i) => s.classList.toggle("lit", k >= i / Math.max(1, st.length - 1) - 0.001));
+              if (mobile) {
+                // vertical: an entry lights once it is in the top 85% of the screen, the line grows to the last lit one
+                let lastTop = 0;
+                st.forEach((s) => { const on = s.getBoundingClientRect().top < vh * 0.85; s.classList.toggle("lit", on); if (on) lastTop = s.offsetTop + 8; });
+                fill.style.height = Math.min(100, (lastTop / Math.max(1, r.height)) * 100) + "%"; fill.style.width = "";
+              } else {
+                // desktop rows: same rule, each moment lights as it reaches the reading line (the connectors carry the colour)
+                st.forEach((s) => s.classList.toggle("lit", s.getBoundingClientRect().top < vh * 0.85));
+              }
             }
             document.querySelectorAll(".bread").forEach((p) => {
               const r = p.getBoundingClientRect(), w = [...p.querySelectorAll(".w")];
