@@ -2088,7 +2088,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       .fork .lnk { font-size: 0.9rem; margin-top: 4px; }
       #forks .section-head { margin-bottom: 16px !important; }
       #teams .section-head, #music .section-head { text-align: center; }
-      .sport-tabs, #music .seg { justify-content: center; }
+      .sport-tabs { justify-content: center; }
+      #music .music-controls { display: flex; justify-content: center; }
+      #music .seg { justify-content: center; }
+      @media (min-width: 761px) { #teams-grid .sc { justify-content: center; } }
       .nav-foot { display: none; }
       .facts-dots { display: none; }
       .rv-title:focus, .log-label:focus { outline: none; }
@@ -2263,6 +2266,16 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         .tlb-s:last-child::after { display: none; }
         .tlb p { overflow-wrap: anywhere; }
       }
+
+      /* desktop: one section per screen. Each fills the window under the bar with its content centred,
+         and scrolling gently settles onto a section's top. Phones keep the tighter flow. */
+      @media (min-width: 761px) {
+        html { scroll-snap-type: y proximity; scroll-padding-top: 44px; }
+        .hero, main > .section { min-height: calc(100svh - 44px); display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; box-sizing: border-box; }
+        main > .section > .wrap { width: 100%; }
+        .hero { padding-top: 2rem; padding-bottom: 2rem; }
+      }
+      @media (min-width: 761px) and (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; } }
     </style>
   </head>
   <body>
