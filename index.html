@@ -2364,6 +2364,49 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         .tlb-s::after { left: calc(50% + 20px); right: calc(-50% - 18px + 20px); }
         .tlb-s:nth-child(5n + 2)::after { display: none; } /* last in each row of five (the first two children are the track and fill) */
       }
+
+      /* ---------- liquid glass (top bar, résumé bubbles): mostly clear, a bright rim on top, a sheen,
+         and a rim light that catches the hero colours along the bottom ---------- */
+      :root { --glass-bg: linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,255,255,.5)); /* enough white that text reads over dark images */ --glass-edge: rgba(255,255,255,.75);
+        --glass-hi: rgba(255,255,255,.95); --glass-lo: rgba(20,16,50,.08); --glass-shadow: 0 1px 2px rgba(20,16,50,.08), 0 10px 28px rgba(20,16,50,.13);
+        --rim-a: rgba(255,255,255,.95); --rim-b: rgba(255,255,255,.15); }
+      @media (prefers-color-scheme: dark) { :root { --glass-bg: linear-gradient(180deg, rgba(44,42,58,.55), rgba(20,19,28,.32)); --glass-edge: rgba(255,255,255,.14);
+        --glass-hi: rgba(255,255,255,.22); --glass-lo: rgba(0,0,0,.3); --glass-shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.45);
+        --rim-a: rgba(255,255,255,.42); --rim-b: rgba(255,255,255,.05); } }
+      .topbar { background: var(--glass-bg); -webkit-backdrop-filter: blur(14px) saturate(190%) brightness(1.05); backdrop-filter: blur(14px) saturate(190%) brightness(1.05);
+        border: .5px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-hi), inset 0 -1px 1px var(--glass-lo), inset 0 0 14px rgba(255,255,255,.1), var(--glass-shadow); }
+      .topbar::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+        background: conic-gradient(from 200deg, var(--rim-a), var(--rim-b) 25%, rgba(255,184,107,.32) 45%, rgba(255,122,217,.32) 55%, rgba(143,139,255,.32) 65%, var(--rim-b) 80%, var(--rim-a));
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+      .topbar.menu-open::after, .topbar.menu-closing::after { display: none; }
+
+      /* ---------- résumé on phones: style C (a quiet sheet) with glass bubbles ---------- */
+      .rf-name { font: 600 1.75rem/1.05 var(--display); letter-spacing: -0.03em; margin: 6px 0 6px; }
+      .rf-contact { display: block; font-size: .82rem; color: var(--ink-muted); line-height: 1.7; margin: 0 0 4px; }
+      .rf-contact a { color: var(--signal); text-decoration: none; }
+      .rf-h { font: 600 1.05rem var(--display); letter-spacing: -0.01em; text-transform: none; color: var(--ink); margin: 24px 0 10px; padding: 14px 0 0; border: 0; border-top: 1px solid var(--hairline); }
+      .rf-entry { margin: 0 0 14px; }
+      .rf-t { display: block; font: 600 .98rem var(--body); }
+      .rf-meta { font-size: .8rem; color: var(--ink-muted); margin: 2px 0 0; line-height: 1.45; }
+      .rf ul { margin: 7px 0 0; padding-left: 1rem; }
+      .rf li { font-size: .88rem; line-height: 1.5; margin: 0 0 4px; }
+      @media (max-width: 600px) {
+        .rv { background: var(--paper); }
+        .rv-head { position: fixed; top: 0; left: 0; right: 0; height: auto; padding: calc(env(safe-area-inset-top) + 10px) 14px 0; background: none; border: 0; pointer-events: none; }
+        .rv-pages.flow { padding-top: calc(env(safe-area-inset-top) + 70px); }
+        .rv-title, .rv-close, .rv-head .btn { position: relative; pointer-events: auto; background: var(--glass-bg);
+          -webkit-backdrop-filter: blur(14px) saturate(190%) brightness(1.05); backdrop-filter: blur(14px) saturate(190%) brightness(1.05);
+          border: .5px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-hi), inset 0 -1px 1px var(--glass-lo), inset 0 0 12px rgba(255,255,255,.12), var(--glass-shadow); }
+        .rv-title::after, .rv-close::after, .rv-head .btn::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+          background: conic-gradient(from 200deg, var(--rim-a), var(--rim-b) 25%, rgba(255,184,107,.32) 45%, rgba(255,122,217,.32) 55%, rgba(143,139,255,.32) 65%, var(--rim-b) 80%, var(--rim-a));
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+        .rv-title { height: 44px; display: inline-flex; align-items: center; margin: 0 auto 0 0; padding: 0 18px; border-radius: 99px;
+          font: 600 1.05rem var(--display); letter-spacing: -0.02em; text-transform: none; color: var(--ink); }
+        .rv-title .dot { color: var(--signal); }
+        .rv-close { width: 44px; height: 44px; margin: 0; border-radius: 50%; color: var(--ink); }
+        .rv-head .btn { position: fixed; left: 50%; right: auto; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: auto;
+          padding: .8rem 1.4rem; border-radius: 99px; color: var(--ink); font: 600 .9rem var(--body); letter-spacing: 0; text-transform: none; white-space: nowrap; }
+      }
     </style>
   </head>
   <body>
@@ -3662,17 +3705,33 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           const big = Math.max(...lines.map((l) => l.h));
           let out = "", section = "", entry = null, bullet = false, inList = false, contact = [];
           const closeList = () => { if (inList) { out += "</ul>"; inList = false; } };
-          const closeEntry = () => { closeList(); if (entry) { out += "</div>"; entry = null; } };
+          // an entry prints as: title, then one muted line (role or tech · dates · place)
+          const isDate = (x) => /\b(19|20)\d{2}\b|present/i.test(x);
+          const head = () => {
+            if (!entry || entry.head) return;
+            const [name, tech] = entry.title.split(/\s*\|\s*/);
+            const sides = [entry.right, entry.subRight].filter(Boolean);
+            const meta = [entry.sub, tech, ...sides.filter(isDate), ...sides.filter((x) => !isDate(x))].filter(Boolean);
+            out += `<b class="rf-t">${esc(name || "")}</b>${meta.length ? `<div class="rf-meta">${meta.map(esc).join(" · ")}</div>` : ""}`;
+            entry.head = true;
+          };
+          const closeEntry = () => { head(); closeList(); if (entry) { out += "</div>"; entry = null; } };
           for (const l of lines) {
             const text = (l.left + (l.right ? " " + l.right : "")).trim();
             if (l.h >= big - 0.5 && !out) { out += `<h1 class="rf-name">${esc(text)}</h1>`; continue; }
             if (!section && !HEAD.test(text)) { contact.push(text); continue; }
             if (HEAD.test(text)) {
-              if (!section && contact.length) out += `<p class="rf-contact">${contact.join(" ").split("|").map((c) => (/@/.test(c) ? `<a href="mailto:${esc(c.trim())}">${esc(c.trim())}</a>` : /^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(c.trim()) ? `<a href="https://${esc(c.trim())}" target="_blank" rel="noopener">${esc(c.trim())}</a>` : `<span>${esc(c.trim())}</span>`)).join("")}</p>`;
+              if (!section && contact.length) {
+                // place first, then email and links; the phone number stays in the PDF
+                const bits = contact.join(" ").split("|").map((c) => c.trim()).filter((c) => c && !/^\+?[\d\s().-]{7,}$/.test(c));
+                const link = (c) => /@/.test(c) ? `<a href="mailto:${esc(c)}">${esc(c)}</a>` : /^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(c) ? `<a href="https://${esc(c)}" target="_blank" rel="noopener">${esc(c)}</a>` : null;
+                out += `<p class="rf-contact">${[...bits.filter((c) => !link(c)).map(esc), ...bits.filter(link).map(link)].join(" · ")}</p>`;
+              }
               closeEntry(); section = text.toLowerCase(); out += `<h2 class="rf-h">${esc(text)}</h2>`; continue;
             }
             if (/^[–•-]\s?/.test(l.left)) {
-              if (!entry) { out += `<div class="rf-entry">`; entry = { sub: true }; }
+              if (!entry) { out += `<div class="rf-entry">`; entry = { head: true }; }
+              head();
               if (!inList) { out += "<ul>"; inList = true; }
               out += `<li>${esc(l.left.replace(/^[–•-]\s?/, ""))}`; bullet = true; out += "</li>"; continue;
             }
@@ -3684,9 +3743,9 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
               else out = out.replace(/<\/p>$/, ` ${esc(l.left)}</p>`);
               continue;
             }
-            if (entry && !entry.sub && !inList) { out += `<div class="rf-sub"><i>${esc(l.left)}</i><span>${esc(l.right)}</span></div>`; entry.sub = true; continue; }
+            if (entry && !entry.head && !entry.sub && !inList) { entry.sub = l.left; entry.subRight = l.right; continue; }
             closeEntry();
-            out += `<div class="rf-entry"><div class="rf-top"><b>${esc(l.left)}</b><span>${esc(l.right)}</span></div>`; entry = { sub: false };
+            out += `<div class="rf-entry">`; entry = { title: l.left, right: l.right, sub: "", subRight: "", head: false };
           }
           closeEntry();
           return `<article class="rf">${out}</article>`;
@@ -3698,6 +3757,9 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             setMenu(false);
             if (logOpen()) setLog(false);
             rvY = scrollY;
+            const phoneRv = matchMedia("(max-width: 600px)").matches;
+            $("#rv-title").innerHTML = phoneRv ? `${esc(SITE.brand)}<span class="dot">.</span>` : "Résumé";
+            $("#rv-title").setAttribute("aria-label", "Résumé");
             if (matchMedia("(max-width: 640px)").matches) lockPage(true);
             rv.showModal();
             rv.scrollTop = 0;
