@@ -2377,9 +2377,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       .topbar { background: var(--glass-bg); -webkit-backdrop-filter: blur(14px) saturate(190%) brightness(1.05); backdrop-filter: blur(14px) saturate(190%) brightness(1.05);
         border: .5px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-hi), inset 0 -1px 1px var(--glass-lo), inset 0 0 14px rgba(255,255,255,.1), var(--glass-shadow); }
       .topbar::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
-        background: conic-gradient(from 200deg, var(--rim-a), var(--rim-b) 25%, rgba(255,184,107,.32) 45%, rgba(255,122,217,.32) 55%, rgba(143,139,255,.32) 65%, var(--rim-b) 80%, var(--rim-a));
+        background: conic-gradient(from var(--rim-angle, 200deg), var(--rim-a), var(--rim-b) 25%, rgba(255,184,107,.32) 45%, rgba(255,122,217,.32) 55%, rgba(143,139,255,.32) 65%, var(--rim-b) 80%, var(--rim-a));
         -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
       .topbar.menu-open::after, .topbar.menu-closing::after { display: none; }
+      .topbar::after, .rv-title::after, .rv-close::after, .rv-head .btn::after { opacity: calc(0.8 + var(--rim-boost, 0) * 0.6); filter: brightness(calc(1 + var(--rim-boost, 0) * 0.5)); }
 
       /* ---------- résumé on phones: style C (a quiet sheet) with glass bubbles ---------- */
       .rf-name { font: 600 1.75rem/1.05 var(--display); letter-spacing: -0.03em; margin: 6px 0 6px; }
@@ -2399,7 +2400,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           -webkit-backdrop-filter: blur(14px) saturate(190%) brightness(1.05); backdrop-filter: blur(14px) saturate(190%) brightness(1.05);
           border: .5px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-hi), inset 0 -1px 1px var(--glass-lo), inset 0 0 12px rgba(255,255,255,.12), var(--glass-shadow); }
         .rv-title::after, .rv-close::after, .rv-head .btn::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
-          background: conic-gradient(from 200deg, var(--rim-a), var(--rim-b) 25%, rgba(255,184,107,.32) 45%, rgba(255,122,217,.32) 55%, rgba(143,139,255,.32) 65%, var(--rim-b) 80%, var(--rim-a));
+          background: conic-gradient(from var(--rim-angle, 200deg), var(--rim-a), var(--rim-b) 25%, rgba(255,184,107,.32) 45%, rgba(255,122,217,.32) 55%, rgba(143,139,255,.32) 65%, var(--rim-b) 80%, var(--rim-a));
           -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
         .rv-title { height: 44px; display: inline-flex; align-items: center; margin: 0 auto 0 0; padding: 0 18px; border-radius: 99px;
           font: 600 1.05rem var(--display); letter-spacing: -0.02em; text-transform: none; color: var(--ink); }
@@ -4142,6 +4143,24 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             // no hash rewrite: a "#work" in the address made closing the résumé (history.back) jump to Work
           });
         });
+        /* the glass rims react to what moves under them: the highlight travels round the edge with the
+           scroll, and a quick scroll makes it flare, then settle */
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          const root = document.documentElement;
+          let boost = 0, lastY = scrollY, lastRv = 0, raf = 0;
+          const frame = () => {
+            const rv = $("#rv"), rvY = rv.open ? rv.scrollTop : 0;
+            const dy = Math.abs(scrollY - lastY) + Math.abs(rvY - lastRv);
+            lastY = scrollY; lastRv = rvY;
+            boost = Math.min(1, boost * 0.9 + dy * 0.012);
+            root.style.setProperty("--rim-angle", (200 + (scrollY + rvY) * 0.12) % 360 + "deg");
+            root.style.setProperty("--rim-boost", boost.toFixed(3));
+            raf = boost > 0.01 ? requestAnimationFrame(frame) : 0;
+          };
+          const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
+          addEventListener("scroll", kick, { passive: true });
+          $("#rv").addEventListener("scroll", kick, { passive: true });
+        }
         // counting dots: the name page (hero) is page 1, then every section but the Contact footer
         {
           const mark = () => {
