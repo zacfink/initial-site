@@ -2240,14 +2240,14 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         .tlb-ic { left: -42px; }
       }
 
-      .tlb-showmore { display: none; }
-      @media (max-width: 760px) {
-        .tlb { transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .tlb.folded { overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 90px), transparent); mask-image: linear-gradient(180deg, #000 calc(100% - 90px), transparent); }
-        .tlb-showmore:not([hidden]) { display: flex; align-items: center; gap: 6px; margin: 6px auto 0; padding: 0.7rem 1.3rem; border: 1px solid var(--hairline);
-          border-radius: 99px; background: var(--paper); color: var(--signal); font: 600 0.95rem var(--body); cursor: pointer; }
-        .tlb-showmore span { display: inline-block; transform: rotate(90deg); }
-      }
+      .tlb { transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+      .tlb.folded { overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 90px), transparent); mask-image: linear-gradient(180deg, #000 calc(100% - 90px), transparent); }
+      .tlb-showmore { display: flex; align-items: center; gap: 6px; margin: 10px auto 0; padding: 0.7rem 1.3rem; border: 1px solid var(--hairline);
+        border-radius: 99px; background: var(--paper); color: var(--signal); font: 600 0.95rem var(--body); cursor: pointer; }
+      .tlb-showmore[hidden] { display: none; }
+      .tlb-showmore span { display: inline-block; transform: rotate(90deg); transition: transform 0.3s; }
+      .tlb-showmore.less span { transform: rotate(-90deg); }
+      @media (prefers-reduced-motion: reduce) { .tlb { transition: none; } }
 
       /* the page dims behind the open log, and scrolling stays inside the drawer */
       .log::before { content: ""; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.28); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; }
@@ -3863,26 +3863,42 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             )
             .join("")}</div>`,
         ).join("");
-        // phones: the timeline starts folded, fading out across "2024 · Queen's" as a teaser
+        /* The timeline folds: on phones it fades out across "2024 · Queen's", on desktop
+           across the top of the second row. One button opens and closes it. */
         {
           const tl = $("#timeline"), btn = $("#tlb-showmore"), phone = matchMedia("(max-width: 760px)");
-          let unfolded = false;
-          const fold = () => {
-            const tease = [...tl.querySelectorAll(".tlb-s")].find((s) => s.querySelector("small")?.textContent.trim() === "2024");
-            const on = phone.matches && !unfolded && tease;
-            tl.classList.toggle("folded", !!on);
-            btn.hidden = !on;
-            tl.style.maxHeight = on ? tease.offsetTop + 64 + "px" : "";
+          let open = false;
+          const teaser = () => {
+            const st = [...tl.querySelectorAll(".tlb-s")];
+            return phone.matches ? st.find((s) => s.querySelector("small")?.textContent.trim() === "2024") : st[5];
+          };
+          const foldedHeight = () => teaser().offsetTop + (phone.matches ? 64 : 58);
+          const label = () => { btn.innerHTML = open ? 'Show less <span aria-hidden="true">›</span>' : 'Show more <span aria-hidden="true">›</span>'; btn.classList.toggle("less", open); btn.setAttribute("aria-expanded", String(open)); };
+          const sync = () => {
+            const t = teaser();
+            btn.hidden = !t;
+            if (!t) { tl.classList.remove("folded"); tl.style.maxHeight = ""; return; }
+            tl.classList.toggle("folded", !open);
+            tl.style.maxHeight = open ? "" : foldedHeight() + "px";
+            label();
           };
           btn.addEventListener("click", () => {
-            unfolded = true;
-            tl.style.maxHeight = tl.scrollHeight + "px"; // animate open, then let it size itself
-            tl.classList.remove("folded"); btn.hidden = true;
-            setTimeout(() => { tl.style.maxHeight = ""; window.bTick?.(); }, 650);
+            open = !open;
+            if (open) {
+              tl.style.maxHeight = tl.scrollHeight + "px"; // animate open, then let it size itself
+              tl.classList.remove("folded");
+              setTimeout(() => { if (open) tl.style.maxHeight = ""; window.bTick?.(); }, 650);
+            } else {
+              tl.style.maxHeight = tl.scrollHeight + "px"; // from its real height down to the teaser
+              requestAnimationFrame(() => requestAnimationFrame(() => { tl.style.maxHeight = foldedHeight() + "px"; tl.classList.add("folded"); }));
+              const top = tl.getBoundingClientRect().top;
+              if (top < 0) scrollBy({ top: top - 120, behavior: "smooth" }); // keep the folded part in view
+            }
+            label();
           });
-          new MutationObserver(fold).observe(tl, { childList: true });
-          phone.addEventListener("change", fold);
-          fold();
+          new MutationObserver(sync).observe(tl, { childList: true });
+          phone.addEventListener("change", sync);
+          sync();
         }
         // timeline moments with more to tell open on tap (or Enter)
         {
