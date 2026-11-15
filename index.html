@@ -2270,12 +2270,100 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       /* desktop: one section per screen. Each fills the window under the bar with its content centred,
          and scrolling gently settles onto a section's top. Phones keep the tighter flow. */
       @media (min-width: 761px) {
-        html { scroll-snap-type: y proximity; scroll-padding-top: 44px; }
+        html { scroll-padding-top: 44px; }
         .hero, main > .section { min-height: calc(100svh - 44px); display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; box-sizing: border-box; }
         main > .section > .wrap { width: 100%; }
+        /* tuned scrolling: only sections that fit one screen snap; long or grouped ones scroll freely */
+        #work.section { min-height: 0; scroll-snap-align: none; }
+        html { scroll-behavior: smooth; }
+        main > .section, .hero { scroll-margin-top: 44px; }
         .hero { padding-top: 2rem; padding-bottom: 2rem; }
       }
-      @media (min-width: 761px) and (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; } }
+
+      /* desktop: Forking, Teams and Music read as one run (no full screens between them),
+         and Contact is a footer, not a page */
+      @media (min-width: 761px) {
+        #forks.section, #teams.section, #music.section { min-height: 0; padding-top: 56px !important; padding-bottom: 56px !important; }
+        #teams.section, #music.section { scroll-snap-align: none; }
+        #forks.section { padding-top: 96px !important; }
+        #contact.section { min-height: 0; padding-top: 48px !important; padding-bottom: 40px !important; scroll-snap-align: none; }
+        #contact h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+        #contact-links { margin-top: 1.25rem; padding-top: 18px; }
+      }
+
+      /* forks: a coda at the end of Work */
+      .forks-block { margin-top: 72px; text-align: center; }
+      .forks-block[hidden] { display: none; }
+      .forks-head { margin: 0 0 20px; font: 600 clamp(26px, 3.2vw, 36px)/1.1 var(--display); letter-spacing: -0.02em; }
+      .forks-head .grad { background: linear-gradient(90deg, #8f8bff, #ff7ad9, #ffb86b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      @media (max-width: 760px) { .forks-block { margin-top: 48px; } .forks-head { font-size: 1.6rem; } }
+
+      /* phone timeline: the line tracks the scroll directly; entries ease in as it reaches them */
+      @media (max-width: 760px) {
+        .tlb-fill { transition: none; }
+        .tlb-s, .tlb-s.lit { opacity: calc(0.42 + 0.58 * var(--p, 0)); transition: none; }
+        .tlb-ic { transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease; }
+        .tlb-s small { transition: color 0.35s ease; }
+      }
+
+      /* ---------- Nov 15 picks: Claude Status indigo, counting dots, glass squircle bar ---------- */
+      /* colours: macOS system indigo (the Claude Status accent) on a faintly violet palette */
+      :root { --paper: #ffffff; --paper-2: #f6f5fb; --ink: #0d0b14; --ink-muted: #5d5a6b; --hairline: #e7e4ef;
+        --signal: #5856d6; --signal-dim: rgba(88, 86, 214, 0.16); --paper-blur: rgba(255, 255, 255, 0.72); }
+      @media (prefers-color-scheme: dark) { :root { --paper: #0b0b10; --paper-2: #15141c; --ink: #f3f2f8; --ink-muted: #a09dae; --hairline: #26242f;
+        --signal: #5e5ce6; --signal-dim: rgba(94, 92, 230, 0.24); --paper-blur: rgba(11, 11, 16, 0.72); } }
+      .stats, .fork, .hero-facts .fact { background-color: color-mix(in srgb, var(--signal) 5%, var(--paper-2)); }
+
+      /* counting dots above each section heading: one per page (the name page counts, shows none) */
+      .secdots { display: flex; justify-content: center; align-items: center; gap: 7px; margin: 0 0 16px; pointer-events: none; }
+      .secdots i { width: 6px; height: 6px; border-radius: 99px; background: var(--hairline); }
+      .secdots i.on { width: 22px; background: linear-gradient(90deg, #8f8bff, #ff7ad9, #ffb86b); }
+
+      /* top bar: a floating glass squircle */
+      @media (min-width: 761px) {
+        .topbar { --bar-h: 54px; position: fixed; top: 12px; left: 50%; transform: translateX(-50%); width: min(1120px, calc(100% - 32px)); border-radius: 20px;
+          background: color-mix(in srgb, var(--paper) 52%, transparent); -webkit-backdrop-filter: saturate(200%) blur(22px); backdrop-filter: saturate(200%) blur(22px);
+          border: 1px solid color-mix(in srgb, #fff 60%, transparent); box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 30px rgba(20, 16, 50, .14); }
+        .topbar .wrap { padding: 0 22px 0 26px; max-width: none; }
+        .nav a { font-size: 13.5px; }
+        .brand { font-size: 1.15rem; }
+        main > .section, .hero { scroll-margin-top: 78px; }
+        html { scroll-padding-top: 78px; }
+      }
+      @media (min-width: 761px) and (prefers-color-scheme: dark) { .topbar { border-color: rgba(255,255,255,.1); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 10px 30px rgba(0,0,0,.4); } }
+      @media (max-width: 640px) {
+        .topbar { --bar-h: 52px; position: fixed; top: calc(env(safe-area-inset-top) + 8px); left: 10px; right: 10px; border-radius: 18px;
+          background: color-mix(in srgb, var(--paper) 58%, transparent); -webkit-backdrop-filter: saturate(200%) blur(22px); backdrop-filter: saturate(200%) blur(22px);
+          border: 1px solid color-mix(in srgb, #fff 55%, transparent); box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 8px 26px rgba(20,16,50,.14);
+          transition: background .25s ease, border-radius .25s ease, box-shadow .25s ease; }
+        .topbar .wrap { padding: 0 8px 0 16px; }
+        .hero { padding-top: calc(2.25rem + 60px); }
+        /* the strip above the floating bar fades to the page, so content never shows beside the clock */
+        body::before { content: ""; position: fixed; z-index: 49; top: 0; left: 0; right: 0; height: calc(env(safe-area-inset-top) + 14px); pointer-events: none;
+          background: linear-gradient(var(--paper) 60%, color-mix(in srgb, var(--paper) 0%, transparent)); }
+        main > .section { scroll-margin-top: 72px; }
+        /* open: the bar turns solid and grows down into the menu, one rounded shape */
+        .topbar.menu-open, .topbar.menu-closing { background: var(--paper); border-radius: 18px 18px 0 0; border-bottom-color: transparent; box-shadow: none; }
+        .nav { top: var(--bar-h); left: -1px; right: -1px; height: calc(100dvh - var(--bar-h) - 26px - env(safe-area-inset-top));
+          border-radius: 0 0 18px 18px; border: 1px solid color-mix(in srgb, #fff 55%, transparent); border-top: 1px solid var(--hairline);
+          background: var(--paper); box-shadow: 0 24px 50px rgba(20,16,50,.22); }
+        .topbar.menu-open .nav { animation: panel-in .5s cubic-bezier(.16, 1, .3, 1) both; }
+        .topbar.menu-closing .nav { animation: panel-out .26s cubic-bezier(.4, 0, 1, 1) forwards; }
+      }
+      @media (max-width: 640px) and (prefers-color-scheme: dark) { .topbar, .nav { border-color: rgba(255,255,255,.1); } }
+      @keyframes panel-in { from { clip-path: inset(0 0 100% 0 round 0 0 18px 18px); } to { clip-path: inset(0 0 0 0 round 0 0 18px 18px); } }
+      @keyframes panel-out { from { clip-path: inset(0 0 0 0 round 0 0 18px 18px); } to { clip-path: inset(0 0 100% 0 round 0 0 18px 18px); } }
+      @media (prefers-reduced-motion: reduce) { .topbar.menu-open .nav, .topbar.menu-closing .nav { animation: none; } }
+
+      /* centring: Work's tags sit under the link; desktop timeline icons centre in their columns */
+      .plinks { flex-direction: column; align-items: center; gap: 4px; }
+      @media (min-width: 761px) {
+        .tlb-s { text-align: center; }
+        .tlb-ic { left: 50%; transform: translateX(-50%); }
+        .tlb-s.lit .tlb-ic { transform: translateX(-50%) scale(1.08); }
+        .tlb-s::after { left: calc(50% + 20px); right: calc(-50% - 18px + 20px); }
+        .tlb-s:nth-child(5n + 2)::after { display: none; } /* last in each row of five (the first two children are the track and fill) */
+      }
     </style>
   </head>
   <body>
@@ -2354,6 +2442,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             <h2 id="work-heading"></h2>
           </div>
           <div class="prods reveal" id="featured"></div>
+          <div class="forks-block reveal" id="forks">
+            <h3 class="forks-head" id="forks-heading"></h3>
+            <div class="forks" id="forks-grid"></div>
+          </div>
         </div>
       </section>
 
@@ -2370,15 +2462,6 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         </div>
       </section>
 
-      <section class="section b-sec" id="forks">
-        <div class="wrap">
-          <div class="section-head reveal">
-            <span class="eyebrow mono" id="forks-eyebrow"></span>
-            <h2 id="forks-heading" class="sr-only"></h2>
-          </div>
-          <div class="forks reveal" id="forks-grid"></div>
-        </div>
-      </section>
 
       <section class="section" id="teams">
         <div class="wrap">
@@ -2751,7 +2834,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           },
           "forks": {
             "eyebrow": "Currently forking",
-            "heading": "Currently forking.",
+            "heading": "Forked… but close enough.",
             "items": [
               {
                 "title": "Glissé",
@@ -2918,7 +3001,6 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           "about",
           "work",
           "thoughts",
-          "forks",
           "teams",
           "music",
           "contact",
@@ -2982,7 +3064,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             .join("");
           $("#nav").innerHTML = [...SITE.nav]
             .sort((a, b) => order(a) - order(b))
-            .filter((n) => shown(n.href))
+            .filter((n) => shown(n.href) && (!/^#/.test(n.href) || SECTIONS.includes(n.href.slice(1))))
             .map((n) => `<a href="${esc(safeUrl(n.href))}">${esc(n.label)}</a>`)
             .join("") +
             // the phone menu's sign-off: who, where, and every way to reach me
@@ -3074,6 +3156,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           const VISUAL = {
             brain: `<div class="stage"><img src="assets/brain-front-page.png" alt="Brain's front page" loading="lazy"></div>`,
             "screen-intelligence": `<div class="stage"><div class="term"><u>$</u> desk js read --find Download<br>20 button 'Download'<br><u>$</u> desk js click 20<br><i>✓</i> js click <u>· 0.11s</u></div></div>`,
+            supabasefolder: `<div class="stage"><img src="assets/supabasefolder-table.png" alt="SupaBaseFolder's table window: a synced Supabase table with an inline row editor" loading="lazy"></div>`,
             "queen-s-web-dev": `<div class="stats"><div><b>10</b><span>weekly tutorials</span></div><div><b>7</b><span>on the team</span></div><div><b>1</b><span>new site</span></div></div>`,
           };
           $("#featured").innerHTML = SITE.work.featured
@@ -3366,6 +3449,20 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           if (entry) openPeek(entry, b);
         });
 
+        // while the phone menu is open the page can't scroll under it (iOS ignores overflow on body,
+        // so the body is pinned in place and put back where it was)
+        let lockedY = null;
+        function lockPage(on) {
+          const b = document.body;
+          if (on && lockedY === null) {
+            lockedY = scrollY;
+            Object.assign(b.style, { position: "fixed", top: -lockedY + "px", left: "0", right: "0", width: "100%" });
+          } else if (!on && lockedY !== null) {
+            Object.assign(b.style, { position: "", top: "", left: "", right: "", width: "" });
+            window.scrollTo({ top: lockedY, behavior: "instant" });
+            lockedY = null;
+          }
+        }
         function setMenu(open, instant = false) {
           const bar = document.querySelector(".topbar");
           if (!open && !instant && bar.classList.contains("menu-open") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -3373,6 +3470,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             setTimeout(() => bar.classList.remove("menu-closing"), 240);
           }
           bar.classList.toggle("menu-open", open);
+          lockPage(open && matchMedia("(max-width: 640px)").matches);
           $("#nav-toggle").setAttribute("aria-expanded", String(open));
           $("#nav-toggle").textContent = open ? "Close" : "Menu";
         }
@@ -3599,6 +3697,8 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           if (!rv.open) {
             setMenu(false);
             if (logOpen()) setLog(false);
+            rvY = scrollY;
+            if (matchMedia("(max-width: 640px)").matches) lockPage(true);
             rv.showModal();
             rv.scrollTop = 0;
             // focus the title, not the X: a tap shouldn't paint a keyboard focus ring
@@ -3633,8 +3733,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           openResume(a.href);
         });
         // Safari never focuses a clicked link, so hand focus back explicitly
-        let rvReturn = null;
+        let rvReturn = null, rvY = null;
         rv.addEventListener("close", () => {
+          lockPage(false);
+          if (rvY !== null) { const y = rvY; rvY = null; requestAnimationFrame(() => window.scrollTo({ top: y, behavior: "instant" })); }
           if (rvReturn && document.contains(rvReturn)) rvReturn.focus({ preventScroll: true });
           rvReturn = null;
         });
@@ -3919,6 +4021,79 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           $("#timeline").addEventListener("click", (e) => { const el = e.target.closest(".tlb-s.has-more"); if (el) toggle(el); });
           $("#timeline").addEventListener("keydown", (e) => { const el = e.target.closest(".tlb-s.has-more"); if (el && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggle(el); } });
         }
+        /* Desktop soft lock: shortly after scrolling stops, if a section's top is within about a fifth
+           of the screen, glide it into place under the bar. Never mid-scroll, never deep inside a long
+           section, never at the page bottom or with the Log or résumé open, never on phones. */
+        {
+          const desk = matchMedia("(min-width: 761px)"), calm = matchMedia("(prefers-reduced-motion: reduce)");
+          const BAR = 78; // the floating bar's bottom edge
+          let timer = 0, gliding = false, raf = 0;
+          // a slow ease-out glide (no native smooth jump); any wheel, touch or key lets go at once
+          const glide = (dy) => {
+            const from = scrollY, to = from + dy, start = performance.now(), dur = 700;
+            gliding = true;
+            const step = (t) => {
+              const k = Math.min(1, (t - start) / dur), e = 1 - Math.pow(1 - k, 3);
+              window.scrollTo({ top: from + (to - from) * e, behavior: "instant" }); // bypass CSS smooth scrolling
+              if (k < 1 && gliding) raf = requestAnimationFrame(step); else gliding = false;
+            };
+            raf = requestAnimationFrame(step);
+          };
+          const letGo = () => { if (gliding) { gliding = false; cancelAnimationFrame(raf); } };
+          ["wheel", "touchstart", "keydown", "mousedown"].forEach((ev) => addEventListener(ev, letGo, { passive: true }));
+          const lock = () => {
+            if (!desk.matches || calm.matches || gliding) return;
+            if ($("#log").classList.contains("open") || $("#rv").open) return;
+            const doc = document.documentElement;
+            if (innerHeight + scrollY >= doc.scrollHeight - 4) return;
+            const range = innerHeight * 0.12;
+            let best = null;
+            document.querySelectorAll("main > .hero, main > .section:not([hidden])").forEach((el) => {
+              const d = el.getBoundingClientRect().top - landAt(el);
+              if (Math.abs(d) > 2 && Math.abs(d) < range && (best === null || Math.abs(d) < Math.abs(best))) best = d;
+            });
+            if (best === null) return;
+            glide(best);
+          };
+          addEventListener("scroll", () => { if (gliding) return; clearTimeout(timer); timer = setTimeout(lock, 250); }, { passive: true });
+        }
+        // where a section's top should sit on screen: right under the floating bar (desktop), or tucked
+        // under it so its dots show just below (phone). The soft lock aims at the same spot.
+        function landAt(el) {
+          const bar = document.querySelector(".topbar").getBoundingClientRect().bottom;
+          if (matchMedia("(min-width: 761px)").matches) return bar;
+          const pad = parseFloat(getComputedStyle(el).paddingTop) || 0;
+          return bar + 12 - Math.min(pad, 40) + 28;
+        }
+        // in-page links (hero, menu, rail): glide to the section and land with its top tucked just under the
+        // floating bar, so the previous section never peeks in. Measured at click time, after any menu unlock.
+        document.addEventListener("click", (e) => {
+          const a = e.target.closest('a[href^="#"]');
+          if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+          const el = document.getElementById(a.getAttribute("href").slice(1));
+          if (!el || !el.matches("main > .section, main > .hero")) return;
+          e.preventDefault();
+          requestAnimationFrame(() => {
+            const y = el.getBoundingClientRect().top + scrollY - landAt(el);
+            window.scrollTo({ top: Math.max(0, y), behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+            // no hash rewrite: a "#work" in the address made closing the résumé (history.back) jump to Work
+          });
+        });
+        // counting dots: the name page (hero) is page 1, then every section but the Contact footer
+        {
+          const mark = () => {
+            const secs = [...document.querySelectorAll("main > .section:not([hidden]):not(#contact)")], pages = secs.length + 1;
+            secs.forEach((sec, i) => {
+              const head = sec.querySelector(".section-head"); if (!head) return;
+              head.querySelector(".secdots")?.remove();
+              const d = document.createElement("div"); d.className = "secdots"; d.setAttribute("aria-hidden", "true");
+              d.innerHTML = Array.from({ length: pages }, (_, j) => `<i class="${j === i + 1 ? "on" : ""}"></i>`).join("");
+              head.prepend(d);
+            });
+          };
+          mark();
+          new MutationObserver(mark).observe($("#music"), { attributes: true, attributeFilter: ["hidden"] }); // Music shows up later
+        }
         // the facts strip on phones: one dot per card, the current one stretched
         {
           const row = $("#hero-facts"), dots = $("#facts-dots");
@@ -3989,6 +4164,21 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           })
           .catch(() => {});
 
+        // phone timeline glide: the fill eases toward its target each frame; each moment brightens
+        // as the line approaches it and its icon fills as the line crosses it
+        let tlTarget = 0, tlNow = 0, tlRaf = 0;
+        function tlGlide() {
+          const tl = $("#timeline"), fill = $("#tlb-fill");
+          tlNow += (tlTarget - tlNow) * 0.16;
+          if (Math.abs(tlTarget - tlNow) < 0.4) tlNow = tlTarget;
+          if (fill) fill.style.height = tlNow + "px";
+          tl?.querySelectorAll(".tlb-s").forEach((s) => {
+            const at = s.offsetTop + 14, p = Math.min(1, Math.max(0, (tlNow - at + 60) / 60));
+            s.style.setProperty("--p", p.toFixed(3));
+            s.classList.toggle("lit", tlNow >= at);
+          });
+          tlRaf = tlNow === tlTarget ? 0 : requestAnimationFrame(tlGlide);
+        }
         // sections B: timeline fills and obsessions light up as you scroll
         {
           const tick = () => {
@@ -3997,10 +4187,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
               const r = tl.getBoundingClientRect(), mobile = matchMedia("(max-width: 760px)").matches;
               const st = [...tl.querySelectorAll(".tlb-s")];
               if (mobile) {
-                // vertical: an entry lights once it is in the top 85% of the screen, the line grows to the last lit one
-                let lastTop = 0;
-                st.forEach((s) => { const on = s.getBoundingClientRect().top < vh * 0.85; s.classList.toggle("lit", on); if (on) lastTop = s.offsetTop + 8; });
-                fill.style.height = Math.min(100, (lastTop / Math.max(1, r.height)) * 100) + "%"; fill.style.width = "";
+                // vertical: the line eases toward a reading line 60% down the screen (see tlGlide)
+                tlTarget = Math.min(r.height, Math.max(0, vh * 0.6 - r.top));
+                fill.style.width = "";
+                if (!tlRaf) tlRaf = requestAnimationFrame(tlGlide);
               } else {
                 // desktop rows: same rule, each moment lights as it reaches the reading line (the connectors carry the colour)
                 st.forEach((s) => s.classList.toggle("lit", s.getBoundingClientRect().top < vh * 0.85));
@@ -4012,8 +4202,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
               w.forEach((x, i) => x.classList.toggle("on", i < k * w.length * 1.15));
             });
           };
-          addEventListener("scroll", tick, { passive: true });
-          addEventListener("resize", tick);
+          let queued = false;
+          const onScroll = () => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; tick(); }); };
+          addEventListener("scroll", onScroll, { passive: true });
+          addEventListener("resize", onScroll);
           window.bTick = tick;
           tick();
         }
