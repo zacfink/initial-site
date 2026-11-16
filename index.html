@@ -1928,7 +1928,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       .art b { display: block; margin-top: 8px; font-weight: 600; }
 
       /* ---------- contact: apple footer ---------- */
-      #contact-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid var(--hairline); padding-top: 24px; margin-top: 2rem; }
+      #contact-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; border-top: 1px solid var(--hairline); padding-top: 24px; margin-top: 2rem; align-items: start; }
       .ccol { display: flex; flex-direction: column; gap: 10px; font-size: 0.95rem; }
       .ccol a { color: var(--ink-muted); text-decoration: none; }
       .ccol a:hover { color: var(--signal); }
@@ -2136,6 +2136,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         .tcard .team-line { font-size: 0.8rem; }
         .sport-tabs { gap: 6px; flex-wrap: nowrap; }
         .sport-tabs button { padding: 7px 11px; font-size: 0.8rem; }
+        @media (max-width: 360px) { .sport-tabs { flex-wrap: wrap; } }
         /* menu: links arrive one after another, leave together, and a sign-off fills the bottom */
         .nav > a::before { display: inline-block; width: 1.7rem; }
         .topbar.menu-open .nav > * { animation: link-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
@@ -3283,8 +3284,8 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           // Apple-style footer columns, sorted from the contact links by where they go
           {
             const L = SITE.contact.links || [];
-            const col = (l) => /^mailto:|linkedin\./i.test(l.href) ? 0 : /github\.|qweb\./i.test(l.href) ? 1 : 2;
-            const cols = [["Talk", []], ["Code", []], ["Paper", []]];
+            const col = (l) => /^mailto:|linkedin\./i.test(l.href) ? 0 : /github\.|qweb\./i.test(l.href) ? 1 : /instagram\.|x\.com|twitter\./i.test(l.href) ? 2 : 3;
+            const cols = [["Talk", []], ["Code", []], ["Follow", []], ["Paper", []]];
             L.forEach((l) => cols[col(l)][1].push(l));
             cols[1][1].push({ href: "https://www.qweb.dev", label: "Queen's Web Dev" });
             $("#contact-links").innerHTML = cols
