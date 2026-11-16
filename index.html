@@ -2189,10 +2189,11 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       .log-step .log-desc { font-size: 0.8rem; }
       .log-steps { justify-self: start; padding: 0.3rem 0 0; border: 0; background: none; color: var(--signal); font: 500 0.78rem var(--body); cursor: pointer; }
       .log-items.wide .log-row { grid-template-columns: 102px minmax(0, 1fr); }
-      .log-items.wide .log-dot { margin-left: calc(var(--lane) * 12px); }
-      .log-items.wide .log-dot.small { margin-left: calc(var(--lane) * 12px + 1px); }
+      .log-items.wide .log-dot { margin-left: calc(var(--lane) * var(--gap, 12px)); }
+      .log-items.wide .log-dot.small { margin-left: calc(var(--lane) * var(--gap, 12px) + 1px); }
       .log-rails { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-      .log-rails line { stroke-width: 2.5; stroke-linecap: round; opacity: 0.7; }
+      .log-rails path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.75; }
+      .log-rails path.glow { stroke-width: 7; opacity: 0.14; filter: blur(2px); }
 
       /* ---------- the résumé as text on phones ---------- */
       .rv-pages.flow { display: block; padding: 1.25rem var(--pad) 6rem; }
@@ -2391,6 +2392,21 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       .topbar.menu-open::before, .topbar.menu-closing::before { display: none; }
       .topbar.menu-open::after, .topbar.menu-closing::after { display: none; }
       .topbar::after, .rv-title::after, .rv-close::after, .rv-head .btn::after { opacity: calc(0.8 + var(--rim-boost, 0) * 0.6); filter: brightness(calc(1 + var(--rim-boost, 0) * 0.5)); }
+
+      /* ---------- the Log as a glass panel, like the résumé bubbles (Zac, Nov 15) ---------- */
+      :root { --log-glass: rgba(255,255,255,.66); }
+      @media (prefers-color-scheme: dark) { :root { --log-glass: rgba(30,29,40,.6); } }
+      @media (max-width: 600px) and (prefers-color-scheme: dark) { :root { --log-glass: rgba(24,23,32,.82); } }
+      .log-inner { top: 12px; right: 12px; bottom: 12px; border-radius: 26px; border: .5px solid var(--glass-edge);
+        background: var(--log-glass); -webkit-backdrop-filter: blur(28px) saturate(190%) brightness(1.04); backdrop-filter: blur(28px) saturate(190%) brightness(1.04);
+        box-shadow: inset 0 1.5px 1px var(--glass-hi), inset 0 -1px 1px var(--glass-lo), inset 0 0 18px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.28);
+        transform: translateX(calc(100% + 24px)); }
+      .log-head { background: transparent; -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); margin: 0 -1.5rem 0.75rem; padding: 0 1.5rem;
+        border-radius: 26px 26px 0 0; border-bottom-color: var(--glass-edge); }
+      .log::before { background: rgba(0, 0, 0, 0.12); }
+      .log-chips button { background: rgba(255,255,255,.06); border-color: var(--glass-edge); }
+      .log-dot { box-shadow: 0 0 0 3px var(--log-glass); }
+      @media (max-width: 600px) { :root { --log-glass: rgba(255,255,255,.84); } .log-inner { top: calc(env(safe-area-inset-top) + 8px); right: 8px; bottom: 8px; border-radius: 22px; } .log-head { border-radius: 22px 22px 0 0; } }
 
       /* ---------- résumé on phones: style C (a quiet sheet) with glass bubbles ---------- */
       .rf-name { font: 600 1.75rem/1.05 var(--display); letter-spacing: -0.03em; margin: 6px 0 6px; }
@@ -2878,8 +2894,13 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
               { "when": "Age 6", "icon": "code", "title": "First code", "text": "Coding since I was six. My mom has the report cards." },
               { "when": "Grade 4", "icon": "cpu", "title": "First PC build", "text": "Still building computers." },
               { "when": "Grade 9", "icon": "vr", "title": "My art room, in VR", "text": "Built a VR version of my art room for my IB project." },
+              { "when": "Summer 2024", "icon": "phone", "title": "First real app", "text": "Whats Up Toronto: a React Native guide to what's on in the city.", "more": "Over the next few months came a calendar app, an AI desktop client, a batch headshot editor and UMarket, a campus marketplace." },
               { "when": "2024", "icon": "cap", "title": "Queen's", "text": "Computer science with cognitive science.", "more": "Bachelor of Computing, specializing in Cognitive Science. Class of '28." },
               { "when": "2024", "icon": "teach", "title": "Teaching at QWeb", "text": "Education exec: weekly React, Next.js and Git workshops.", "more": "September 2024 to June 2026. Every workshop had full participation, and I supervised project teams that shipped client websites on time." },
+              { "when": "Jan 2025", "icon": "bolt", "title": "QHacks 2025", "text": "Built QuixBids, a silent-auction app, over the hackathon weekend.", "more": "Built on top of UMarket, the campus marketplace app I'd started that fall." },
+              { "when": "Jan 2025", "icon": "rocket", "title": "A startup", "text": "Joined Skul, an early-stage startup, to build its AI shopping assistant.", "more": "Plain-English shopping that ranked Amazon products, then a rebuild as a Shopify app. The startup didn't work out." },
+              { "when": "Feb 2025", "icon": "cursor", "title": "An AI that uses my computer", "text": "Smart Cursor turned typed commands into mouse and keyboard actions.", "more": "Then Screen Assist planned from screenshots. That line of work became desk, the Mac agent I still build on." },
+              { "when": "May 2025", "icon": "mic", "title": "Talking to my house", "text": "A voice assistant with a wake word and face recognition.", "more": "Rebuilt a week later as Everything AI, with a camera and an animated face on screen." },
               { "when": "2025 – 2026", "icon": "work", "title": "RBC Dominion Securities", "text": "Two years on an advisor's team. Set up the AI assistant they use every day.", "more": "The agent handles the team's emails, documents, research and calculations. I also organized almost 20 years of files so any record is near-instant to find." },
               { "when": "May 2026", "icon": "video", "title": "An AI-narrated seminar", "text": "Turned a client seminar into an AI-narrated video.", "more": "The tool turns slides and scripts into narrated videos: 10+ hours of client training so far, with 80% less recording time." },
               { "when": "June 2026", "icon": "globe", "title": "This site", "text": "zacfinkelstein.ca went live.", "more": "Rebuilt from scratch in November in an Apple keynote style, and the Log tracks everything I ship." },
@@ -3166,6 +3187,9 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             globe: "M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 1 0 0-13M8 1.5c2 2 2 11 0 13M8 1.5c-2 2-2 11 0 13M1.5 8h13",
             team: "M6 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM1.5 14c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4M11 2.5a2.2 2.2 0 0 1 0 4.4M12 10c1.6.3 2.5 1.7 2.5 4",
             spark: "M8 1v4M8 11v4M1 8h4M11 8h4M3 3l2.5 2.5M10.5 10.5 13 13M13 3l-2.5 2.5M5.5 10.5 3 13",
+            phone: "M5 1.5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1zM7 12.5h2",
+            bolt: "M9 1 3 9h5l-1 6 6-8H8z", rocket: "M8 1.5c2.5 1.5 3.5 4 3 7.5L8 11 5 9c-.5-3.5.5-6 3-7.5zM5 9l-2 2.5L5.5 12M11 9l2 2.5-2.5.5M8 5.5v.01M7 13l1 2 1-2",
+            cursor: "M3 2l10 5-4.5 1.5L7 13z", mic: "M8 1.5a2 2 0 0 1 2 2v4a2 2 0 0 1-4 0v-4a2 2 0 0 1 2-2zM4 7.5a4 4 0 0 0 8 0M8 11.5v3",
           };
           $("#timeline").style.setProperty("--n", (tl.items || []).length);
           $("#timeline").innerHTML = (tl.items || [])
@@ -3380,7 +3404,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           }
 
           const present = LOG_LANES.filter((k) => ordered.some((m) => m.thread === k));
-          const dot = (k, small) => `<span class="log-dot${small ? " small" : ""}" style="--c:${LOG_THREAD[k][1]};--lane:${LOG_LANES.indexOf(k)}" aria-hidden="true"></span>`;
+          const dot = (k, small) => `<span class="log-dot${small ? " small" : ""}" style="--c:${LOG_THREAD[k][1]};--lane:${present.indexOf(k)}" aria-hidden="true"></span>`;
           let html = `<li class="log-chips" role="group" aria-label="Show one thread">${present
             .map((k) => `<button type="button" data-thread="${k}" aria-pressed="${logFilter === k}"><i style="background:${LOG_THREAD[k][1]}"></i>${esc(LOG_THREAD[k][0])}</button>`)
             .join("")}</li>`;
@@ -3403,6 +3427,8 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             html += st.map((x) => `<li class="log-row log-step" data-thread="${x.thread}" data-owner="${i}" hidden>${dot(x.thread, true)}<time class="log-day" datetime="${x.date}">${fmtDay(x.date)}</time><span class="log-title">${esc(x.title)}</span><span class="log-desc">${esc(x.desc)}</span></li>`).join("");
           });
           $("#log-items").innerHTML = html;
+          // lanes only for the threads shown, squeezed so the last one never reaches the dates (102px column, 10px dot)
+          $("#log-items").style.setProperty("--gap", Math.min(12, 88 / Math.max(1, present.length - 1)) + "px");
           $("#log-items").dataset.json = JSON.stringify(ordered);
           applyLogFilter();
         }
@@ -3438,10 +3464,18 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             const r = d.getBoundingClientRect(), k = d.closest(".log-row").dataset.thread;
             if (k !== "solo") (pts[k] ||= []).push([r.left + r.width / 2 - box.left, r.top + r.height / 2 - box.top]);
           });
-          for (const [k, p] of Object.entries(pts)) for (let i = 1; i < p.length; i++) {
-            const l = document.createElementNS(NS, "line");
-            Object.entries({ x1: p[i - 1][0], y1: p[i - 1][1], x2: p[i][0], y2: p[i][1], stroke: LOG_THREAD[k][1] }).forEach(([a, v]) => l.setAttribute(a, v));
-            svg.appendChild(l);
+          // one path per thread: fades in above its newest stop and out below its oldest, with a soft glow under it
+          const defs = document.createElementNS(NS, "defs");
+          svg.appendChild(defs);
+          const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([a, v]) => e.setAttribute(a, v)); return e; };
+          for (const [k, p] of Object.entries(pts)) {
+            const tail = 18, y0 = p[0][1] - tail, y1 = p[p.length - 1][1] + tail, f = tail / Math.max(1, y1 - y0), c = LOG_THREAD[k][1];
+            const g = mk("linearGradient", { id: "rail-" + k, gradientUnits: "userSpaceOnUse", x1: 0, y1: y0, x2: 0, y2: y1 });
+            [[0, 0], [f, 1], [1 - f, 1], [1, 0]].forEach(([o, a]) => g.appendChild(mk("stop", { offset: o, "stop-color": c, "stop-opacity": a })));
+            defs.appendChild(g);
+            const d = `M${p[0][0]} ${y0} ` + p.map(([x, y]) => `L${x} ${y}`).join(" ") + ` L${p[p.length - 1][0]} ${y1}`;
+            svg.appendChild(mk("path", { d, class: "glow", stroke: `url(#rail-${k})` }));
+            svg.appendChild(mk("path", { d, stroke: `url(#rail-${k})` }));
           }
           list.prepend(svg);
         }
