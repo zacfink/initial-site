@@ -2370,15 +2370,25 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
          and a rim light that catches the hero colours along the bottom ---------- */
       :root { --glass-bg: linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,255,255,.5)); /* enough white that text reads over dark images */ --glass-edge: rgba(255,255,255,.75);
         --glass-hi: rgba(255,255,255,.95); --glass-lo: rgba(20,16,50,.08); --glass-shadow: 0 1px 2px rgba(20,16,50,.08), 0 10px 28px rgba(20,16,50,.13);
-        --rim-a: rgba(255,255,255,.95); --rim-b: rgba(255,255,255,.15); }
+        --rim-a: rgba(255,255,255,.95); --rim-b: rgba(255,255,255,.15);
+        --spec: #fff; --spec-side: rgba(255,255,255,.35); --bevel: rgba(255,255,255,.5); --under: rgba(20,16,50,.12); }
       @media (prefers-color-scheme: dark) { :root { --glass-bg: linear-gradient(180deg, rgba(44,42,58,.55), rgba(20,19,28,.32)); --glass-edge: rgba(255,255,255,.14);
         --glass-hi: rgba(255,255,255,.22); --glass-lo: rgba(0,0,0,.3); --glass-shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.45);
-        --rim-a: rgba(255,255,255,.42); --rim-b: rgba(255,255,255,.05); } }
+        --rim-a: rgba(255,255,255,.42); --rim-b: rgba(255,255,255,.05);
+        --spec: rgba(255,255,255,.62); --spec-side: rgba(255,255,255,.1); --bevel: rgba(255,255,255,.07); --under: rgba(0,0,0,.45); } }
       .topbar { background: var(--glass-bg); -webkit-backdrop-filter: blur(14px) saturate(190%) brightness(1.05); backdrop-filter: blur(14px) saturate(190%) brightness(1.05);
-        border: .5px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-hi), inset 0 -1px 1px var(--glass-lo), inset 0 0 14px rgba(255,255,255,.1), var(--glass-shadow); }
-      .topbar::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
-        background: conic-gradient(from var(--rim-angle, 200deg), var(--rim-a), var(--rim-b) 25%, rgba(255,184,107,.32) 45%, rgba(255,122,217,.32) 55%, rgba(143,139,255,.32) 65%, var(--rim-b) 80%, var(--rim-a));
+        border: 0; box-shadow: inset 0 0 0 1px var(--under), inset 0 0 0 2.5px var(--bevel), inset 0 6px 10px -6px var(--bevel), var(--glass-shadow); }
+      /* Safari's tab-capsule edge (Zac picked it, Nov 15): a hairline that catches light where the corners curve
+         and goes quiet along the straight runs, plus a faint second line just inside, so the edge reads wet */
+      .topbar::after, .topbar::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+        background: radial-gradient(120px 60px at 0 0, var(--spec), transparent 70%), radial-gradient(120px 60px at 100% 100%, var(--spec), transparent 70%),
+          radial-gradient(80px 40px at 100% 0, var(--spec-side), transparent 70%), radial-gradient(80px 40px at 0 100%, var(--spec-side), transparent 70%),
+          linear-gradient(var(--spec-side), var(--spec-side));
         -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+      .topbar::before { inset: 2px; border-radius: 18px; opacity: .55;
+        background: radial-gradient(140px 50px at 0 0, var(--spec), transparent 70%), radial-gradient(140px 50px at 100% 100%, var(--spec), transparent 70%); }
+      @media (max-width: 640px) { .topbar::before { border-radius: 16px; } }
+      .topbar.menu-open::before, .topbar.menu-closing::before { display: none; }
       .topbar.menu-open::after, .topbar.menu-closing::after { display: none; }
       .topbar::after, .rv-title::after, .rv-close::after, .rv-head .btn::after { opacity: calc(0.8 + var(--rim-boost, 0) * 0.6); filter: brightness(calc(1 + var(--rim-boost, 0) * 0.5)); }
 
@@ -3272,17 +3282,31 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
            because the published row only has month/kind/title/desc/href.
            ponytail: hand-kept maps; move them into the row if they go stale. */
         const LOG_THREAD = { brain: ["Brain", "#7b76f5"], claude: ["Claude tools", "#f08a3c"], desk: ["desk", "#1fa7d6"], sbf: ["SupaBaseFolder", "#2fb47c"],
-          site: ["This site", "#c99a00"], raised: ["Raised", "#e85d5d"], qweb: ["QWeb", "#e35aa8"], solo: ["Standalone", "#9a9aa3"] };
+          site: ["This site", "#c99a00"], raised: ["Raised", "#e85d5d"], qweb: ["QWeb", "#e35aa8"], skul: ["Skul", "#0f766e"], voice: ["Voice assistants", "#65a30d"],
+          early: ["Early builds", "#a3794f"], solo: ["Standalone", "#9a9aa3"] };
         const LOG_LANES = Object.keys(LOG_THREAD);
-        const threadOf = (title) => ([[/SupaBaseFolder/i, "sbf"], [/Screen Intelligence|\bdesk\b/i, "desk"], [/qweb|COMPSA/i, "qweb"], [/^This site/i, "site"],
+        const threadOf = (title) => ([[/SupaBaseFolder/i, "sbf"], [/Screen Intelligence|\bdesk\b|^Smart Cursor$|^Screen Assist$/i, "desk"], [/^Skul/i, "skul"],
+          [/^Household assistant$|^Everything AI$|^AI news podcast$/i, "voice"],
+          [/^(Whats Up Toronto|Time to Chill|AI Desktop Client|Automated Headshot Editor|UMarket|QuixBids|Financial inventory|Stock prediction AI|Car AI)/i, "early"], [/qweb|COMPSA/i, "qweb"], [/^This site/i, "site"],
           [/^Raised/i, "raised"], [/Claude|^Nod$|Glissé|Boring Notch/i, "claude"], [/Brain|Betting|^Wall$/i, "brain"]].find(([re]) => re.test(title)) || [0, "solo"])[1];
         const LOG_DATES = { "Raised": "2026-09-16", "Jev-Reply": "2026-09-29", "qweb.dev": "2026-09-07", "Brain": "2026-09-14", "SupaBaseFolder": "2026-09-23",
           "Screen Intelligence": "2026-09-30", "My Claude Code setup": "2026-10-06", "SupaBaseFolder 1.1": "2026-10-06", "Brain on my phone": "2026-10-13",
           "Letter-dot app icons": "2026-10-18", "SupaBaseFolder on Awesome Supabase": "2026-10-20", "Claude Status": "2026-10-17", "Nod": "2026-10-21",
           "Brain themes and a home that rearranges itself": "2026-10-20", "Custom tiles in Brain": "2026-10-22", "Boring Notch fork": "2026-10-29", "Brain 1.0": "2026-10-29",
           "Betting against my AI": "2026-11-03", "Scout": "2026-11-03", "Glissé fork": "2026-11-01", "This site, redone": "2026-11-01", "Brain's front page": "2026-11-04",
-          "desk js": "2026-11-07", "Copilot on CarPlay": "2026-11-10", "desk roam and a Wikipedia race": "2026-11-10", "COMPSA × QWeb GitHub workshop": "2026-11-11", "Wall": "2026-11-14" };
+          "desk js": "2026-11-07", "Copilot on CarPlay": "2026-11-10", "desk roam and a Wikipedia race": "2026-11-10", "COMPSA × QWeb GitHub workshop": "2026-11-11", "Wall": "2026-11-14",
+          // before the Log existed: dated from git history and file dates in ~/Projects
+          "Whats Up Toronto": "2024-08-13", "Time to Chill": "2024-09-15", "AI Desktop Client": "2024-09-30", "Automated Headshot Editor": "2024-10-16",
+          "UMarket": "2024-11-23", "Skul": "2025-01-20", "QuixBids at QHacks 2025": "2025-01-24", "Smart Cursor": "2025-02-05", "Screen Assist": "2025-03-01",
+          "Financial inventory": "2025-03-11", "Stock prediction AI": "2025-03-13", "Car AI": "2025-03-17", "Skul for Shopify": "2025-03-24",
+          "Household assistant": "2025-05-28", "Everything AI": "2025-06-05", "AI news podcast": "2025-09-05" };
         const LOG_STEPS = [
+          ["2025-01-05", "early", "UMarket, last commit", "Put down a month after starting; QHacks picked it back up."],
+          ["2025-01-23", "skul", "Skul on the web", "A Next.js site in front of the product finder."],
+          ["2025-01-29", "skul", "First Shopify build", "Started moving Skul inside Shopify so stores could use it."],
+          ["2025-03-06", "skul", "Shopify server", "A local server for the Skul assistant inside Shopify."],
+          ["2025-02-08", "desk", "Grid screenshots", "Screen Assist draws a grid over each screenshot so the AI can point at things."],
+          ["2025-06-16", "desk", "Screen Intelligence repo", "The repo that desk still lives in today."],
           ["2026-09-02", "qweb", "Real content", "Real projects, stats, term schedule and team in place of placeholder content."],
           ["2026-09-08", "site", "Content from Supabase", "The site reads its content from a database, with a local fallback."],
           ["2026-09-14", "qweb", "Director applications", "The Join button opens the application form."],
