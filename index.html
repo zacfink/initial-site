@@ -2186,12 +2186,15 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       button.log-title { cursor: pointer; }
       .log-row .log-when { font-family: var(--body); font-size: 0.7rem; letter-spacing: 0; text-transform: none; }
       .log-step .log-title { font-size: 0.88rem; }
+      /* steps read as part of the entry above them: indented on a thin rule in the thread's colour */
+      .log-step > :not(.log-dot) { margin-left: 4px; padding-left: 12px; border-left: 2px solid color-mix(in srgb, var(--c, var(--hairline)) 45%, transparent); }
       .log-step .log-desc { font-size: 0.8rem; }
       .log-steps { justify-self: start; padding: 0.3rem 0 0; border: 0; background: none; color: var(--signal); font: 500 0.78rem var(--body); cursor: pointer; }
       .log-items.wide .log-row { grid-template-columns: 102px minmax(0, 1fr); }
       .log-items.wide .log-dot { margin-left: calc(var(--lane) * var(--gap, 12px)); }
       .log-items.wide .log-dot.small { margin-left: calc(var(--lane) * var(--gap, 12px) + 1px); }
       .log-rails { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+      .log-items.wide .log-month { margin-left: 112px; } /* in the text column, clear of the lanes */
       .log-rails path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.75; }
       .log-rails path.glow { stroke-width: 7; opacity: 0.14; filter: blur(2px); }
 
@@ -2394,19 +2397,20 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       .topbar::after, .rv-title::after, .rv-close::after, .rv-head .btn::after { opacity: calc(0.8 + var(--rim-boost, 0) * 0.6); filter: brightness(calc(1 + var(--rim-boost, 0) * 0.5)); }
 
       /* ---------- the Log as a glass panel, like the résumé bubbles (Zac, Nov 15) ---------- */
-      :root { --log-glass: rgba(255,255,255,.66); }
-      @media (prefers-color-scheme: dark) { :root { --log-glass: rgba(30,29,40,.6); } }
-      @media (max-width: 600px) and (prefers-color-scheme: dark) { :root { --log-glass: rgba(24,23,32,.82); } }
+      :root { --log-glass: rgba(255,255,255,.66); --log-head: rgb(250,250,253); }
+      @media (max-width: 600px) { :root { --log-glass: rgba(255,255,255,.86); } }
+      @media (prefers-color-scheme: dark) { :root { --log-glass: rgba(30,29,40,.6); --log-head: rgb(27,26,36); } }
+      @media (max-width: 600px) and (prefers-color-scheme: dark) { :root { --log-glass: rgba(24,23,32,.86); } }
       .log-inner { top: 12px; right: 12px; bottom: 12px; border-radius: 26px; border: .5px solid var(--glass-edge);
         background: var(--log-glass); -webkit-backdrop-filter: blur(28px) saturate(190%) brightness(1.04); backdrop-filter: blur(28px) saturate(190%) brightness(1.04);
         box-shadow: inset 0 1.5px 1px var(--glass-hi), inset 0 -1px 1px var(--glass-lo), inset 0 0 18px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.28);
         transform: translateX(calc(100% + 24px)); }
-      .log-head { background: transparent; -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); margin: 0 -1.5rem 0.75rem; padding: 0 1.5rem;
+      .log-head { z-index: 5; background: var(--log-head); margin: 0 -1.5rem 0.75rem; padding: 0 1.5rem;
         border-radius: 26px 26px 0 0; border-bottom-color: var(--glass-edge); }
       .log::before { background: rgba(0, 0, 0, 0.12); }
       .log-chips button { background: rgba(255,255,255,.06); border-color: var(--glass-edge); }
       .log-dot { box-shadow: 0 0 0 3px var(--log-glass); }
-      @media (max-width: 600px) { :root { --log-glass: rgba(255,255,255,.84); } .log-inner { top: calc(env(safe-area-inset-top) + 8px); right: 8px; bottom: 8px; border-radius: 22px; } .log-head { border-radius: 22px 22px 0 0; } }
+      @media (max-width: 600px) { .log-inner { top: calc(env(safe-area-inset-top) + 8px); right: 8px; bottom: 8px; border-radius: 22px; } .log-head { border-radius: 22px 22px 0 0; } }
 
       /* ---------- résumé on phones: style C (a quiet sheet) with glass bubbles ---------- */
       .rf-name { font: 600 1.75rem/1.05 var(--display); letter-spacing: -0.03em; margin: 6px 0 6px; }
@@ -3393,7 +3397,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
 
           // newest first, by the real ship date (or the end of its month)
           const ordered = items
-            .map((m) => ({ ...m, date: LOG_DATES[m.title] || `${m.month}-28`, thread: threadOf(m.title) }))
+            .map((m) => { const date = LOG_DATES[m.title] || `${m.month}-28`; return { ...m, date, month: date.slice(0, 7), thread: threadOf(m.title) }; }) // group by the real date
             .sort((a, b) => b.date.localeCompare(a.date));
           // each step folds under the next thing shipped on its thread (or the last one, if nothing came after)
           const steps = new Map();
@@ -3424,7 +3428,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             html += `<li class="log-row" data-thread="${m.thread}">${dot(m.thread)}<time class="log-day" datetime="${m.date}">${fmtDay(m.date)}</time>${title}
               <span class="log-when">${esc(m.kind || "")} · ${esc(LOG_THREAD[m.thread][0])}</span>${m.desc ? `<span class="log-desc">${esc(m.desc)}</span>` : ""}${st.length
                 ? `<button class="log-steps" type="button" aria-expanded="false" data-row="${i}">+ ${st.length} step${st.length > 1 ? "s" : ""} along the way</button>` : ""}</li>`;
-            html += st.map((x) => `<li class="log-row log-step" data-thread="${x.thread}" data-owner="${i}" hidden>${dot(x.thread, true)}<time class="log-day" datetime="${x.date}">${fmtDay(x.date)}</time><span class="log-title">${esc(x.title)}</span><span class="log-desc">${esc(x.desc)}</span></li>`).join("");
+            html += st.map((x) => `<li class="log-row log-step" style="--c:${LOG_THREAD[x.thread][1]}" data-thread="${x.thread}" data-owner="${i}" hidden>${dot(x.thread, true)}<time class="log-day" datetime="${x.date}">${fmtDay(x.date)}</time><span class="log-title">${esc(x.title)}</span><span class="log-desc">${esc(x.desc)}</span></li>`).join("");
           });
           $("#log-items").innerHTML = html;
           // lanes only for the threads shown, squeezed so the last one never reaches the dates (102px column, 10px dot)
