@@ -3310,10 +3310,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
            because the published row only has month/kind/title/desc/href.
            ponytail: hand-kept maps; move them into the row if they go stale. */
         const LOG_THREAD = { brain: ["Brain", "#7b76f5"], claude: ["Claude tools", "#f08a3c"], desk: ["desk", "#1fa7d6"], sbf: ["SupaBaseFolder", "#2fb47c"],
-          site: ["This site", "#c99a00"], raised: ["Raised", "#e85d5d"], qweb: ["QWeb", "#e35aa8"], skul: ["Skul", "#0f766e"], voice: ["Voice assistants", "#65a30d"],
+          site: ["This site", "#c99a00"], raised: ["Raised", "#e85d5d"], qweb: ["QWeb", "#e35aa8"], voice: ["Voice assistants", "#65a30d"],
           early: ["Early builds", "#a3794f"], solo: ["Standalone", "#9a9aa3"] };
         const LOG_LANES = Object.keys(LOG_THREAD);
-        const threadOf = (title) => ([[/SupaBaseFolder/i, "sbf"], [/Screen Intelligence|\bdesk\b|^Smart Cursor$|^Screen Assist$/i, "desk"], [/^Skul/i, "skul"],
+        const threadOf = (title) => ([[/SupaBaseFolder/i, "sbf"], [/Screen Intelligence|\bdesk\b|^Smart Cursor$|^Screen Assist$/i, "desk"],
           [/^Household assistant$|^Everything AI$|^AI news podcast$/i, "voice"],
           [/^(Whats Up Toronto|Time to Chill|AI Desktop Client|Automated Headshot Editor|UMarket|QuixBids|Financial inventory|Stock prediction AI|Car AI)/i, "early"], [/qweb|COMPSA/i, "qweb"], [/^This site/i, "site"],
           [/^Raised/i, "raised"], [/Claude|^Nod$|Glissé|Boring Notch/i, "claude"], [/Brain|Betting|^Wall$/i, "brain"]].find(([re]) => re.test(title)) || [0, "solo"])[1];
@@ -3322,17 +3322,14 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           "Letter-dot app icons": "2026-10-18", "SupaBaseFolder on Awesome Supabase": "2026-10-20", "Claude Status": "2026-10-17", "Nod": "2026-10-21",
           "Brain themes and a home that rearranges itself": "2026-10-20", "Custom tiles in Brain": "2026-10-22", "Boring Notch fork": "2026-10-29", "Brain 1.0": "2026-10-29",
           "Betting against my AI": "2026-11-03", "Scout": "2026-11-03", "Glissé fork": "2026-11-01", "This site, redone": "2026-11-01", "Brain's front page": "2026-11-04",
-          "desk js": "2026-11-07", "Copilot on CarPlay": "2026-11-10", "desk roam and a Wikipedia race": "2026-11-10", "COMPSA × QWeb GitHub workshop": "2026-11-11", "Wall": "2026-11-14",
+          "desk js and roam": "2026-11-07", "Copilot on CarPlay": "2026-11-10", "desk roam and a Wikipedia race": "2026-11-10", "COMPSA × QWeb GitHub workshop": "2026-11-11", "Wall": "2026-11-14",
           // before the Log existed: dated from git history and file dates in ~/Projects
           "Whats Up Toronto": "2024-08-13", "Time to Chill": "2024-09-15", "AI Desktop Client": "2024-09-30", "Automated Headshot Editor": "2024-10-16",
-          "UMarket": "2024-11-23", "Skul": "2025-01-20", "QuixBids at QHacks 2025": "2025-01-24", "Smart Cursor": "2025-02-05", "Screen Assist": "2025-03-01",
-          "Financial inventory": "2025-03-11", "Stock prediction AI": "2025-03-13", "Car AI": "2025-03-17", "Skul for Shopify": "2025-03-24",
+          "UMarket": "2024-11-23", "QuixBids at QHacks 2025": "2025-01-24", "Smart Cursor": "2025-02-05", "Screen Assist": "2025-03-01",
+          "Financial inventory": "2025-03-11", "Stock prediction AI": "2025-03-13", "Car AI": "2025-03-17",
           "Household assistant": "2025-05-28", "Everything AI": "2025-06-05", "AI news podcast": "2025-09-05" };
         const LOG_STEPS = [
           ["2025-01-05", "early", "UMarket, last commit", "Put down a month after starting; QHacks picked it back up."],
-          ["2025-01-23", "skul", "Skul on the web", "A Next.js site in front of the product finder."],
-          ["2025-01-29", "skul", "First Shopify build", "Started moving the assistant inside Shopify so stores could use it."],
-          ["2025-03-06", "skul", "Shopify server", "A local server for the Skul assistant inside Shopify."],
           ["2025-02-08", "desk", "Grid screenshots", "Screen Assist draws a grid over each screenshot so the AI can point at things."],
           ["2025-06-16", "desk", "Screen Intelligence repo", "The repo that desk still lives in today."],
           ["2026-09-02", "qweb", "Real content", "Real projects, stats, term schedule and team in place of placeholder content."],
