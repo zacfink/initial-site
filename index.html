@@ -2425,6 +2425,30 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       .log-chips button { background: rgba(255,255,255,.06); border-color: var(--glass-edge); }
       .log-dot { box-shadow: 0 0 0 3px var(--log-glass); }
       @media (max-width: 600px) { .log-inner { top: calc(env(safe-area-inset-top) + 8px); right: 8px; bottom: 8px; border-radius: 22px; } .log-head { border-radius: 22px 22px 0 0; } }
+      /* phones: the Log is a full page, and its header is the same floating glass bar as the page's own.
+         The band behind the bar is the page colour and fades out just below it, so entries dissolve
+         before they reach the glass instead of showing through it. */
+      @media (max-width: 600px) {
+        .log-inner { inset: 0; width: 100%; border: 0; border-radius: 0; background: var(--paper); box-shadow: none;
+          -webkit-backdrop-filter: none; backdrop-filter: none; padding: 0 1.25rem calc(2rem + env(safe-area-inset-bottom)); transform: translateX(100%); }
+        .log-head { position: sticky; top: 0; z-index: 5; box-sizing: border-box; height: calc(env(safe-area-inset-top) + 78px);
+          margin: 0 -1.25rem 0.25rem; padding: calc(env(safe-area-inset-top) + 8px) 10px 26px; border: 0; border-radius: 0; align-items: flex-start;
+          background: linear-gradient(180deg, var(--paper) calc(100% - 26px), color-mix(in srgb, var(--paper) 0%, transparent)); }
+        /* two glass bubbles, like the résumé viewer: the title on the left, a round close on the right */
+        .log-label, .log-close { position: relative; height: 44px; display: inline-flex; align-items: center; justify-content: center; background: var(--glass-bg);
+          -webkit-backdrop-filter: blur(14px) saturate(190%) brightness(1.05); backdrop-filter: blur(14px) saturate(190%) brightness(1.05);
+          border: .5px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-hi), inset 0 -1px 1px var(--glass-lo), inset 0 0 12px rgba(255,255,255,.12), var(--glass-shadow); color: var(--ink); }
+        .log-label::after, .log-close::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+          background: conic-gradient(from var(--rim-angle, 200deg), var(--rim-a), var(--rim-b) 25%, rgba(255,184,107,.32) 45%, rgba(255,122,217,.32) 55%, rgba(143,139,255,.32) 65%, var(--rim-b) 80%, var(--rim-a));
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+        .log-label { margin: 0; padding: 0 18px; border-radius: 99px; font: 600 1.05rem var(--display); letter-spacing: -0.02em; text-transform: none; }
+        .log-close { width: 44px; padding: 0; border-radius: 50%; font-size: 0; letter-spacing: 0; }
+        .log-close::before { content: ""; width: 14px; height: 14px; background: currentColor;
+          -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M1 1l12 12M13 1L1 13' stroke='%23000' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+                  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M1 1l12 12M13 1L1 13' stroke='%23000' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+        .log { left: 0; } /* the drawer container spans the screen so the page-wide panel has room */
+        .log::before { display: none; } /* nothing to dim: the page is covered */
+      }
 
       /* ---------- résumé on phones: style C (a quiet sheet) with glass bubbles ---------- */
       .rf-name { font: 600 1.75rem/1.05 var(--display); letter-spacing: -0.03em; margin: 6px 0 6px; }
@@ -2602,7 +2626,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
       <div class="log-inner">
         <div class="log-head">
           <h2 class="log-label" id="log-label" tabindex="-1"></h2>
-          <button class="log-close" id="log-close" type="button">Close</button>
+          <button class="log-close" id="log-close" type="button" aria-label="Close the Log">Close</button>
         </div>
         <ul class="log-items" id="log-items"></ul>
       </div>
@@ -3612,10 +3636,10 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         });
         $("#nav-contact").addEventListener("click", () => setMenu(false));
         document.addEventListener("click", (e) => {
-          if (!e.target.closest(".topbar")) setMenu(false);
+          if (!e.target.closest(".topbar, .log") && !logOpen()) setMenu(false); // taps in or around the open drawer belong to it
         });
         document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && $("#nav-toggle").getAttribute("aria-expanded") === "true") {
+          if (e.key === "Escape" && $("#nav-toggle").getAttribute("aria-expanded") === "true" && !logOpen()) {
             setMenu(false);
             $("#nav-toggle").focus();
           }
@@ -3629,7 +3653,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
             .querySelectorAll("[data-open-log]")
             .forEach((b) => b.setAttribute("aria-expanded", String(open)));
           if (open) {
-            setMenu(false, true); // the drawer covers it: no fade-out under the slide-in
+            // opened from the phone menu: the menu stays put underneath, so closing the drawer lands back on it
             setTimeout(drawLogRails, 460); // after the slide-in, when positions are final
             logReturn = trigger || null;
             $("#log-label").focus({ preventScroll: true }); // not the Close button: a tap shouldn't paint a focus ring
