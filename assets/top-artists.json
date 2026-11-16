@@ -27,6 +27,12 @@
           "url": "https://open.spotify.com/artist/0s3JtIl5TIWbFD08yesQdW"
         },
         {
+          "name": "Wiz Khalifa",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178c66b0a8c3268f0b6556f64a8",
+          "url": "https://open.spotify.com/artist/137W8MRPWKqSmrBGDBFSop"
+        },
+        {
           "name": "CONNIE",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178b4531a5d306cf9171368f909",
@@ -43,12 +49,6 @@
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178fc759f7938b4c65bfe41c4ff",
           "url": "https://open.spotify.com/artist/3qiHUAX7zY4Qnjx8TNUzVx"
-        },
-        {
-          "name": "void",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
-          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
         }
       ]
     },
