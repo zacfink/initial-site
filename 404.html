@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Not found · Zac Finkelstein</title>
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root { --paper: #ffffff; --ink: #0d0b14; --ink-muted: #5d5a6b; --hairline: #e7e4ef; --signal: #5856d6; }
+      @media (prefers-color-scheme: dark) { :root { --paper: #0b0b10; --ink: #f3f2f8; --ink-muted: #a09dae; --hairline: #26242f; --signal: #5e5ce6; } }
+      * { box-sizing: border-box; margin: 0; }
+      html, body { height: 100%; }
+      body { background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
+        display: grid; place-items: center; padding: clamp(1.25rem, 5vw, 4rem); -webkit-font-smoothing: antialiased; }
+      main { max-width: 34rem; width: 100%; }
+      .code { font: 500 0.9rem/1 "Space Grotesk", system-ui, sans-serif; color: var(--ink-muted); letter-spacing: 0.08em; }
+      h1 { font: 700 clamp(4rem, 18vw, 8.5rem)/0.95 "Space Grotesk", system-ui, sans-serif; letter-spacing: -0.04em; margin: 0.6rem 0 1.2rem; }
+      h1 span { color: var(--signal); }
+      p { font-size: 1.15rem; line-height: 1.5; color: var(--ink-muted); }
+      code { font-size: 0.95em; color: var(--ink); overflow-wrap: anywhere; }
+      a.home { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 2rem; padding: 0.8rem 1.4rem; min-height: 44px; border-radius: 999px;
+        background: var(--signal); color: #fff; text-decoration: none; font-weight: 600; transition: transform 0.15s ease, filter 0.15s ease; }
+      a.home:hover { filter: brightness(1.08); transform: translateY(-1px); }
+      a.home:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) { a.home { transition: none; } a.home:hover { transform: none; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="code">404</div>
+      <h1>Zac<span>.</span></h1>
+      <p>Nothing at <code id="path">this address</code> yet. I build things that don't exist yet, but this page isn't one of them.</p>
+      <a class="home" href="/">Back to the homepage →</a>
+    </main>
+    <script>document.getElementById("path").textContent = location.pathname;</script>
+    <script data-goatcounter="https://zacfinkelstein.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>
