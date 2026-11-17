@@ -33,22 +33,22 @@
           "url": "https://open.spotify.com/artist/137W8MRPWKqSmrBGDBFSop"
         },
         {
+          "name": "Yeat",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178fc759f7938b4c65bfe41c4ff",
+          "url": "https://open.spotify.com/artist/3qiHUAX7zY4Qnjx8TNUzVx"
+        },
+        {
           "name": "CONNIE",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178b4531a5d306cf9171368f909",
           "url": "https://open.spotify.com/artist/1DevMHY3GQWCIDWbkoaHQe"
         },
         {
-          "name": "IMG",
+          "name": "void",
           "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17860ec9227deb34d88f7e474ac",
-          "url": "https://open.spotify.com/artist/1XNiWyUH5vvPqNDmjvTSqX"
-        },
-        {
-          "name": "Yeat",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f178fc759f7938b4c65bfe41c4ff",
-          "url": "https://open.spotify.com/artist/3qiHUAX7zY4Qnjx8TNUzVx"
+          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
+          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
         }
       ]
     },
