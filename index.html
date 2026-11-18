@@ -2477,7 +2477,22 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
         .rv-head .btn { position: fixed; left: 50%; right: auto; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: auto;
           padding: .8rem 1.4rem; border-radius: 99px; color: var(--ink); font: 600 .9rem var(--body); letter-spacing: 0; text-transform: none; white-space: nowrap; }
       }
-    </style>
+          /* project tiles under the hero: the site's card language (contained, rounded, signal-tinted, blue text links) */      #atiles { padding: 12px 0 8px; }
+      #atiles .at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      #atiles .at { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; text-align: center; border-radius: 26px;
+        background-color: color-mix(in srgb, var(--signal) 5%, var(--paper-2)); color: var(--ink); padding: clamp(18px, 3.2vw, 34px) clamp(12px, 2.4vw, 28px) 0; min-height: clamp(250px, 34vw, 400px); }
+      #atiles .at.wide { grid-column: 1 / -1; min-height: clamp(280px, 38vw, 430px); }
+      #atiles h3 { font: 600 clamp(1.05rem, 2.6vw, 1.9rem)/1.1 var(--display); letter-spacing: -0.025em; margin: 0; }
+      #atiles .at p { margin: clamp(3px, .7vw, 8px) 0 0; font-size: clamp(.7rem, 1.25vw, 1rem); color: var(--ink-muted); max-width: 36ch; }
+      #atiles .at-link { display: inline-block; margin: clamp(8px, 1.4vw, 14px) 0 clamp(12px, 2.2vw, 22px); font: 600 clamp(.72rem, 1.2vw, .95rem)/1 var(--body); color: var(--signal); text-decoration: none; }
+      #atiles .at-link:hover { text-decoration: underline; }
+      #atiles .at-vis { margin-top: auto; width: 100%; display: flex; justify-content: center; align-items: flex-end; }
+      #atiles .at-vis img { display: block; width: min(100%, 640px); height: auto; border-radius: 12px 12px 0 0; border: 1px solid var(--hairline); border-bottom: 0; }
+      #atiles .at.half .at-vis img { width: min(100%, 460px); }
+      #atiles .at-term { width: min(100%, 440px); text-align: left; background: #0d0d14; color: #e8e8f2; border-radius: 12px 12px 0 0; padding: clamp(10px, 1.8vw, 18px); font: 500 clamp(.5rem, .95vw, .76rem)/1.75 ui-monospace, "SF Mono", Menlo, monospace; }
+      #atiles .at-term .p { color: #8f8bff; } #atiles .at-term .ok { color: #5be3a0; } #atiles .at-term .dim { color: #8a89a3; }
+      @media (max-width: 760px) { #atiles .at-grid { gap: 8px; } #atiles .at { border-radius: 20px; } }
+</style>
   </head>
   <body>
     <noscript>
@@ -2533,6 +2548,33 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
           <dl class="facts hero-facts" id="hero-facts"></dl>
           <div class="facts-dots" id="facts-dots" aria-hidden="true"></div>
           <div class="hero-links" id="hero-cta"></div>
+        </div>
+      </section>
+      <section id="atiles" aria-label="Projects">
+        <div class="wrap">
+          <div class="at-grid">
+            <div class="at wide reveal">
+              <h3>Brain</h3><p>Memory so my AI stops re-learning my life.</p>
+              <a class="at-link" href="https://github.com/zacfink/brain">Learn more &rsaquo;</a>
+              <div class="at-vis"><img src="assets/brain-front-page.png" alt="Brain's front page" /></div>
+            </div>
+            <div class="at half reveal">
+              <h3>Screen Intelligence</h3><p>A Mac agent that reads the screen and drives it.</p>
+              <a class="at-link" href="https://github.com/zacfink/screen-intelligence">Learn more &rsaquo;</a>
+              <div class="at-vis"><div class="at-term">
+                <div><span class="p">$</span> desk do "Open Safari, search kingston weather"</div>
+                <div class="dim">read screen &middot; found search field</div>
+                <div class="dim">typed query &middot; pressed return</div>
+                <div><span class="ok">&check;</span> done in 3 steps</div>
+                <div class="dim">page code 0.11s per click &middot; vision 1.2s per step</div>
+              </div></div>
+            </div>
+            <div class="at half reveal">
+              <h3>Queen's Web Dev</h3><p>The club I co-chair, and its new site.</p>
+              <a class="at-link" href="https://www.qweb.dev">Visit &rsaquo;</a>
+              <div class="at-vis"><img src="assets/qweb-site.png" alt="qweb.dev" /></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -3220,7 +3262,7 @@ html { touch-action: manipulation; } /* no double-tap zoom; pinch still works */
 
 
           // about
-          const tl = SITE.timeline || { items: [] };
+          const tl0 = SITE.timeline || { items: [] }; const tl = { ...tl0, items: [...(tl0.items || [])].reverse() }; // newest first
           $("#about-heading").textContent = tl.heading || SITE.about.heading;
           // each moment: an icon on the line, the when in display type, and (if there's more) a tap to open it
           const TL_ICON = {
