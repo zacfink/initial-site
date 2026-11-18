@@ -21,6 +21,18 @@
           "url": "https://open.spotify.com/artist/2p1fiYHYiXz9qi0JJyxBzN"
         },
         {
+          "name": "moshc0re",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17825f00d743398287ca0c1a847",
+          "url": "https://open.spotify.com/artist/4Ow1x6ryzipQhyRqsUuu77"
+        },
+        {
+          "name": "CONNIE",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178b4531a5d306cf9171368f909",
+          "url": "https://open.spotify.com/artist/1DevMHY3GQWCIDWbkoaHQe"
+        },
+        {
           "name": "Cap1talA",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f1781663a6dd174aacd726fb6361",
@@ -37,18 +49,6 @@
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178fc759f7938b4c65bfe41c4ff",
           "url": "https://open.spotify.com/artist/3qiHUAX7zY4Qnjx8TNUzVx"
-        },
-        {
-          "name": "CONNIE",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f178b4531a5d306cf9171368f909",
-          "url": "https://open.spotify.com/artist/1DevMHY3GQWCIDWbkoaHQe"
-        },
-        {
-          "name": "void",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
-          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
         }
       ]
     },
