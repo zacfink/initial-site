@@ -9,18 +9,6 @@
           "url": "https://open.spotify.com/artist/2LIk90788K0zvyj2JJVwkJ"
         },
         {
-          "name": "Drake",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f1784293385d324db8558179afd9",
-          "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
-        },
-        {
-          "name": "Skepta",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f1789b4eb6af9fdcc71799c5c5ba",
-          "url": "https://open.spotify.com/artist/2p1fiYHYiXz9qi0JJyxBzN"
-        },
-        {
           "name": "moshc0re",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f17825f00d743398287ca0c1a847",
@@ -31,6 +19,18 @@
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178b4531a5d306cf9171368f909",
           "url": "https://open.spotify.com/artist/1DevMHY3GQWCIDWbkoaHQe"
+        },
+        {
+          "name": "Skepta",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1789b4eb6af9fdcc71799c5c5ba",
+          "url": "https://open.spotify.com/artist/2p1fiYHYiXz9qi0JJyxBzN"
+        },
+        {
+          "name": "Drake",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1784293385d324db8558179afd9",
+          "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
         },
         {
           "name": "Cap1talA",
@@ -91,16 +91,16 @@
           "url": "https://open.spotify.com/artist/6fxyWrfmjcbj5d12gXeiNV"
         },
         {
+          "name": "moshc0re",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17825f00d743398287ca0c1a847",
+          "url": "https://open.spotify.com/artist/4Ow1x6ryzipQhyRqsUuu77"
+        },
+        {
           "name": "Freddie Gibbs",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f178499def7bd0369aa26a22273c",
           "url": "https://open.spotify.com/artist/0Y4inQK6OespitzD6ijMwb"
-        },
-        {
-          "name": "Key Glock",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17882b15c0121aac8f615e13d41",
-          "url": "https://open.spotify.com/artist/0RESbWvOMyua0yuyVrztJ5"
         }
       ]
     },
