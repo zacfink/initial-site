@@ -27,6 +27,12 @@
           "url": "https://open.spotify.com/artist/2p1fiYHYiXz9qi0JJyxBzN"
         },
         {
+          "name": "void",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
+          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
+        },
+        {
           "name": "Cap1talA",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f1781663a6dd174aacd726fb6361",
@@ -37,12 +43,6 @@
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f1784293385d324db8558179afd9",
           "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
-        },
-        {
-          "name": "void",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17865cc3ebb79d98c6ac627b736",
-          "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
         },
         {
           "name": "Wiz Khalifa",
@@ -85,16 +85,16 @@
           "url": "https://open.spotify.com/artist/5ySK6tR70ZunnmPEHCrCwF"
         },
         {
-          "name": "Denzel Curry",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f1788e265da892579da2139b659f",
-          "url": "https://open.spotify.com/artist/6fxyWrfmjcbj5d12gXeiNV"
-        },
-        {
           "name": "moshc0re",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f17825f00d743398287ca0c1a847",
           "url": "https://open.spotify.com/artist/4Ow1x6ryzipQhyRqsUuu77"
+        },
+        {
+          "name": "Denzel Curry",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1788e265da892579da2139b659f",
+          "url": "https://open.spotify.com/artist/6fxyWrfmjcbj5d12gXeiNV"
         },
         {
           "name": "CONNIE",
