@@ -125,16 +125,16 @@
           "url": "https://open.spotify.com/artist/6l3HvQ5sa6mXTsMTB19rO5"
         },
         {
-          "name": "Tory Lanez",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f1780bb76de09defd5d14e735176",
-          "url": "https://open.spotify.com/artist/2jku7tDXc6XoB6MO2hFuqg"
-        },
-        {
           "name": "Travis Scott",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f17819c2790744c792d05570bb71",
           "url": "https://open.spotify.com/artist/0Y5tJX1MQlPlqiwlOH1tJY"
+        },
+        {
+          "name": "Tory Lanez",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f1780bb76de09defd5d14e735176",
+          "url": "https://open.spotify.com/artist/2jku7tDXc6XoB6MO2hFuqg"
         },
         {
           "name": "Zach Bryan",
