@@ -39,16 +39,16 @@
           "url": "https://open.spotify.com/artist/0s3JtIl5TIWbFD08yesQdW"
         },
         {
+          "name": "Wiz Khalifa",
+          "genre": "",
+          "image": "https://i.scdn.co/image/ab6761610000f178c66b0a8c3268f0b6556f64a8",
+          "url": "https://open.spotify.com/artist/137W8MRPWKqSmrBGDBFSop"
+        },
+        {
           "name": "Drake",
           "genre": "",
           "image": "https://i.scdn.co/image/ab6761610000f1784293385d324db8558179afd9",
           "url": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
-        },
-        {
-          "name": "Anderson .Paak",
-          "genre": "",
-          "image": "https://i.scdn.co/image/ab6761610000f17896287bd47570ff13f0c01496",
-          "url": "https://open.spotify.com/artist/3jK9MiCrA42lLAdMGUZpwa"
         }
       ]
     },
